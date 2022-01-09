@@ -11,7 +11,7 @@ async function handler(m, { command }) {
             if (!room) throw 'Kamu tidak sedang berada di anonymous chat'
             m.reply('Ok')
             let other = room.other(m.sender)
-            if (other) this.sendMessage(other, { text: 'Partner meninggalkan chat\nKasian :v', mentions: [m.sender] })
+            if (other) this.sendButton(other, 'Partner meninggalkan chat...', 'Anonymous chat By '+wm, 'Find Partner', '.start', null)
             delete this.anonymous[room.id]
             if (command === 'leave') break
         }
@@ -19,7 +19,8 @@ async function handler(m, { command }) {
             if (Object.values(this.anonymous).find(room => room.check(m.sender))) throw 'Kamu masih berada di dalam anonymous chat'
             let room = Object.values(this.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
             if (room) {
-                this.sendMessage(room.a, { text: 'Menemukan partner!', mentions: [m.sender] })
+                //this.sendMessage(room.a, { text: 'Menemukan partner!', mentions: [m.sender] })
+                this.sendButton(room.a, 'Menemukan partner!', 'Anonymous chat By '+wm, 'Next', '.next', null)
                 room.b = m.sender
                 room.state = 'CHATTING'
                 m.reply('Menemukan partner!')
