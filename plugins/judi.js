@@ -15,7 +15,7 @@ let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
         if (args.length < 1) return conn.reply(m.chat, usedPrefix + 'judi <jumlah>\n ' + usedPrefix + 'judi 1000', m)
         if (global.db.data.users[m.sender].money >= count * 1) {
             global.db.data.users[m.sender].money -= count * 1
-            await m.reply('*Jangan judi gk bakal menang!!, kalau gk percaya gpp*') //Kwkwwkkwlwlw
+            //await m.reply('*Jangan judi gk bakal menang!!, kalau gk percaya gpp*') //Kwkwwkkwlwlw
             if (Aku > Kamu) {
                 conn.reply(m.chat, `aku roll:${Aku}\nKamu roll: ${Kamu}\n\nkamu *Kalah*, kamu kehilangan ${count} Money`.trim(), m)
             } else if (Aku < Kamu) {

@@ -36,7 +36,7 @@ https://github.com/adulhy
            hydratedButtons: [{
              urlButton: {
                displayText: '🌟 BIG THANK 🌟',
-               url: 'Hatinya Dia :v'
+               url: `Made By ${wm}`,
              }
 
            },
@@ -63,7 +63,7 @@ https://github.com/adulhy
          { messageId: template.key.id }
      )
 }
-handler.help = ['tqto']
+handler.help = ['credit']
 handler.tags = ['info']
 handler.command = /^(credits|credit|thanks|thanksto|tqto)$/i
 

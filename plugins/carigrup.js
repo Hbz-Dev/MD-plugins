@@ -7,7 +7,7 @@ let handler = async (m, { text, usedPrefix, command }) => {
 }
 handler.help = ['carigrup <pencarian>']
 handler.tags = ['tools']
-handler.limit = true
+handler.limit = 5
 
 handler.command = /^carig(ro?up|c)/i
 handler.register = false

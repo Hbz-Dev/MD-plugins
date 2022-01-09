@@ -10,60 +10,50 @@ let tags = {
   'xp': 'ᴇxᴘ',
   'premium': 'ᴘʀᴇᴍɪᴜᴍ',
   'group': 'ɢʀᴏᴜᴘ',
-  'absen': 'ᴀʙꜱᴇɴ ᴍᴇɴᴜ',
-  'owner': 'ᴏᴡɴᴇʀ ᴍᴇɴᴜ',
+  'absen': 'ᴀʙꜱᴇɴ',
+  'owner': 'ᴏᴡɴᴇʀ',
   'fun': 'ꜰᴜɴ ᴍᴇɴᴜ',
-  'sticker': 'ᴄᴏɴᴠᴇʀᴛ ᴍᴇɴᴜ',
-  'maker': 'ᴍᴀᴋᴇʀ ᴍᴇɴᴜ',
-  'github': 'ɢɪᴛʜᴜʙ ᴍᴇɴᴜ',
-  'internet': 'ɪɴᴛᴇʀɴᴇᴛ ᴍᴇɴᴜ',
-  'anime': 'ᴀɴɪᴍᴇ ᴍᴇɴᴜ',
-  'downloader': 'ᴅᴏᴡɴʟᴏᴀᴅᴇʀ ᴍᴇɴᴜ',
-  'nsfw': 'ɴꜱꜰᴡ ᴍᴇɴᴜ',
-  'tools': 'ᴛᴏᴏʟꜱ ᴍᴇɴᴜ',
+  'sticker': 'ᴄᴏɴᴠᴇʀᴛ',
+  'maker': 'ᴍᴀᴋᴇʀ',
+  'github': 'ɢɪᴛʜᴜʙ',
+  'internet': 'ɪɴᴛᴇʀɴᴇᴛ',
+  'anime': 'ᴀɴɪᴍᴇ',
+  'downloader': 'ᴅᴏᴡɴʟᴏᴀᴅᴇʀ',
+  'nsfw': 'ɴꜱꜰᴡ',
+  'tools': 'ᴛᴏᴏʟꜱ',
   'advanced': 'ᴀᴅᴠᴀɴᴄᴇᴅ',
-  'quotes': 'Qᴜᴏᴛᴇꜱ ᴍᴇɴᴜ',
+  'quotes': 'Qᴜᴏᴛᴇꜱ',
   'info': 'ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ',
 }
 const defaultMenu = {
-  before: `
-╭────ꕥ %me ꕥ────
-│✾ Version: %version
-│✾ Library: Baileys-MD
-│✾ Mode: ${global.opts['self'] ? 'Self' : 'public'}
-│✾ Runtime: %uptime
-╰❑
-╭─❑ 「 INFO USER 」 ❑──
-│ ✾ Name: %name
-│ ✾ Status: ---
-│ ✾ Limit: %limit
-│ ✾ Money: %money
-│ ✾ Exp: %totalexp
-│ ✾ Level: %level
-│ ✾ Role: %role
-╰❑
-╭─❑ 「 INFORMASI 」 ❑──
-│ Bot ini masih tahap beta
-│ apabila ada bug/eror harap
-│ lapor ke owner
-╰❑\n
+  before: `*_HAI %name 🥀_*
+
+🕛 Time: %time
+📅 Date: %date
+
+❑ 「 INFO USER 」
+• Name: %name
+• Limit: %limit
+• Limit Game: %game
+• Money: %money
+• Level: %level (%exp / %maxexp)
+• Totalexp: %totalexp
+• Role: %role
+
 %readmore`.trimStart(),
-  header: '╭─『 %category 』\n│',
-  body: '│ ➜ %cmd %islimit %isPremium',
-  footer: '╰────────\n',
-  after: `
-*%npmname @^%version*
-${'```%npmdesc```'}
-`,
+  header: '❑ 「 *%category* 」',
+  body: '➜ _%cmd_ %islimit %isPremium',
+  footer: '\n',
+  after: '\nDont Spam Bot!\nRegards From Binjai ;)',
 }
+
 let handler = async (m, { conn, usedPrefix: _p }) => {
   try {
-    let package = JSON.parse(await fs.promises.readFile(path.join(__dirname, '../package.json')).catch(_ => '{}'))
     let who
     if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
     else who = m.sender 
     let user = global.db.data.users[who]
-    let { exp, limit, level, money, role } = global.db.data.users[m.sender]
+    let { exp, limit, level, money, role, game } = global.db.data.users[m.sender]
     let { min, xp, max } = levelling.xpRange(level, global.multiplier)
     let name = conn.getName(m.sender)
     let d = new Date(new Date + 3600000)
@@ -144,24 +134,22 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       '%': '%',
       p: _p, uptime, muptime,
       me: conn.user.name,
-      npmname: conn.user.name,
-      npmdesc: package.description,
-      version: package.version,
       exp: exp - min,
       maxexp: xp,
       totalexp: exp,
       xp4levelup: max - exp,
-      github: package.homepage ? package.homepage.url || package.homepage : '[unknown github url]',
-      level, limit, money, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
+      level, game, limit, money, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
+    let ob = ['esce', 'tqto', 'su', '1', 'tqto', 'su', 'esce', 'su', '2', '3', '1', '4', '3', '4', '2', '1', '2']
+    let gb = ob[Math.floor(Math.random() * ob.length)]
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
      templateMessage: {
          hydratedTemplate: {
            hydratedContentText: text.trim(),
            locationMessage: { 
-           jpegThumbnail: fs.readFileSync('./media/shiraori.jpg') },
+           jpegThumbnail: fs.readFileSync(`./media/${gb}.jpg`) },
            hydratedFooterText: wm,
            hydratedButtons: [{
              urlButton: {
@@ -179,22 +167,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            },
                {
              quickReplyButton: {
-               displayText: '[ 𝙊𝙬𝙣𝙚𝙧 ]',
+               displayText: ' 𝙊𝙬𝙣𝙚𝙧 ',
                id: '.owner',
-             }
-
-           },
-               {
-             quickReplyButton: {
-               displayText: '[ 𝘿𝙤𝙣𝙖𝙨𝙞 ]',
-               id: '.donasi',
-             }
-
-           },
-           {
-             quickReplyButton: {
-               displayText: '[ 𝘾𝙧𝙚𝙙𝙞𝙩𝙨 ]',
-               id: '.tqto',
              }
            }]
          }
@@ -219,12 +193,13 @@ handler.mods = false
 handler.premium = false
 handler.group = false
 handler.private = false
+handler.register = true
 
 handler.admin = false
 handler.botAdmin = false
 
 handler.fail = null
-handler.exp = 3
+handler.exp = 13
 
 module.exports = handler
 

@@ -4,7 +4,8 @@ async function handler(m) {
                     + 'VERSION:3.0\n' 
                     + 'N:;Ownerbot;;;'
                     + 'FN:~ 𝑅𝓎𝓊𝐵𝑜𝓉𝓏 複ツ ~\n' // full name
-                    + 'item1.TEL;waid=994407430641:994407430641\n' // WhatsApp ID + phone number
+                    + 'ORG:「 𝐑𝐲𝐮 」複ツ\nTEL;No Chat P;waid=6283844009539:6283844009539\n'
+                    + 'item1.TEL;Chat yg Bener!;waid=6281299878773:6281299878773\n' // WhatsApp ID + phone number
                     + 'item1.X-ABLabel:👑 Creator bot 𝐑𝐲𝐮𝐁𝐨𝐭𝐳複 \n'
                     + 'item2.EMAIL;type=INTERNET:yntkts23@gmail.com\n'
                     + 'item2.X-ABLabel:💌 𝙀𝙢𝙖𝙞𝙡\n'

@@ -13,13 +13,12 @@ const Bmythic = 2000
 const Smythic = 500
 const Blegendary = 7500 
 const Slegendary = 3000
+const Bfish = 5000
 const Bsampah = 10
 const Ssampah = 2
 let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
     const _armor = global.db.data.users[m.sender].armor
     const _sword = global.db.data.users[m.sender].sword
-    const _budak = global.db.data.users[m.sender].budak
-    const budak = (_budak == 0 ? 50000 : '' || _armor == 1 ? 600000 : '' || _armor == 2 ? 70000 : '' || _armor == 3 ? 800000 : '' || _armor == 4 ? 99999 : '')
     const armor = (_armor == 0 ? 20000 : '' || _armor == 1 ? 49999 : '' || _armor == 2 ? 99999 : '' || _armor == 3 ? 149999 : '' || _armor == 4 ? 299999 : '')
     const sword = (_sword == 0 ? 20000 : '' || _sword == 1 ? 49999 : '' || _sword == 2 ? 99999 : '' || _sword == 3 ? 149999 : '' || _sword == 4 ? 299999 : '')
     let type = (args[0] || '').toLowerCase()
@@ -36,6 +35,7 @@ Diamond:     ${Bdiamond}
 Common:     ${Bcommon}
 Uncommon:  ${Buncommon}
 Mythic:     ${Bmythic}
+fishingrod:  ${Bfish}
 Legendary: ${Blegendary}
 Sampah:     ${Bsampah}
 Armor:       ${armor}
@@ -48,7 +48,6 @@ Common:     ${Scommon}
 Uncommon:  ${Suncommon}
 Mythic:     ${Smythic}
 Legendary: ${Slegendary}
-Budak:        ${budak}
 Sampah:     ${Ssampah}\n\n
 `.trim()
     try {
@@ -80,6 +79,17 @@ Sampah:     ${Ssampah}\n\n
                             } else conn.reply(m.chat, `Money anda tidak cukup`, m)
                         
                         break
+                      case 'fishingrod':
+                            if (count > 1) return conn.reply(m.chat, 'Hanya Dapat membeli 1 Fishingrod!', m)
+                            if (global.db.data.users[m.sender].fishingrod == 1) return conn.reply(m.chat, 'Anda Sudah Memiliki fishingrod Di inventory anda!\nCek Dengan cara *#inv*', m)
+                            if (global.db.data.users[m.sender].money >= Bfish * 1) {
+                                global.db.data.users[m.sender].fishingrod += 1
+                                global.db.data.users[m.sender].fishingroddurability = 100
+                                global.db.data.users[m.sender].money -= Bfish * 1
+                                conn.reply(m.chat, `Succes membeli 1 Fishingrod dengan harga ${Bfish * 1} money`, m)
+                            } else conn.reply(m.chat, `Uang anda tidak cukup untuk membeli 1 Fishingrod dengan harga ${Bfish * 1} money\n\nAmbil gaji dengan cara ketik: *${usedPrefix}gaji*\nAtau ambil bonus mingguan & bulanan dengan cara *#weekly* dan *#monthly*`, m)
+                        
+                        break 
                     case 'common':
                             if (global.db.data.users[m.sender].money >= Bcommon * count) {
                                 global.db.data.users[m.sender].common += count * 1
@@ -242,6 +252,17 @@ Sampah:     ${Ssampah}\n\n
                         } else conn.reply(m.chat, `Money anda tidak cukup`, m)
                     
                     break
+                   case 'fishingrod':
+                            if (count > 1) return conn.reply(m.chat, 'Hanya Dapat membeli 1 Fishingrod!', m)
+                            if (global.db.data.users[m.sender].fishingrod == 1) return conn.reply(m.chat, 'Anda Sudah Memiliki fishingrod Di inventory anda!\nCek Dengan cara *#inv*', m)
+                            if (global.db.data.users[m.sender].money >= Bfish * 1) {
+                                global.db.data.users[m.sender].fishingrod += 1
+                                global.db.data.users[m.sender].fishingroddurability = 100
+                                global.db.data.users[m.sender].money -= Bfish * 1
+                                conn.reply(m.chat, `Succes membeli 1 Fishingrod dengan harga ${Bfish * 1} money`, m)
+                            } else conn.reply(m.chat, `Uang anda tidak cukup untuk membeli 1 Fishingrod dengan harga ${Bfish * 1} money\n\nAmbil gaji dengan cara ketik: *${usedPrefix}gaji*\nAtau ambil bonus mingguan & bulanan dengan cara *#weekly* dan *#monthly*`, m)
+                        
+                        break 
                 case 'common':
                         if (global.db.data.users[m.sender].money >= Bcommon * count) {
                             global.db.data.users[m.sender].common += count * 1
@@ -391,6 +412,8 @@ Sampah:     ${Ssampah}\n\n
 
 handler.help = ['shop <sell|buy> <args>', 'toko <sell|buy> <args>']
 handler.tags = ['rpg']
+handler.register = true
+handler.level = 2
     
 handler.command = /^(shop|toko|buy|beli|sell|jual)$/i
 module.exports = handler

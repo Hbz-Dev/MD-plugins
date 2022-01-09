@@ -1,34 +1,47 @@
-let fetch = require('node-fetch')
+const { tiktokDownloader } = require('../lib/downloader')
 let handler = async (m, { conn, args }) => {
   if (!args[0]) throw 'Uhm...url nya mana?'
-  let res = await fetch(global.API('xteam', '/dl/tiktok', {
-    url: args[0]
-  }, 'APIKEY'))
-  if (res.status !== 200) throw await res.text()
-  let json = await res.json()
-  if (!json.status) throw json
-  /*let url = json.server_1 || json.info[0].videoUrl || ''
-  if (!url) throw 'Gagal mengambil url download'
-  let txt = json.info[0].text
-  for (let hashtag of json.info[0].hashtags) txt = txt.replace(hashtag, '*$&*')
-  await conn.sendFile(m.chat, url, 'tiktok.mp4', `
-▶ ${json.info[0].playCount} Views
-❤ ${json.info[0].diggCount} Likes
-🔁 ${json.info[0].shareCount} Shares
-💬 ${json.info[0].commentCount} Comments
-🎵 ${json.info[0].musicMeta.musicName} by ${json.info[0].musicMeta.musicAuthor}
-- *By:* ${json.info[0].authorMeta.nickName} (${json.info[0].authorMeta.name})
-- *Desc:*
-${txt}
-  `.trim(), m)*/
-  let url = json.result.link_dl1 || json.result.link_dl2 || ''
-  if (!url) throw 'Gagal mengambil url download'
-  let txt = `
-  - *By:* ${json.result.name}
-  - *Caption:*
-  ${json.result.caption}
-    `
-    await conn.sendFile(m.chat, url, 'tiktok.mp4', txt.trim(), m)
+                let anu = await tiktokDownloader(args[0])
+                let teks = `
+► VIDEO
+
+⭔ *ID :* ${anu.id}
+⭔ *Username :* ${anu.username}
+⭔ *Nickname :* ${anu.nickname}
+⭔ *Upload At :* ${anu.tanggal_buat}
+⭔ *Resolusi :* ${anu.resolusi}
+⭔ *Verify :* ${anu.verify}
+⭔ *Like :* ${anu.statistic.diggCount}
+⭔ *Share :* ${anu.statistic.shareCount}
+⭔ *Comment :* ${anu.statistic.commentCount}
+⭔ *Viewers :* ${anu.statistic.playCount}
+⭔ *Private :* ${anu.video_private}
+⭔ *Duet :* ${anu.duetEnabled}
+⭔ *Stitch :* ${anu.stitchEnabled}
+⭔ *Caption :* ${anu.desk}
+
+♫ AUDIO
+
+⭔ *ID :* ${anu.music.id}
+⭔ *Title :* ${anu.music.title}
+⭔ *Author :* ${anu.music.authorName}
+⭔ *Original :* ${anu.music.original}
+⭔ *Duration :* ${anu.music.duration}
+⭔ *Album :* ${anu.music.album}
+⭔ *Schedule Time :* ${anu.music.scheduleSearchTime}
+
+Press The Button Below`
+                let buttons = [
+                    {buttonId: `sendbuffer ${anu.music.playUrl}`, buttonText: {displayText: '♫ Audio'}, type: 1}
+                ]
+                let buttonMessage = {
+                    video: { url: anu.nowm },
+                    caption: teks,
+                    footer: 'Made By 𝐑𝐲𝐮𝐁𝐨𝐭𝐳複\nTiktok Downloader',
+                    buttons: buttons,
+                    headerType: 5
+                }
+                conn.sendMessage(m.chat, buttonMessage, { quoted: m })
 }
 handler.help = ['tiktok'].map(v => v + ' <url>')
 handler.tags = ['downloader']

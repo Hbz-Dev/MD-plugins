@@ -24,7 +24,7 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
 })
 }
 handler.help = ['ytmp4 <url>']
-handler.tags = ['download']
+handler.tags = ['downloader']
 handler.command = /^(ytv|ytmp4|mp4)?$/i
 handler.owner = false
 handler.mods = false

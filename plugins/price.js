@@ -2,12 +2,9 @@ const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessa
 let fs = require('fs')
 let moment = require('moment-timezone')
 let handler = async (m) => {
-    let who
-    if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
-    else who = m.sender
-    let user = global.db.data.users[who]
+
 let premium = `
-*RYUBOTZ PRICE*
+*${wm} PRICE*
 
 ◩ *FREE USER*
 └───────
@@ -18,28 +15,28 @@ let premium = `
   
 ◩ *PREMIUM USER*
 └───────
- └✔ Unlimited Limit
- └✔ Premium User
+ └✅ Unlimited Limit
+ └✅ Premium User
  └❌ Add bot to Group
- └✔ Full Access Features
+ └✅ Full Access Features
    └  ▹  *Rp. 3.000*
-     └ Expired 7 hari
+     └ Expired 7 Day
  └ Order | hub : owner
  
 ◩ *ADD BOT TO GROUP*
 └───────
  └❌ Unlimited Limit
  └❌ Premium User 
- └✔ Add bot to Group
+ └✅ Add bot to Group
  └❌ Full Access Features
    └  ▹  *Rp. 8.000*
-     └ Expired 7 hari
+     └ Expired 7 Day
    └  ▹  *Rp. 20.000*
-     └ Expired 30 hari 
+     └ Expired 30 Day 
     
   Order Premium + add group
   ▹  *Rp. 25.000*
- └  Expired 30 hari
+ └  Expired 30 Day
  └ Order | hub : owner
 `
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
@@ -51,7 +48,7 @@ let premium = `
            hydratedFooterText: wm,
            hydratedButtons: [{
              urlButton: {
-               displayText: 'Nyoba atau emang mau beli?',
+               displayText: 'Dijamin Gak Nyesel kok Kak 🌟',
                url: 'Isekai'
              }
 

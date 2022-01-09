@@ -1,7 +1,8 @@
-let fetch = require('node-fetch')
+let axios = require('axios')
 let handler = async (m, { conn }) => {
-    let url = global.API('xteam', '/randomimage/meme', {}, 'APIKEY')
-    await conn.sendFile(m.chat, url, '', '', m, 0, { thumbnail: await (await fetch(url)).buffer() })
+            let res = await axios.get('https://meme-api.herokuapp.com/gimme/wholesomeanimemes');
+            let { postlink, title, subreddit, url, nsfw, spoiler } = res.data
+            conn.but(m.chat, `${title}`, 'Humor koo receh🗿\nMade By '+wm, m.sender, 'Get Again', '.meme', `${url}`, m)        
 }
 handler.help = ['meme']
 handler.tags = ['fun']

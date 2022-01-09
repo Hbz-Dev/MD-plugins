@@ -47,7 +47,11 @@ let handler = async (m, { conn, text }) => {
 	]
 	let player = global.db.data.users[m.sender]
 	let pname = conn.getName(m.sender)
-
+	
+	if (player.fishingrod == 0) {
+	      m.reply('Kamu Tidak memiliki Fishingrod Untuk memancing!\nDapatkan Fishingrod Dari *#adventure* Atau beli Di shop dengan Cara *#shop buy fishingrod*!')
+	      return
+    }
 	let cdm = `${MeNit(new Date - player.lastfishing)}`
 	let cds = `${DeTik(new Date - player.lastfishing)}`
 	let cd1 = Math.ceil(01 - cdm)
@@ -69,7 +73,7 @@ let handler = async (m, { conn, text }) => {
 
 		if (player.fishingroddurability < 0) {
             player.fishingrod = 0
-			let msg = `*${pname}* Fishingrod anda hancur`
+			let msg = `*${pname}* Fishingrod anda hancur!`
 			player.fishingroddurability = 0
 			m.reply(msg)
 			return
@@ -83,11 +87,12 @@ let handler = async (m, { conn, text }) => {
 	} else throw `Tunggu *${cd1}:${cd2}* Untuk Memancing Lagi`
 }
 
-handler.help = ['fish']
+handler.help = ['fish', 'mancing']
 handler.tags = ['rpg']
-handler.command = /^fish/i
-handler.fishingrod = 1
-
+handler.command = /^fish|mancing/i
+handler.group = true
+handler.register = true
+handler.level = 5
 
 handler.disabled = false
 

@@ -29,7 +29,16 @@ case 'simi':
         }
       }
       setting.simi = isEnable
-      break  
+      break
+   case 'read':
+   case 'autoread':
+     isAll = true
+     if (!isOwner) {
+        global.dfail('owner', m, conn)
+        throw false
+      }
+      setting.autoread = isEnable
+      break
     case 'antilink':
     case 'antiurl':
       if (!m.isGroup) {
@@ -50,24 +59,12 @@ case 'simi':
         global.dfail('rowner', m, conn)
         throw false
       }
-      global.opts['self'] = !isEnable
+      global.opts['self'] = isEnable
       break
     case 'autolevelup':
     case 'levelup':
       isUser = true
       user.autolevelup = isEnable
-      break
-    case 'mycontact':
-    case 'mycontacts':
-    case 'whitelistcontact':
-    case 'whitelistcontacts':
-    case 'whitelistmycontact':
-    case 'whitelistmycontacts':
-      if (!isOwner) {
-        global.dfail('owner', m, conn)
-        throw false
-      }
-      conn.callWhitelistMode = isEnable
       break
     case 'grup':
     case 'gruponly':
@@ -87,38 +84,6 @@ case 'simi':
         }
         setting.anon = isEnable
         break
-    case 'backup':
-      isAll = true
-      if (!isOwner) {
-        global.dfail('owner', m, conn)
-        throw false
-      }
-      setting.backup = isEnable
-      break
-    case 'anticall':
-      isAll = true
-      if (!isOwner) {
-        global.dfail('owner', m, conn)
-        throw false
-      }
-      setting.anticall = isEnable
-      break
-    case 'antitroli':
-      isAll = true
-      if (!isOwner) {
-        global.dfail('owner', m, conn)
-        throw false
-      }
-      setting.antitroli = isEnable
-      break
-    case 'autoread':
-      isAll = true
-      if (!isOwner) {
-        global.dfail('owner', m, conn)
-        throw false
-      }
-      opts['autoread'] = isEnable
-      break
     case 'restrict':
       isAll = true
       if (!isOwner) {
@@ -135,17 +100,9 @@ case 'simi':
       }
       setting.nsfw = isEnable
       break
-    case 'jadibot':
-      isAll = true
-      if (!isOwner) {
-        global.dfail('owner', m, conn)
-        throw false
-      }
-      setting.jadibot = isEnable
-      break
     default:
       if (!/[01]/.test(command)) throw `
-┌〔 Daftar Opsi 〕${isOwner ? '\n├ anon\n├ antispam\n├ antitroli\n├ autoread\n├ simi\n├ backup\n├ grouponly\n├ jadibot\n├ nsfw\n├ public\n├ antilink\n├ mycontact' : ''}
+┌〔 Daftar Opsi 〕${isOwner ? '\n├ autoread\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
 ├ autolevelup
 ├ antilink
 ├ simi

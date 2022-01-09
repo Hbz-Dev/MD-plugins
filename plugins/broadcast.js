@@ -1,7 +1,6 @@
 let fs = require('fs')
 let handler = m => m
-handler.after = async function (m, { args }) {
-                let text = args[0]
+handler.after = async function (m, { text }) {
                 if (!text) throw `Masukkan Textnya!`
                 let getGroups = await this.groupFetchAllParticipating()
                 let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])

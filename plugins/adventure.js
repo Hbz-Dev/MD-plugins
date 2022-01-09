@@ -28,6 +28,8 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
             let uncommon = (_uncommon * 1) 
             let _mythic = `${pickRandom(['1', '0', '0', '1'])}`
             let mythic = (_mythic * 1)
+            let _rod = `${pickRandom(['1', '0', '0', '1'])}`
+            let rod = (_rod * 1)
             let _legendary = `${pickRandom(['1', '0', '0', '0'])}`
             let sampah = `${Math.floor(Math.random() * 300)}`.trim()
             let legendary = (_legendary * 1)
@@ -38,6 +40,11 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah berpetualang sampai ${pickRan
 *sampah:* ${sampah}${potion == 0 ? '' : '\n*Potion:* ' + potion + ''}${diamond == 0 ? '' : '\n*diamond:* ' + diamond + ''}${common == 0 ? '' : '\n*common crate:* ' + common + ''}${uncommon == 0 ? '' : '\n*uncommon crate:* ' + uncommon + ''}
 `.trim()
             conn.reply(m.chat, str, m)
+            if (rod > 0 && global.db.data.users[m.sender].fishingrod != 1) {
+               global.db.data.users[m.sender].fishingrod += rod
+               global.db.data.users[m.sender].fishingroddurability = 100
+               conn.reply(m.chat, '*Selamat anda mendapatkan item Epic yaitu*\n' + rod + ' Fishingrod', m)
+            }
             if (mythic > 0) {
                    global.db.data.users[m.sender].mythic += mythic * 1
                    conn.reply(m.chat, '*Selamat anda mendapatkan item Rare yaitu*\n' + mythic + ' Mythic Crate', m)
@@ -55,8 +62,8 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah berpetualang sampai ${pickRan
             global.db.data.users[m.sender].uncommon += uncommon * 1
             global.db.data.users[m.sender].sampah += sampah * 1
             global.db.data.users[m.sender].lastadventure = new Date * 1
-            } else conn.reply(m.chat, `Anda sudah berpetualang dan kelelahan, silahkan coba *${timers}* lagi`, m)
-        } else conn.reply(m.chat, 'Minimal 80 health untuk bisa berpetualang, beli nyawa dulu dengan ketik *' + usedPrefix + 'shop buy potion <jumlah>*\ndan ketik *' + usedPrefix + 'use potion <jumlah>*\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'collect*', m)
+            } else conn.reply(m.chat, `Anda sudah berpetualang dan kelelahan, silahkan coba 🕛*${timers}* lagi`, m)
+        } else conn.reply(m.chat, 'Minimal 80 health untuk bisa berpetualang, beli nyawa dulu dengan ketik *' + usedPrefix + 'shop buy potion <jumlah>*\ndan ketik *' + usedPrefix + 'use potion <jumlah>*\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*', m)
     } catch (e) {
         console.log(e)
         conn.reply(m.chat, 'Error', m)
@@ -73,6 +80,8 @@ handler.tags = ['rpg']
 handler.command = /^(adventure|(ber)?petualang(ang)?|mulung|work)$/i
 
 handler.fail = null
+handler.register = true
+handler.level = 5
 handler.group = true
 
 module.exports = handler

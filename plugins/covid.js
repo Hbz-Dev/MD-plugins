@@ -14,7 +14,7 @@ let handler = async (m, { text }) => {
   else throw json
 }
 handler.help = ['covid'].map(v => v + ' <negara>')
-handler.tags = ['internet', 'info']
+handler.tags = ['internet']
 handler.command = /^(corona|covid|covid19)$/i
 //susu, tetek, oppai
 module.exports = handler

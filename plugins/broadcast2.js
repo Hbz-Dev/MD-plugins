@@ -1,6 +1,5 @@
 let handler = m => m
-handler.after = async function (m, { args }) {
-                let text = args[0]
+handler.after = async function (m, { text }) {
                 let getGroups = await this.groupFetchAllParticipating()
                 let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
                 let anu = groups.map(v => v.id)

@@ -93,6 +93,8 @@ let handler = async (m, { conn, text }) => {
 handler.help = ['hunt']
 handler.tags = ['rpg']
 handler.command = /^hunt/i
+handler.register = true
+handler.level = 10
 
 handler.disabled = false
 

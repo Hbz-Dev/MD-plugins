@@ -20,9 +20,12 @@ let handler = async (m, { conn, usedPrefix }) => {
     let mythic = global.db.data.users[m.sender].mythic
     let legendary = global.db.data.users[m.sender].legendary
     let level = global.db.data.users[m.sender].level
+    let fishrod = global.db.data.users[m.sender].fishingrod
+    let fishrud = global.db.data.users[m.sender].fishingroddurability
     let money = global.db.data.users[m.sender].money
     let exp = global.db.data.users[m.sender].exp
     let limit = global.db.data.users[m.sender].limit
+    let game = global.db.data.users[m.sender].game
     let sampah = global.db.data.users[m.sender].sampah
     let { max } = levelling.xpRange(level, exp, global.multiplier)
     let name = m.fromMe ? conn.user : conn.contacts[m.sender]
@@ -47,12 +50,14 @@ let handler = async (m, { conn, usedPrefix }) => {
     let str = `
 Inventory *${name.vnmae || name.notify || name.name || ('+' + name.jid.split`@`[0])}*\n
 ♥️ Health: *${healt}*
+🎣 Fishingrod: *${fishrod == 0 ? 'Tidak Punya' : 'Silver Rod'}* [${fishrud == 0 ? 'Rusak' : `${fishrud} / 100`}]
 🗡️ Sword: *${sword == 0 ? 'Tidak Punya' : '' || sword == 1 ? 'Stone Sword' : '' || sword == 2 ? 'Iron Sword' : '' || sword == 3 ? 'Gold Sword' : '' || sword == 4 ? 'Diamond Sword' : '' || sword == 5 ? 'Netherite Sword' : ''}*
 👕 Armor: *${armor == 0 ? 'Tidak Punya' : '' || armor == 1 ? 'Leather Armor' : '' || armor == 2 ? 'Iron Armor' : '' || armor == 3 ? 'Gold Armor' : '' || armor == 4 ? 'Diamond Armor' : '' || armor == 5 ? 'Netherite Armor' : ''}*\n
 💵 Money: *${money}*
 📈 Level: *${level}*
 💫 Exp: *${exp}*
-✨Limit: *${limit}*\n
+🎮 Limit Game: *${game}*
+✨ Limit: *${limit}*\n
 *Inventory*
 💎 Diamond: *${diamond}*
 🧪 Potion: *${potion}*
@@ -66,7 +71,6 @@ Uncommon: *${uncommon}*
 Mythic: *${mythic}*
 Legendary: *${legendary}*
 Pet: *${pet}*\n\n
-Budak: *${budak == 0 ? 'Tidak Punya' : '' || budak == 1 ? 'Level 1' : '' || budak  == 2 ? 'Level 2' : '' || budak == 3 ? 'Level 3' : '' || budak == 4 ? 'Level 4' : '' || budak == 5 ? 'Level MAX' : ''}*
 *Pet*
 Kuda: *${kuda == 0 ? 'Tidak Punya' : '' || kuda == 1 ? 'Level 1' : '' || kuda == 2 ? 'Level 2' : '' || kuda == 3 ? 'Level 3' : '' || kuda == 4 ? 'Level 4' : '' || kuda == 5 ? 'Level MAX' : ''}*
 Rubah: *${rubah == 0 ? 'Tidak Punya' : '' || rubah == 1 ? 'Level 1' : '' || rubah == 2 ? 'Level 2' : '' || rubah == 3 ? 'Level 3' : '' || rubah == 4 ? 'Level 4' : '' || rubah == 5 ? 'Level MAX' : ''}*
@@ -75,9 +79,6 @@ Kucing: *${kucing == 0 ? 'Tidak Punya' : '' || kucing == 1 ? 'Level 1' : '' || k
 ╭────────────────
 │Level *${level}* To Level *${level}*
 │Exp *${exp}* -> *${max}*
-╰────────────────
-╭────────────────
-│Budak ${budak == 0 ? 'Tidak Punya' : '' || budak > 0 && budak < 5 ? `Level *${budak}* To level *${budak + 1}*\n│Exp *${_budak}* -> *${budak *100}*` : '' || budak == 5 ? '*Max Level*' : ''}
 ╰────────────────
 ╭────────────────
 │Rubah ${rubah == 0 ? 'Tidak Punya' : '' || rubah > 0 && rubah < 5 ? `Level *${rubah}* To level *${rubah + 1}*\n│Exp *${_rubah}* -> *${rubah *100}*` : '' || rubah == 5 ? '*Max Level*' : ''}
@@ -105,12 +106,14 @@ Banned: *No*
 let str2 = `
 Inventory *${name.vnmae || name.notify || name.name || ('+' + name.jid.split`@`[0])}*\n
 ♥️ Health: *${healt}*
+🎣 Fishingrod: *${fishrod == 0 ? 'Tidak Punya' : 'Silver Rod'}* [${fishrud == 0 ? 'Rusak' : `${fishrud} / 100`}]
 🗡️ Sword: *${sword == 0 ? 'Tidak Punya' : '' || sword == 1 ? 'Stone Sword' : '' || sword == 2 ? 'Iron Sword' : '' || sword == 3 ? 'Gold Sword' : '' || sword == 4 ? 'Diamond Sword' : '' || sword == 5 ? 'Netherite Sword' : ''}*
 👕 Armor: *${armor == 0 ? 'Tidak Punya' : '' || armor == 1 ? 'Leather Armor' : '' || armor == 2 ? 'Iron Armor' : '' || armor == 3 ? 'Gold Armor' : '' || armor == 4 ? 'Diamond Armor' : '' || armor == 5 ? 'Netherite Armor' : ''}*\n
 💵 Money: *${money}*
 📈 Level: *${level}*
 💫 Exp: *${exp}*
-✨Limit: *${limit}*\n
+🎮 Limit Game: *${game}*
+✨ Limit: *${limit}*\n
 *Inventory*
 💎 Diamond: *${diamond}*
 🧪 Potion: *${potion}*
@@ -124,7 +127,6 @@ Uncommon: *${uncommon}*
 Mythic: *${mythic}*
 Legendary: *${legendary}*
 Pet: *${pet}*\n\n
-Budak: *${budak == 0 ? 'Tidak Punya' : '' || budak == 1 ? 'Level 1' : '' || budak  == 2 ? 'Level 2' : '' || budak == 3 ? 'Level 3' : '' || budak == 4 ? 'Level 4' : '' || budak == 5 ? 'Level MAX' : ''}*
 *Pet*
 Kuda: *${kuda == 0 ? 'Tidak Punya' : '' || kuda == 1 ? 'Level 1' : '' || kuda == 2 ? 'Level 2' : '' || kuda == 3 ? 'Level 3' : '' || kuda == 4 ? 'Level 4' : '' || kuda == 5 ? 'Level MAX' : ''}*
 Rubah: *${rubah == 0 ? 'Tidak Punya' : '' || rubah == 1 ? 'Level 1' : '' || rubah == 2 ? 'Level 2' : '' || rubah == 3 ? 'Level 3' : '' || rubah == 4 ? 'Level 4' : '' || rubah == 5 ? 'Level MAX' : ''}*

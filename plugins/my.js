@@ -5,8 +5,10 @@ let handler = async (m) => {
     if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
     else who = m.sender
     let user = global.db.data.users[who]
-let anu = `╭───❑ 「 PROFILE 」 ❑────
+let anu = `╭──❑ 「 PROFILE 」 ❑───
+│ ✇ Name: ${user.name}
 │ ✇ Limit: ${user.limit}
+│ ✇ Limit Game: ${user.game}
 │ ✇ Money: ${user.money}
 │ ✇ Exp: ${user.exp}
 │ ✇ Level: ${user.level}
@@ -21,7 +23,7 @@ let anu = `╭───❑ 「 PROFILE 」 ❑────
            hydratedFooterText: wm,
            hydratedButtons: [{
              urlButton: {
-               displayText: `🌟 ${user.name} 🌟`,
+               displayText: `🌟 ${await conn.getName(m.sender)} 🌟`,
                url: 'Isekai'
              }
 
@@ -43,8 +45,8 @@ let anu = `╭───❑ 「 PROFILE 」 ❑────
          { messageId: template.key.id }
      )
 }
-handler.help = ['my', 'my @user']
+handler.help = ['my', 'me', 'profile']
 handler.tags = ['xp']
-handler.command = /^(my)$/i
+handler.command = /^(my|me|profile)$/i
 
 module.exports = handler
