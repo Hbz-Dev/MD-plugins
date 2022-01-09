@@ -21,13 +21,14 @@ module.exports = {
             // console.log(m)
             m.exp = 0
             m.limit = false
+            m.game = false
             try {
                 let user = global.db.data.users[m.sender]
                 if (typeof user !== 'object') global.db.data.users[m.sender] = {}
                 if (user) {
                     if (!isNumber(user.exp)) user.exp = 0
-                    if (!isNumber(user.limit)) user.limit = 10
-                    if (!isNumber(user.lastclaim)) user.lastclaim = 0
+                    if (!isNumber(user.limit)) user.limit = 75
+                    if (!isNumber(user.game)) user.game = 30
                     if (!('registered' in user)) user.registered = false
                     if (!user.registered) {
                         if (!('name' in user)) user.name = m.name
@@ -44,7 +45,6 @@ module.exports = {
 
                     if (!isNumber(user.money)) user.money = 0
                     if (!isNumber(user.healt)) user.healt = 100
-                    if (!isNumber(user.limit)) user.limit = 0
                     if (!isNumber(user.potion)) user.potion = 0
                     if (!isNumber(user.sampah)) user.sampah = 0
                     if (!isNumber(user.kayu)) user.kayu = 0
@@ -87,6 +87,7 @@ module.exports = {
                     if (!isNumber(user.fishingroddurability)) user.fishingroddurability = 0
 
                     if (!isNumber(user.lastclaim)) user.lastclaim = 0
+                    if (!isNumber(user.lastexp)) user.lastexp = 0
                     if (!isNumber(user.lastadventure)) user.lastadventure = 0
                     if (!isNumber(user.lastfishing)) user.lastfishing = 0
                     if (!isNumber(user.lastdungeon)) user.lastdungeon = 0
@@ -99,8 +100,8 @@ module.exports = {
                     if (!isNumber(user.warning)) user.warning = 0
                 } else global.db.data.users[m.sender] = {
                     exp: 0,
-                    limit: 10,
-                    lastclaim: 0,
+                    limit: 75,
+                    game: 30,
                     registered: false,
                     name: m.name,
                     age: -1,
@@ -110,12 +111,11 @@ module.exports = {
                     banned: false,
                     warn: 0,
                     level: 0,
-                    role: 'Warrior V',
+                    role: 'Beginner',
                     autolevelup: true,
 
                     money: 0,
                     healt: 100,
-                    limit: 100,
                     potion: 10,
                     sampah: 0,
                     kayu: 0,
@@ -158,6 +158,7 @@ module.exports = {
                     fishingroddurability: 0,
 
                     lastclaim: 0,
+                    lastexp: 0,
                     lastadventure: 0,
                     lastfishing: 0,
                     lastdungeon: 0,
@@ -202,27 +203,22 @@ module.exports = {
           if (!'anon' in settings) settings.anon = false
           if (!'antispam' in settings) settings.antispam = true
           if (!'simi' in settings) settings.simi = false
-          if (!'backup' in settings) settings.backup = false
           if (!'groupOnly' in settings) settings.groupOnly = false
           if (!'nsfw' in settings) settings.nsfw = true
-          if (!isNumber(settings.status)) settings.status = 0
+          if (!'autoread' in settings) settings.autoread = false
         } else global.db.data.settings = {
           anon: false,
           antispam: true,
           simi: false,
-          backup: false,
           groupOnly: false,
           nsfw: false,
-          status: 0,
+          autoread: false,
         }                
             } catch (e) {
                 console.error(e)
             }
-            if (opts['nyimak']) return
             if (!m.fromMe && opts['self']) return
-            if (opts['pconly'] && m.chat.endsWith('g.us')) return
-            if (opts['gconly'] && !m.chat.endsWith('g.us')) return
-            if (opts['swonly'] && m.chat !== 'status@broadcast') return
+            if (global.db.data.settings.groupOnly && !m.chat.endsWith('g.us')) return
             if (typeof m.text !== 'string') m.text = ''
             if (opts['queque'] && m.text) {
                 this.msgqueque.push(m.id || m.key.id)
@@ -319,7 +315,6 @@ module.exports = {
                     if (m.chat in global.db.data.chats || m.sender in global.db.data.users) {
                         let chat = global.db.data.chats[m.chat]
                         let user = global.db.data.users[m.sender]
-                        let seting = global.db.data.settings
                         if (name != 'unbanchat.js' && chat && chat.isBanned) return // Except this
                         if (name != 'unbanchat.js' && user && user.banned) return
                     }
@@ -349,7 +344,7 @@ module.exports = {
                     } else if (plugin.botAdmin && !isBotAdmin) { // You Admin
                         fail('botAdmin', m, this)
                         continue
-                    } else if (plugin.admin && !isAdmin) { // User Admin
+                    } else if (plugin.admin && !(isAdmin || isOwner)) { // User Admin
                         fail('admin', m, this)
                         continue
                     }
@@ -361,7 +356,7 @@ module.exports = {
                         fail('unreg', m, this)
                         continue
                     }
-                    if (plugin.nsfw && !seting.nsfw) {
+                    if (plugin.nsfw && !global.db.data.settings.nsfw) {
                        fail('nsfw', m, this)
                        continue
                     }
@@ -370,11 +365,15 @@ module.exports = {
                     if (xp > 200) m.reply('Ngecit -_-') // Hehehe
                     else m.exp += xp
                     if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-                        this.reply(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*`, m)
+                        this.sendButton(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*\nAtau Jadilah Premium Untuk Unlimited *Limit*\nMau premium? ketik *${usedPrefix}price* Untuk melihat harga`, wm, 'Buy Limit', '.shop buy limit 1', m)
                         continue // Limit habis
                     }
+                    if (!isPrems && plugin.game && global.db.data.users[m.sender].game < plugin.game * 1) {
+                        this.sendButton(m.chat, `Limit Game anda habis\n\nNote: Limit Game Direset setiap jam 00:00\nMau premium? ketik *${usedPrefix}price* Untuk melihat harga`, wm, 'Owner', '.owner', m)
+                        continue // Limit game habis
+                    }
                     if (plugin.level > _user.level) {
-                        this.reply(m.chat, `diperlukan level ${plugin.level} untuk menggunakan perintah ini. Level kamu ${_user.level}`, m)
+                        this.sendButton(m.chat, `diperlukan level ${plugin.level} untuk menggunakan Fitur ini.\nLevel kamu: ${_user.level}`, wm, 'Naikan Level', '.levelup', m)
                         continue // If the level has not been reached
                     }
                     let extra = {
@@ -400,6 +399,8 @@ module.exports = {
                     try {
                         await plugin.call(this, m, extra)
                         if (!isPrems) m.limit = m.limit || plugin.limit || false
+                        if (!isPrems) m.game = m.game || plugin.game || false
+                        
                     } catch (e) {
                         // Error occured
                         m.error = e
@@ -420,6 +421,7 @@ module.exports = {
                             }
                         }
                         if (m.limit) m.reply(+ m.limit + ' Limit terpakai')
+                        if (m.game) m.reply(+ m.game + ' Limit game terpakai')
                     }
                     break
                 }
@@ -433,6 +435,7 @@ module.exports = {
                 if (m.sender && (user = global.db.data.users[m.sender])) {
                     user.exp += m.exp
                     user.limit -= m.limit * 1
+                    user.game -= m.game * 1
                 }
 
                 let stat
@@ -464,7 +467,7 @@ module.exports = {
             // } catch (e) {
             //     console.log(m, m.quoted, e)
             // }
-            if (opts['autoread']) await this.chatRead(m.chat, m.isGroup ? m.sender : undefined, m.id || m.key.id).catch(() => { })
+            if (global.db.data.settings.autoread) await this.sendReadReceipt(m.chat, m.sender, [m.id])
             let quequeIndex = this.msgqueque.indexOf(m.id || m.key.id)
             if (opts['queque'] && m.text && quequeIndex !== -1) this.msgqueque.splice(quequeIndex, 1)
         }
@@ -483,7 +486,7 @@ module.exports = {
                     for (let user of participants) {
                         let pp = './src/avatar_contact.png'
                         try {
-                            pp = await this.getProfilePicture(user)
+                            pp = await this.ProfilePictureUrl(user, 'image')
                         } catch (e) {
                         } finally {
                             text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', this.getName(id)).replace('@desc', groupMetadata.desc.toString()) :
@@ -511,12 +514,12 @@ module.exports = {
         }
     },
     async delete({ remoteJid, fromMe, id, participant }) {
-        if (fromMe) return
+        if (!fromMe) return
         let chats = Object.entries(conn.chats).find(([user, data]) => data.messages && data.messages[id])
         if (!chats) return
         let msg = JSON.parse(chats[1].messages[id])
         let chat = global.db.data.chats[msg.key.remoteJid] || {}
-        if (!chat.delete) return
+        if (chat.delete) return
         await this.reply(msg.key.remoteJid, `
 Terdeteksi @${participant.split`@`[0]} telah menghapus pesan
 Untuk mematikan fitur ini, ketik
@@ -539,10 +542,10 @@ global.dfail = (type, m, conn) => {
         admin: 'Perintah ini hanya untuk *Admin* grup!',
         nsfw: 'Perintah ini Mengandung *18+* Harap hidupkan mode nsfw',
         botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
-        unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Manusia.16*',
+        unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Ryu.15*',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return m.reply(msg)
+    if (msg) return conn.sendButton(m.chat, msg, wm, 'Baiklah', '.say Ok :3', m)
 }
 
 let fs = require('fs')
