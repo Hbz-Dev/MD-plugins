@@ -27,20 +27,20 @@ module.exports = {
                 if (typeof user !== 'object') global.db.data.users[m.sender] = {}
                 if (user) {
                     if (!isNumber(user.exp)) user.exp = 0
-                    if (!isNumber(user.limit)) user.limit = 75
+                    if (!isNumber(user.limit)) user.limit = 20
                     if (!isNumber(user.game)) user.game = 30
                     if (!('registered' in user)) user.registered = false
                     if (!user.registered) {
                         if (!('name' in user)) user.name = m.name
                         if (!isNumber(user.age)) user.age = -1
                         if (!isNumber(user.regTime)) user.regTime = -1
+                        if (!('role' in user)) user.role = 'Beginner'
                     }
                     if (!isNumber(user.afk)) user.afk = -1
                     if (!('afkReason' in user)) user.afkReason = ''
                     if (!('banned' in user)) user.banned = false
                     if (!isNumber(user.warn)) user.warn = 0
                     if (!isNumber(user.level)) user.level = 0
-                    if (!user.role) user.role = 'Beginner'
                     if (!('autolevelup' in user)) user.autolevelup = true
 
                     if (!isNumber(user.money)) user.money = 0
@@ -100,7 +100,7 @@ module.exports = {
                     if (!isNumber(user.warning)) user.warning = 0
                 } else global.db.data.users[m.sender] = {
                     exp: 0,
-                    limit: 75,
+                    limit: 20,
                     game: 30,
                     registered: false,
                     name: m.name,
@@ -111,7 +111,6 @@ module.exports = {
                     banned: false,
                     warn: 0,
                     level: 0,
-                    role: 'Beginner',
                     autolevelup: true,
 
                     money: 0,
@@ -486,7 +485,7 @@ module.exports = {
                     for (let user of participants) {
                         let pp = './src/avatar_contact.png'
                         try {
-                            pp = await this.ProfilePictureUrl(user, 'image')
+                            pp = await this.profilePictureUrl(user, 'image')
                         } catch (e) {
                         } finally {
                             text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', this.getName(id)).replace('@desc', groupMetadata.desc.toString()) :
