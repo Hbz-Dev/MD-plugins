@@ -54,9 +54,9 @@ let handler = async (m, { conn, args, usedPrefix }) => {
          case 'anjing':
             if (anjing == 0) return m.reply('*Kamu belum memiliki Pet Anjing*')
             if (anjing == 5) return m.reply('*Pet kamu dah lvl max*')
-            let __waktuk = (new Date - global.db.data.users[m.sender].anjinglastfeed)
-            let _waktuk = (600000 - __waktuk)
-            let waktuk = clockString(_waktuk)
+            let __waktua = (new Date - global.db.data.users[m.sender].anjinglastfeed)
+            let _waktua = (600000 - __waktua)
+            let waktua = clockString(_waktua)
             if (new Date - global.db.data.users[m.sender].anjinglastfeed > 600000) {
                 if (global.db.data.users[m.sender].makananpet > 0) {
                     global.db.data.users[m.sender].makananpet -= 1
@@ -72,7 +72,7 @@ let handler = async (m, { conn, args, usedPrefix }) => {
                         }
                     }
                 } else m.reply(`Makanan pet kamu tidak cukup`)
-            } else m.reply(`Pet kamu sudah kenyang, coba kasih makan *${waktuk}* lagi`)
+            } else m.reply(`Pet kamu sudah kenyang, coba kasih makan *${waktua}* lagi`)
             break  
         case 'kucing':
             if (kucing == 0) return m.reply('*Kamu belum memiliki Pet Kucing*')
