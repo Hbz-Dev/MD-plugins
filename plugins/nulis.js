@@ -13,7 +13,7 @@ let handler = async (m, { conn, args }) => {
   let tgl = d.toLocaleDateString('id-Id')
   let hari = d.toLocaleDateString('id-Id', { weekday: 'long' })
   let teks = args.join` `
-  if (!teks) return m.reply(`Uhmm.. texnya mana?\nContoh: #nulis Bot whatsapp'\n'Keren\nGunakan '*\n*' Untuk baris baru!`)
+  if (!teks) return m.reply('Uhmm.. textnya mana?\nContoh: #nulis Bot whatsapp' + '/' + 'n' + 'Keren\nGunakan ' + '/' + 'n' + 'Untuk baris baru!')
   // conn.reply(m.chat, util.format({fontPath, inputPath, outputPath, tgl, hari, teks}), m)
   let bufs = []
   const [_spawnprocess, ..._spawnargs] = [...(global.support.gm ? ['gm'] : global.support.magick ? ['magick'] : []),
@@ -61,7 +61,7 @@ let handler = async (m, { conn, args }) => {
     })
     .stdout.on('data', chunk => bufs.push(chunk))
 }
-handler.help = ['n'].map(v => v + 'ulis <teks>')
+handler.help = ['n', 't', 'men'].map(v => v + 'ulis <teks>')
 handler.tags = ['maker']
 handler.command = /^nulis$/i
 handler.owner = false
@@ -69,7 +69,7 @@ handler.mods = false
 handler.premium = false
 handler.group = false
 handler.private = false
-handler.limit = 5
+handler.limit = 1
 
 handler.admin = false
 handler.botAdmin = false

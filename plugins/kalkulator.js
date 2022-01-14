@@ -21,7 +21,6 @@ let handler = async (m, { conn, text }) => {
     .replace(/\//g, '÷')
     .replace(/\*×/g, '×')
   try {
-    console.log(val)
     let result = (new Function('return ' + val))()
     if (!result) throw result
     m.reply(`*${format}* = _${result}_`)

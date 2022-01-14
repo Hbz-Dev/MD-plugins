@@ -4,14 +4,15 @@ let handler = async (m, { conn, usedPrefix }) => {
     let sword = global.db.data.users[m.sender].sword
     let armor = global.db.data.users[m.sender].armor 
     let warn = global.db.data.users[m.sender].warning
-    let budak = global.db.data.users[m.sender].budak
     let pet = global.db.data.users[m.sender].pet
     let kucing = global.db.data.users[m.sender].kucing
-    let _kucing = global.db.data.users[m.sender].anakkucing
+    let _kucing = global.db.data.users[m.sender].kucingexp
     let rubah = global.db.data.users[m.sender].rubah
-    let _rubah = global.db.data.users[m.sender].anakrubah
+    let _rubah = global.db.data.users[m.sender].rubahexp
     let kuda = global.db.data.users[m.sender].kuda
-    let _kuda = global.db.data.users[m.sender].anakkuda
+    let _kuda = global.db.data.users[m.sender].kudaexp
+    let anjing = global.db.data.users[m.sender].anjing
+    let _anjing = global.db.data.users[m.sender].anjingexp
     let diamond = global.db.data.users[m.sender].diamond
     let potion = global.db.data.users[m.sender].potion
     let common = global.db.data.users[m.sender].common
@@ -72,6 +73,7 @@ Mythic: *${mythic}*
 Legendary: *${legendary}*
 Pet: *${pet}*\n\n
 *Pet*
+Anjing: *${anjing == 0 ? 'Tidak Punya' : '' || anjing == 1 ? 'Level 1' : '' || anjing == 2 ? 'Level 2' : '' || anjing == 3 ? 'Level 3' : '' || anjing == 4 ? 'Level 4' : '' || anjing == 5 ? 'Level MAX' : ''}*
 Kuda: *${kuda == 0 ? 'Tidak Punya' : '' || kuda == 1 ? 'Level 1' : '' || kuda == 2 ? 'Level 2' : '' || kuda == 3 ? 'Level 3' : '' || kuda == 4 ? 'Level 4' : '' || kuda == 5 ? 'Level MAX' : ''}*
 Rubah: *${rubah == 0 ? 'Tidak Punya' : '' || rubah == 1 ? 'Level 1' : '' || rubah == 2 ? 'Level 2' : '' || rubah == 3 ? 'Level 3' : '' || rubah == 4 ? 'Level 4' : '' || rubah == 5 ? 'Level MAX' : ''}*
 Kucing: *${kucing == 0 ? 'Tidak Punya' : '' || kucing == 1 ? 'Level 1' : '' || kucing == 2 ? 'Level 2' : '' || kucing == 3 ? 'Level 3' : '' || kucing == 4 ? 'Level 4' : '' || kucing == 5 ? 'Level MAX' : ''}*\n\n
@@ -79,6 +81,9 @@ Kucing: *${kucing == 0 ? 'Tidak Punya' : '' || kucing == 1 ? 'Level 1' : '' || k
 ╭────────────────
 │Level *${level}* To Level *${level}*
 │Exp *${exp}* -> *${max}*
+╰────────────────
+╭────────────────
+│Anjing ${anjing == 0 ? 'Tidak Punya' : '' || anjing > 0 && anjing < 5 ? `Level *${anjing}* To level *${anjing + 1}*\n│Exp *${_anjing}* -> *${anjing *100}*` : '' || anjing == 5 ? '*Max Level*' : ''}
 ╰────────────────
 ╭────────────────
 │Rubah ${rubah == 0 ? 'Tidak Punya' : '' || rubah > 0 && rubah < 5 ? `Level *${rubah}* To level *${rubah + 1}*\n│Exp *${_rubah}* -> *${rubah *100}*` : '' || rubah == 5 ? '*Max Level*' : ''}
@@ -101,7 +106,6 @@ Kucing: *${kucing == 0 ? 'Tidak Punya' : '' || kucing == 1 ? 'Level 1' : '' || k
 9.Top Sampah *${userssampah.indexOf(m.sender) + 1}* dari *${userssampah.length}*
 \n${readMore}\n
 Warn: *${warn}*
-Banned: *No*
 `.trim()
 let str2 = `
 Inventory *${name.vnmae || name.notify || name.name || ('+' + name.jid.split`@`[0])}*\n
@@ -128,6 +132,7 @@ Mythic: *${mythic}*
 Legendary: *${legendary}*
 Pet: *${pet}*\n\n
 *Pet*
+Anjing: *${anjing == 0 ? 'Tidak Punya' : '' || anjing == 1 ? 'Level 1' : '' || anjing == 2 ? 'Level 2' : '' || anjing == 3 ? 'Level 3' : '' || anjing == 4 ? 'Level 4' : '' || anjing == 5 ? 'Level MAX' : ''}*
 Kuda: *${kuda == 0 ? 'Tidak Punya' : '' || kuda == 1 ? 'Level 1' : '' || kuda == 2 ? 'Level 2' : '' || kuda == 3 ? 'Level 3' : '' || kuda == 4 ? 'Level 4' : '' || kuda == 5 ? 'Level MAX' : ''}*
 Rubah: *${rubah == 0 ? 'Tidak Punya' : '' || rubah == 1 ? 'Level 1' : '' || rubah == 2 ? 'Level 2' : '' || rubah == 3 ? 'Level 3' : '' || rubah == 4 ? 'Level 4' : '' || rubah == 5 ? 'Level MAX' : ''}*
 Kucing: *${kucing == 0 ? 'Tidak Punya' : '' || kucing == 1 ? 'Level 1' : '' || kucing == 2 ? 'Level 2' : '' || kucing == 3 ? 'Level 3' : '' || kucing == 4 ? 'Level 4' : '' || kucing == 5 ? 'Level MAX' : ''}*\n\n

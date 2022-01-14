@@ -1,18 +1,18 @@
-let fs = require('fs')
 let handler = m => m
 handler.after = async function (m, { text }) {
-                if (!text) throw `Masukkan Textnya!`
                 let getGroups = await this.groupFetchAllParticipating()
                 let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
                 let anu = groups.map(v => v.id)
+                let cc = text ? m : m.quoted ? await m.getQuotedObj() : false || m
+                let teks = text ? text : cc.text
                 m.reply(`Mengirim Broadcast Ke ${anu.length} Chat, Waktu Selesai ${anu.length * 1.5} detik`)
                 for (let i of anu) {
                     await sleep(1500)
-                    await this.butct(i, '[ *𝐑𝐲𝐮𝐁𝐨𝐭𝐳-𝐌𝐃複 Broadcast* ]\n\n'+text, `「 *𝐑𝐲𝐮𝐁𝐨𝐭𝐳-𝐌𝐃複 Broadcast* 」 `, m.sender, fs.readFileSync('./media/bc.jpg'), 'Ok Bang', '.say Siap ;)')
+                    await this.copyNForward(i, this.cMod(i, cc, /bc|broadcast/i.test(teks) ? teks : teks + '\n\n' + readMore +  '「 *ALL GROUP BROADCAST* 」'), true).catch(_ => _)
                 }
                 m.reply(`Sukses Mengirim Broadcast Ke ${anu.length} Group`)
 }
-handler.help = ['bcgc'].map(v => v + ' <teks>')
+handler.help = ['bcgc'].map(v => v + ' <Reply media|text>')
 handler.tags = ['owner']
 handler.command = /^(broadcast|bc)(group|grup|gc)$/i
 handler.owner = true

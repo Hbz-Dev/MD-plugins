@@ -81,7 +81,7 @@ handler.command = /^(adventure|(ber)?petualang(ang)?|mulung|work)$/i
 
 handler.fail = null
 handler.register = true
-handler.level = 5
+handler.level = 1
 handler.group = true
 
 module.exports = handler

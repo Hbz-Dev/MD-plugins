@@ -44,7 +44,7 @@ const defaultMenu = {
   header: '❑ 「 *%category* 」',
   body: '➜ _%cmd_ %islimit %isPremium',
   footer: '\n',
-  after: '\nDont Spam Bot!\nRegards From Binjai ;)',
+  after: 'Dont Spam Bot!\nV2.0.0',
 }
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
@@ -137,12 +137,13 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
       exp: exp - min,
       maxexp: xp,
       totalexp: exp,
+      sender: m.sender,
       xp4levelup: max - exp,
       level, game, limit, money, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    let ob = ['esce', 'tqto', 'su', '1', 'tqto', 'su', 'esce', 'su', '2', '3', '1', '4', '3', '4', '2', '1', '2']
+    let ob = ['1' '2', '3', '1', '4', '3', '4', '2', '1', '2']
     let gb = ob[Math.floor(Math.random() * ob.length)]
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
      templateMessage: {
@@ -185,9 +186,9 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     throw e
   }
 }
-handler.help = ['menu']
+handler.help = ['menu', 'help']
 handler.tags = ['main']
-handler.command = /^(menu)$/i
+handler.command = /^(menu|help)$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false

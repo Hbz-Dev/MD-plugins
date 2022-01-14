@@ -1,9 +1,9 @@
 let { MessageType } = require('@adiwajshing/baileys-md')
 let handler = async (m, { conn, command, args, text, usedPrefix, DevMode }) => {
   try {
-    let bruh = `${usedPrefix}open <crate name> < 1 | 10 | 100 | 1000 >\n\nContoh penggunaan: *${usedPrefix}open common 10*\n\nlist crate:\n*common*\n*uncommon*\n*mythic*\n*legendary*`
+    let bruh = `${usedPrefix}open <crate name> < 1 | 10 | 100 | 1000 >\n\nContoh penggunaan: *${usedPrefix}open common 10*\n\nlist crate:\n*common*\n*uncommon*\n*mythic*\n*legendary*\n*pet*`
     let _lmao = args[0]
-    let Lmao = `Hanya support 1, 10, 100, 1000\nContoh penggunaan: *${usedPrefix}open ${args > 2 ? _lmao : pickRandom(['common', 'uncommon', 'mythic', 'legendary'])} 10*`
+    let Lmao = `Hanya support 1, 10, 100, 1000\nContoh penggunaan: *${usedPrefix}open ${args > 2 ? _lmao : pickRandom(['common', 'uncommon', 'mythic', 'legendary', 'pet'])} 10*`
     let type = (args[0] || '').toLowerCase()
     let jumlah = (args[1] || '').toLowerCase()
     switch (type) {
@@ -585,7 +585,8 @@ Anda telah membuka *Legendary crate* dan mendapatkan:${lm3 > 0 ? `\nMoney: ${lm3
             let kucing = global.db.data.users[m.sender].kucing
             let rubah = global.db.data.users[m.sender].rubah
             let kuda = global.db.data.users[m.sender].kuda
-            let _pet = `${pickRandom(['kucing', 'rubah', 'kuda'])}`.trim()
+            let anjing = global.db.data.users[m.sender].anjing
+            let _pet = `${pickRandom(['0', '0', 'kucing', 'rubah', 'kuda', 'anjing', '0', '0', '0'])}`.trim()
             if (global.db.data.users[m.sender].pet > 0) { 
                 global.db.data.users[m.sender].pet -= 1
                 if (_pet == 'kucing' && kucing > 0) {
@@ -595,7 +596,15 @@ Anda telah membuka *Legendary crate* dan mendapatkan:${lm3 > 0 ? `\nMoney: ${lm3
                 } else if (_pet == 'kucing' && kucing == 0) {
                     global.db.data.users[m.sender].kucing += 1
                     global.db.data.users[m.sender].makananpet += mknp * 1
-                    conn.reply(m.chat, `*Selamat Anda mendapatkan pet${_pet} ${mknp > 0 ? ` Dan ${mknp} Makanan Pet*` : '*'}`, m)
+                    conn.reply(m.chat, `*Selamat Anda mendapatkan pet ${_pet} ${mknp > 0 ? ` Dan ${mknp} Makanan Pet*` : '*'}`, m)
+                } else if (_pet == 'anjing' && anjing == 0) {
+                    global.db.data.users[m.sender].anjing += 1
+                    global.db.data.users[m.sender].makananpet += mknp * 1
+                    conn.reply(m.chat, `*Selamat Anda mendapatkan pet ${_pet} ${mknp > 0 ? ` Dan ${mknp} Makanan Pet*` : '*'}`, m)
+                } else if (_pet == 'anjing' && anjing > 0) {
+                    global.db.data.users[m.sender].potion += 2
+                    global.db.data.users[m.sender].makananpet += mknp * 1
+                    conn.reply(m.chat, `Anda sudah memiliki pet ${_pet}, Hadiahmu diganti dengan 2 potion ${mknp > 0 ? `Dan ${mknp} Makanan Pet` : ''}`, m)
                 } else if (_pet == 'rubah' && rubah > 0) {
                     global.db.data.users[m.sender].potion += 2
                     global.db.data.users[m.sender].makananpet += mknp * 1
