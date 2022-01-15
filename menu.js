@@ -144,7 +144,7 @@ let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
       }
     })
     if (teks == '404') {
-      return let asuuu = `
+      return asu = `
       Haii ${name} 🥀
       ${readMore}
 ╭────ꕥ 𝐑𝐲𝐮𝐁𝐨𝐭𝐳複 ꕥ────
@@ -159,7 +159,7 @@ let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
 `  
      let templatee = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                     listMessage :{
-                    title: asuuu,
+                    title: asu,
                     description: "Silahkan Pilih Menunya dibawah ini!",
                     buttonText: "CLICK HERE",
                     footerText: wm,
