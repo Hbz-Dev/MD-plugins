@@ -204,6 +204,7 @@ module.exports = {
           if (!'simi' in settings) settings.simi = false
           if (!'groupOnly' in settings) settings.groupOnly = false
           if (!'nsfw' in settings) settings.nsfw = true
+          if (!'auto' in settings) settings.auto = false
           if (!'autoread' in settings) settings.autoread = false
         } else global.db.data.settings = {
           anon: false,
@@ -211,6 +212,7 @@ module.exports = {
           simi: false,
           groupOnly: false,
           nsfw: false,
+          auto: false,
           autoread: false,
         }                
             } catch (e) {
@@ -544,7 +546,7 @@ global.dfail = (type, m, conn) => {
         unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Ryu.15*',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButton(m.chat, msg, wm, 'Baiklah', '.say Ok :3', m)
+    if (msg) return conn.sendButton(m.chat, 'Acces Denied!', msg, 'Baiklah', '.say Ok :3', m)
 }
 
 let fs = require('fs')
