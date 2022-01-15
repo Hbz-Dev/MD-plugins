@@ -28,20 +28,25 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (yt === false) throw 'semua server gagal'
   if (yt2 === false) throw 'semua server gagal'
   let { dl_link, thumb, title, filesize, filesizeF } = yt
-let anu =  `*[ YOUTUBE SEARCH ]*
-*Judul:* ${title}
-*Ukuran File Audio:* ${filesizeF}
-*Ukuran File Video:* ${yt2.filesizeF}
-*Server y2mate:* ${usedServer}
+let anu =  `
+📚 *Title:* ${title}
+🎵 *Size Audio:* ${filesizeF}
+🎬 *Size Video:* ${yt2.filesizeF}
+📹 *Duration:* ${vid.timestamp}
+📌 *Upload:* ${vid.ago}
+👨 *Author:* ${vid.author.name}
 
+Choose *Audio* or *Video* in button below
+Dont see it? Type:\n-*!yts yt_url <Audio>*\n-*!ytv yt_url <Video>*
 `
+
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
      templateMessage: {
          hydratedTemplate: {
            hydratedContentText: anu,
            locationMessage: { 
            jpegThumbnail: await (await fetch(thumb)).buffer() }, 
-           hydratedFooterText: wm,
+           hydratedFooterText: `DESKRIPSI:\n${vid.description}`,
            hydratedButtons: [{
              urlButton: {
                displayText: '🌟 Link YouTube',
@@ -59,7 +64,7 @@ let anu =  `*[ YOUTUBE SEARCH ]*
                {
              quickReplyButton: {
                displayText: '🎵 Audio',
-               id: `.ytmp3 ${vid.url}`,
+               id: `.ytmp3 ${dl_link}`,
              }
 
            }]

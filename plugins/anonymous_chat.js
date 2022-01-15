@@ -1,5 +1,3 @@
-const { MessageType } = require("@adiwajshing/baileys-md")
-
 async function handler(m, { command }) {
     if (!global.db.data.settings.anon) return m.reply('Fitur ini tidak diaktifkan Oleh owner!')
     command = command.toLowerCase()
@@ -38,7 +36,8 @@ async function handler(m, { command }) {
                         return who === this.a ? this.b : who === this.b ? this.a : ''
                     },
                 }
-                m.reply('Menunggu partner...')
+                //m.reply('Menunggu partner...')
+                this.sendButton(m.chat, 'Menunggu partner...', 'Anonymous chat by '+wm, 'Leave', '.leave', m)
             }
             break
         }

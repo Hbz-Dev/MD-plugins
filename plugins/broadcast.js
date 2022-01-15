@@ -8,7 +8,7 @@ handler.after = async function (m, { text }) {
                 m.reply(`Mengirim Broadcast Ke ${anu.length} Chat, Waktu Selesai ${anu.length * 1.5} detik`)
                 for (let i of anu) {
                     await sleep(1500)
-                    await this.copyNForward(i, this.cMod(i, cc, /bc|broadcast/i.test(teks) ? teks : teks + '\n\n' + readMore +  '「 *ALL GROUP BROADCAST* 」'), true).catch(_ => _)
+                    await this.copyNForward(i, this.cMod(i, cc, /bc|broadcast/i.test(teks) ? teks : teks + '\n' + readMore +  '「 *ALL GROUP BROADCAST* 」'), true).catch(_ => _)
                 }
                 m.reply(`Sukses Mengirim Broadcast Ke ${anu.length} Group`)
 }

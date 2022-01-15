@@ -24,7 +24,8 @@ try {
      }
    } catch (e) {
      m.reply(e)
-    }
+  }
+}
 handler.help = ['wm', 'take'].map(v => v + ' <packname|<author>')
 handler.tags = ['sticker']
 handler.command = /^(wm|take)$/i
