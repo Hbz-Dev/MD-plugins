@@ -22,8 +22,8 @@ try {
     } else {
      m.reply('Tag image/video/sticker yang ingin diberikan wm custom!!')
      }
-   } catch (e) {
-     m.reply(e)
+   } finally {
+     console.log('Done wm')
   }
 }
 handler.help = ['wm', 'take'].map(v => v + ' <packname|<author>')
