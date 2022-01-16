@@ -181,6 +181,7 @@ module.exports = {
                     if (!('delete' in chat)) chat.delete = true
                     if (!('antiLink' in chat)) chat.antiLink = false
                     if (!('viewonce' in chat)) chat.viewonce = false
+                    if (!('simi' in chat)) chat.simi = false
                     if (!('antiToxic' in chat)) chat.antiToxic = false
                 } else global.db.data.chats[m.chat] = {
                     isBanned: false,
@@ -193,6 +194,7 @@ module.exports = {
                     delete: true,
                     antiLink: false,
                     viewonce: false,
+                    simi: false,
                     antiToxic: true,
                 }
                 
@@ -201,7 +203,6 @@ module.exports = {
         if (settings) {
           if (!'anon' in settings) settings.anon = false
           if (!'antispam' in settings) settings.antispam = true
-          if (!'simi' in settings) settings.simi = false
           if (!'groupOnly' in settings) settings.groupOnly = false
           if (!'nsfw' in settings) settings.nsfw = true
           if (!'auto' in settings) settings.auto = false
@@ -209,7 +210,6 @@ module.exports = {
         } else global.db.data.settings = {
           anon: false,
           antispam: true,
-          simi: false,
           groupOnly: false,
           nsfw: false,
           auto: false,
@@ -541,12 +541,12 @@ global.dfail = (type, m, conn) => {
         group: 'Perintah ini hanya dapat digunakan di grup!',
         private: 'Perintah ini hanya dapat digunakan di Chat Pribadi!',
         admin: 'Perintah ini hanya untuk *Admin* grup!',
-        nsfw: 'Perintah ini Mengandung *18+* Harap hidupkan mode nsfw',
+        nsfw: 'Perintah ini Mengandung *18+* Harap hidupkan mode nsfw!',
         botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
-        unreg: 'Silahkan daftar untuk menggunakan fitur ini dengan cara mengetik:\n\n*#daftar nama.umur*\n\nContoh: *#daftar Ryu.15*',
+        unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama|umur\nContoh : #daftar Gilang|16',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButton(m.chat, 'Acces Denied!', msg, 'Baiklah', '.say Ok :3', m)
+    if (msg) return conn.sendButton(m.chat, '━━━ 「 *ACCES DENIED* 」━━━', msg, '# MENU #', '.menu', m)
 }
 
 let fs = require('fs')
