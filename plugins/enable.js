@@ -21,14 +21,13 @@ let handler = async (m, { conn, usedPrefix, command, args, isOwner, isAdmin, isR
       chat.welcome = isEnable
       break
 case 'simi':
-      isAll = true
       if (m.isGroup) {
         if (!(isAdmin || isOwner)) {
           global.dfail('admin', m, conn)
           throw false
         }
       }
-      setting.simi = isEnable
+      chat.simi = isEnable
       break
    case 'read':
    case 'autoread':
@@ -38,6 +37,15 @@ case 'simi':
         throw false
       }
       setting.autoread = isEnable
+      break
+   case 'auto':
+   case 'autolink':
+    isAll = true
+    if (!isOwner) {
+       global.dfail('owner', m, conn)
+       throw false
+      }
+      setting.auto = isEnable
       break
     case 'antilink':
     case 'antiurl':
@@ -102,7 +110,7 @@ case 'simi':
       break
     default:
       if (!/[01]/.test(command)) throw `
-┌〔 Daftar Opsi 〕${isOwner ? '\n├ autoread\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
+┌〔 Daftar Opsi 〕${isOwner ? '\n├ autoread\n├ autolink\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
 ├ autolevelup
 ├ antilink
 ├ simi
@@ -115,7 +123,7 @@ ${usedPrefix}off welcome
       throw false
   }
   m.reply(`
-*${type}* berhasil di *${isEnable ? 'nyala' : 'mati'}kan* ${isAll ? 'untuk bot ini' : isUser ? '' : 'untuk chat ini'}
+*${type}* berhasil di *${isEnable ? 'Nyala' : 'Mati'}kan* ${isAll ? 'Untuk Bot Ini' : isUser ? '' : 'Untuk Chat Ini'}
 `.trim())
 }
 handler.help = ['enable', 'disable'].map(v => v + ' <opsi>')
