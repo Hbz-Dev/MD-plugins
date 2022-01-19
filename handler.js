@@ -543,10 +543,10 @@ global.dfail = (type, m, conn) => {
         admin: 'Perintah ini hanya untuk *Admin* grup!',
         nsfw: 'Perintah ini Mengandung *18+* Harap hidupkan mode nsfw!',
         botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
-        unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama|umur\nContoh : #daftar Gilang|16',
+        unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Raain.16',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButton(m.chat, '━━━ 「 *ACCES DENIED* 」━━━', msg, '# MENU #', '.menu', m)
+    if (msg) return conn.sendButton(m.chat, msg, 'Process Rejected\n'+wm, 'MENU', '.help', m)
 }
 
 let fs = require('fs')
