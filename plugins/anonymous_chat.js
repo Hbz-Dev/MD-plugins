@@ -21,10 +21,10 @@ async function handler(m, { command }) {
             let gen = Math.floor(['male', 'female'] * Math.random())
             if (room) {
                 //this.sendMessage(room.a, { text: 'Menemukan partner!', mentions: [m.sender] })
-                this.sendButton(room.a, 'Menemukan partner!', `Profile Partner:\nName: ${part.name}\nAge: ${part.age}\nGender: ${gen}\nHappy Talking🌹\nMade by `+ wm, 'Next', '.next', null)
+                this.sendButton(room.a, 'Menemukan partner!', `Profile Partner:\nName: ${part.name}\nAge: ${part.age}\nGender: ${gen}\nHappy Talking🌹\nMade by ${wm}`, 'Next', '.next', null)
                 room.b = m.sender
                 room.state = 'CHATTING'
-                this.sendButton(m.chat, 'Menemukan partner!', Profile Partner:\nName: ${name}\nAge: ${age}\nGender: ${gen}\nHappy Talking🌹\nMade by `+ wm, 'Next', '.next', null)
+                this.sendButton(m.chat, 'Menemukan partner!', Profile Partner:\nName: ${name}\nAge: ${age}\nGender: ${gen}\nHappy Talking🌹\nMade by ${wm}`, 'Next', '.next', null)
             } else {
                 let id = + new Date
                 this.anonymous[id] = {
