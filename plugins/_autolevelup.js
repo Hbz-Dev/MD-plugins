@@ -5,27 +5,25 @@ let handler = m => m
 
 handler.before = async function (m) {
         let user = global.db.data.users[m.sender]
+        if (!user.autolevelup) return !0
         let users = Object.entries(global.db.data.users).map(([key, value]) => {
                 return { ...value, jid: key }
         })
         let pp = fs.readFileSync('./src/avatar_contact.png')
-        let who = m.sender
-        let discriminator = who
         let sortedLevel = users.map(toNumber('level')).sort(sort('level'))
         let usersLevel = sortedLevel.map(enumGetKey)
         let { min, xp, max } = levelling.xpRange(user.level, global.multiplier)
         try {
-        pp = await this.profilePictureUrl(who, 'image')
+        pp = await this.profilePictureUrl(m.sender, 'image')
         } catch (e) {
         } finally {
-
-                if (!user.autolevelup) return !0
+     
                 let before = user.level * 1
                 while (levelling.canLevelUp(user.level, user.exp, global.multiplier)) user.level++
 
              
                 if (before !== user.level) {
-                        await this.sendMessage(m.chat, { text: `*@${m.sender.split('@')[0]} Naik Level!*\n*${before}* ➞ *${user.level}*\n\nGunakan *.my* Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, mentions: [m.sender], jpegThumbnail: pp }, { quoted: m })
+                        await this.sendMessage(m.chat, { text: `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nGunakan *.my* Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, mentions: [m.sender], jpegThumbnail: pp }, { quoted: m })
                 }
         }
 }

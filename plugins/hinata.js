@@ -5,7 +5,7 @@ let txt = await res.text()
 
 let arr = txt.split('\n')
 let cita = arr[Math.floor(Math.random() * arr.length)]
-conn.sendButtonImg(m.chat, cita, '_*Done! Ya kak*_', 'Jangan lupa donasi','Get Again','.hinata', m)
+conn.sendButtonImg(m.chat, cita, '_*Done! Ya kak*_', 'Hinata Wangyy\nMade by '+ wm, 'Get Again','.hinata', m)
 }
 
 handler.tags = ['anime']

@@ -8,7 +8,7 @@ let handler = async(m, { conn, text }) => {
 let charaingfo = `💬 *Name:* ${name}
 💭 *Nickname:* ${alternative_names}
 🔗 *Link*: ${url}
-👤 *Character Type*: ${type}`
+👤 *Character Type*: ${type ? type : 'Default'}`
 
   conn.sendFile(m.chat, image_url, '', charaingfo, m)
 }

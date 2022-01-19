@@ -7,7 +7,7 @@ let handler = async (m, { usedPrefix }) => {
     const wasVote = absen.includes(m.sender)
     if (wasVote) throw '*Kamu sudah absen!*'
     absen.push(m.sender)
-    m.reply(`Done!`)
+    m.reply(`Done Sekarang kamu sudah absen!`)
     let d = new Date
     let date = d.toLocaleDateString('id', {
         day: 'numeric',

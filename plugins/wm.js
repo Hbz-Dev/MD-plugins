@@ -26,7 +26,7 @@ try {
      console.log('Done wm')
   }
 }
-handler.help = ['wm', 'take'].map(v => v + ' <packname|<author>')
+handler.help = ['wm', 'take'].map(v => v + ' <packname|author>')
 handler.tags = ['sticker']
 handler.command = /^(wm|take)$/i
 

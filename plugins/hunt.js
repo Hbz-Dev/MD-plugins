@@ -90,9 +90,9 @@ let handler = async (m, { conn, text }) => {
 	} else throw `Tunggu *${cd1}:${cd2}* Untuk Berburu Lagi`
 }
 
-handler.help = ['hunt']
+handler.help = ['hunt', 'berburu']
 handler.tags = ['rpg']
-handler.command = /^hunt/i
+handler.command = /^hunt|berburu/i
 handler.register = true
 handler.level = 10
 

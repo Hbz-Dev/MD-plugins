@@ -16,11 +16,11 @@ Selama ${clockString(new Date - user.afk)}
         let afkTime = user.afk
         if (!afkTime || afkTime < 0) continue
         let reason = user.afkReason || ''
-        m.reply(`
+        this.sendButton(m.chat, `
 Jangan tag dia!
 Dia sedang AFK ${reason ? 'dengan alasan ' + reason : 'tanpa alasan'}
 Selama ${clockString(new Date - afkTime)}
-`.trim())
+`.trim()), 'Tinggalkan pesan saja kak\nJangan di tag🌹', 'Tinggalkan Pesan', '.pesan', m)
     }
     return true
 }

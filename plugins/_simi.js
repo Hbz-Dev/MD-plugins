@@ -3,7 +3,7 @@ let handler = m => m
 handler.before = async (m) => {
     let chat = db.data.chats[m.chat]
     let seting = db.data.settings
-    if (seting.simi && !chat.isBanned && !m.isCommand) {
+    if (chat.simi && !chat.isBanned && !m.isCommand) {
         if (/^.*false|disable|(turn)?off|0/i.test(m.text)) return
         if (!m.text) return
         let res = await fetchJson(`https://api.simsimi.net/v2/?text=${m.text}&lc=id`)

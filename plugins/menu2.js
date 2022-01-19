@@ -186,7 +186,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     throw e
   }
 }
-handler.command = /^(id10)$/i
+handler.command = /^(help)$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false

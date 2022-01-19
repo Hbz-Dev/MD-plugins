@@ -9,7 +9,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.help = ['ytcomment <teks>']
 handler.tags = ['maker']
-handler.limit = 10
+handler.limit = 1
 
 handler.command = /^(ytcomment)$/i
 

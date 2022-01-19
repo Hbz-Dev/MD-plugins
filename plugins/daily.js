@@ -1,7 +1,7 @@
 const free = 500
 const prem = 5000
 let handler = async (m, { conn, usedPrefix, isPrems }) => {
-  if (db.data.users[m.sender].level < 1) throw `Naikkan level kamu dengar mengetikkan\n${usedPrefix}levelup`
+  if (db.data.users[m.sender].level < 1) throw `Naikkan level kamu dengan mengetikkan\n${usedPrefix}levelup`
   let time = db.data.users[m.sender].lastclaim + 86400000
   if (new Date - db.data.users[m.sender].lastclaim < 86400000) throw `Kamu sudah mengklaim klaim harian hari ini\ntunggu selama ${msToTime(time - new Date())} lagi`
   db.data.users[m.sender].exp += isPrems ? prem * db.data.users[m.sender].level : free * db.data.users[m.sender].level

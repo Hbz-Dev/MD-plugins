@@ -37,7 +37,7 @@ let anu =  `
 👨 *Author:* ${vid.author.name}
 
 Choose *Audio* or *Video* in button below
-Dont see it? Type:\n-*!yts yt_url <Audio>*\n-*!ytv yt_url <Video>*
+Dont see it? Type:\n- *!yts yt_url <Audio>*\n- *!ytv yt_url <Video>*
 `
 
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
@@ -64,7 +64,7 @@ Dont see it? Type:\n-*!yts yt_url <Audio>*\n-*!ytv yt_url <Video>*
                {
              quickReplyButton: {
                displayText: '🎵 Audio',
-               id: `.ytmp3 ${dl_link}`,
+               id: `.ytmp3 ${vid.url}`,
              }
 
            }]

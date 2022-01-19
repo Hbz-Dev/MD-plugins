@@ -1,15 +1,33 @@
-function handler(m) {
+const { MessageType } = require('@adiwajshing/baileys-md')
+const PhoneNumber = require('awesome-phonenumber')
+async function handler(m) {
+  let name = 'Lawak'
+  number = owner[0].replace(/[^0-9]/g, '')
+  let njid = number + '@s.whatsapp.net'
 
-let name = this.getName(m.sender)
-let fkon = { key: { fromMe: false, participant: `0@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
-let listOwner = new Array()
-  for (let i of owner.map(v => v.replace(/\D/g, '') + '@s.whatsapp.net')) {
-  	listOwner.push({ vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;;;;\nFN:${this.getName(i)}\nitem1.X-ABLabel:Work\nURL;Web gwejh: http://github.com/HamzzBot\nEMAIL;📧 Email: ikiondeonde.com\nORG: 👑 creator\nitem4.ADR:;;🇮🇩 Indonesia;;;;\nitem4.X-ABADR:ac\nitem4.X-ABLabel:🌍 Region\nTEL;🚫 don't spam/call;waid= ${i.split('@')[0]}:${i.split('@')[0]}\nEND:VCARD` })
-  }
-  let send = this.sendMessage(m.chat, { displayName: listOwner.length + ' kontak', contacts: listOwner }, 'contactsArrayMessage', { quoted: fkon })
-return m.reply('_*itu nomer owner,bukan bot!!*_')
+
+  let name2 = 'eaa'
+  number2 = owner[1].replace(/[^0-9]/g, '')
+  let njid2 = number2 + '@s.whatsapp.net'
+
+  this.sendMessage(m.chat, ContactsArrayMessage {
+    contacts: [
+    ContactMessage {
+      displayname: name, vcard: `
+BEGIN:VCARD
+VERSION:3.0
+N:;${name.replace(/\n/g, '\\n')};;;
+FN:${name.replace(/\n/g, '\\n')}
+TEL;type=CELL;type=VOICE;waid=${number}:${PhoneNumber('+' + number).getNumber('international')}
+EMAIL;type=INTERNET:wakabahiiro5@gmail.com'\n'
+END:VCARD
+`.trim()
+    }]
+  }, { quoted: m })
 }
+handler.help = ['developer']
+handler.tags = ['info']
 
-handler.command = /^(nowner)$/i
+handler.command = /^(dev|pembuat)$/i
 
 module.exports = handler

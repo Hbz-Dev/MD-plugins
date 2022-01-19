@@ -16,12 +16,15 @@ async function handler(m, { command }) {
         case 'start': {
             if (Object.values(this.anonymous).find(room => room.check(m.sender))) throw 'Kamu masih berada di dalam anonymous chat'
             let room = Object.values(this.anonymous).find(room => room.state === 'WAITING' && !room.check(m.sender))
+            let { name, age } = global.db.data.users[room.a]
+            let part = global.db.data.users[m.sender]
+            let gen = Math.floor(['male', 'female'] * Math.random())
             if (room) {
                 //this.sendMessage(room.a, { text: 'Menemukan partner!', mentions: [m.sender] })
-                this.sendButton(room.a, 'Menemukan partner!', 'Anonymous chat By '+wm, 'Next', '.next', null)
+                this.sendButton(room.a, 'Menemukan partner!', `Profile Partner:\nName: ${part.name}\nAge: ${part.age}\nGender: ${gen}\nHappy Talking🌹\nMade by `+ wm, 'Next', '.next', null)
                 room.b = m.sender
                 room.state = 'CHATTING'
-                m.reply('Menemukan partner!')
+                this.sendButton(m.chat, 'Menemukan partner!', Profile Partner:\nName: ${name}\nAge: ${age}\nGender: ${gen}\nHappy Talking🌹\nMade by `+ wm, 'Next', '.next', null)
             } else {
                 let id = + new Date
                 this.anonymous[id] = {
@@ -48,5 +51,6 @@ handler.tags = 'anonymous'
 
 handler.command = ['start', 'leave', 'next']
 handler.private = true
+handler.register = 1
 
 module.exports = handler

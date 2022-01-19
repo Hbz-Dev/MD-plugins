@@ -18,7 +18,7 @@ _${v.videoCount} video_
 _${v.url}_
 `.trim()
     }
-  }).filter(v => v).join('\n')
+  }).filter(v => v).join('\n\n')
   m.reply(teks)
 }
 handler.help = ['ytsearch <pencarian>']
