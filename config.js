@@ -28,7 +28,7 @@ global.APIKeys = { // APIKey Here
 
 // Sticker WM
 global.packname = ''
-global.author = 'Red is Blue 複ツ 🥀'
+global.author = 'Red is Blue 複ツ 🐞\nBlue is Red 複ツ 🦋'
 
 global.wm = '© 𝐑𝐲𝐮𝐁𝐨𝐭𝐳複'
 global.media = 'https://telegra.ph/file/5d45a3d1e12726d98c5e4.jpg'
