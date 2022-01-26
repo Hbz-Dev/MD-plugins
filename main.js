@@ -71,7 +71,7 @@ global.isInit = !fs.existsSync(authFile)
 const { state, saveState } = useSingleFileAuthState(global.authFile)
 
 const connectionOptions = {
-  printQRInTerminal: false,
+  printQRInTerminal: true,
   auth: state,
   browser: ['reska MD','safari','1.0.0'],
   logger: P({ level: 'fatal' })

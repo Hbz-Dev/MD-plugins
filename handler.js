@@ -87,6 +87,7 @@ module.exports = {
                     if (!isNumber(user.fishingroddurability)) user.fishingroddurability = 0
 
                     if (!isNumber(user.lastclaim)) user.lastclaim = 0
+                    if (!isNumber(user.lastdaily)) user.lastdaily = 0
                     if (!isNumber(user.lastexp)) user.lastexp = 0
                     if (!isNumber(user.lastadventure)) user.lastadventure = 0
                     if (!isNumber(user.lastfishing)) user.lastfishing = 0
@@ -157,6 +158,7 @@ module.exports = {
                     fishingroddurability: 0,
 
                     lastclaim: 0,
+                    lastdaily: 0,
                     lastexp: 0,
                     lastadventure: 0,
                     lastfishing: 0,
@@ -204,7 +206,7 @@ module.exports = {
           if (!'anon' in settings) settings.anon = false
           if (!'antispam' in settings) settings.antispam = true
           if (!'groupOnly' in settings) settings.groupOnly = false
-          if (!'nsfw' in settings) settings.nsfw = true
+          if (!'nsfw' in settings) settings.nsfw = false
           if (!'auto' in settings) settings.auto = false
           if (!'autoread' in settings) settings.autoread = false
         } else global.db.data.settings = {
@@ -366,7 +368,7 @@ module.exports = {
                     if (xp > 200) m.reply('Ngecit -_-') // Hehehe
                     else m.exp += xp
                     if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
-                        this.sendButton(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}buy*\nAtau Jadilah Premium Untuk Unlimited *Limit*\nMau premium? ketik *${usedPrefix}price* Untuk melihat harga`, wm, 'Buy Limit', '.shop buy limit 1', m)
+                        this.sendButton(m.chat, `Limit anda habis, silahkan beli melalui *${usedPrefix}shop buy limit*\nAtau Jadilah Premium Untuk Unlimited *Limit*\nMau premium? ketik *${usedPrefix}price* Untuk melihat harga`, wm, 'Buy Limit', '.shop buy limit 1', m)
                         continue // Limit habis
                     }
                     if (!isPrems && plugin.game && global.db.data.users[m.sender].game < plugin.game * 1) {
@@ -490,7 +492,7 @@ module.exports = {
                             pp = await this.profilePictureUrl(user, 'image')
                         } catch (e) {
                         } finally {
-                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', this.getName(id)).replace('@desc', groupMetadata.desc.toString()) :
+                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', groupMetadata.subject).replace('@desc', groupMetadata.desc.toString()) :
                                 (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
                             this.sendFile(id, pp, 'pp.jpg', text, null, false, {
                                 contextInfo: {
@@ -543,7 +545,7 @@ global.dfail = (type, m, conn) => {
         admin: 'Perintah ini hanya untuk *Admin* grup!',
         nsfw: 'Perintah ini Mengandung *18+* Harap hidupkan mode nsfw!',
         botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
-        unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Raain.16',
+        unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Ryu.16',
         restrict: 'Fitur ini di *disable*!'
     }[type]
     if (msg) return conn.sendButton(m.chat, msg, 'Process Rejected\n'+wm, 'MENU', '.help', m)
