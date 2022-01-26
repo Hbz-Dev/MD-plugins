@@ -18,10 +18,10 @@ Timeout *${(timeout / 1000).toFixed(2)} detik*
 Bonus: ${poin} XP
 `.trim()
     conn.tebakkata[id] = [
-        await conn.reply(m.chat, caption, m),
+        await conn.sendButton(m.chat, caption, `Tebakkata\nMade by ${wm}`, 'Bantuan', '.say Tidak ada bantuan yg tersedia!', m),
         json, poin,
         setTimeout(() => {
-            if (conn.tebakkata[id]) conn.reply(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban.toLowerCase()}*`, conn.tebakkata[id][0])
+            if (conn.tebakkata[id]) conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban.toLowerCase()}*`, 'Play again? [limit]', 'Tebakkata', '.tebakkata', conn.tebakkata[id][0])
             delete conn.tebakkata[id]
         }, timeout)
     ]

@@ -14,6 +14,7 @@ const Smythic = 500
 const Blegendary = 7500 
 const Slegendary = 3000
 const Bfish = 5000
+const Baxe = 5000
 const Bsampah = 10
 const Ssampah = 2
 let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
@@ -35,7 +36,8 @@ Diamond:     ${Bdiamond}
 Common:     ${Bcommon}
 Uncommon:  ${Buncommon}
 Mythic:     ${Bmythic}
-fishingrod:  ${Bfish}
+Fishingrod:  ${Bfish}
+Pickaxe:    ${Baxe}
 Legendary: ${Blegendary}
 Sampah:     ${Bsampah}
 Armor:       ${armor}
@@ -90,6 +92,17 @@ Sampah:     ${Ssampah}\n\n
                             } else conn.reply(m.chat, `Uang anda tidak cukup untuk membeli 1 Fishingrod dengan harga ${Bfish * 1} money\n\nAmbil gaji dengan cara ketik: *${usedPrefix}gaji*\nAtau ambil bonus mingguan & bulanan dengan cara *#weekly* dan *#monthly*`, m)
                         
                         break 
+                    case 'pickaxe':
+                            if (count > 1) return conn.reply(m.chat, 'Hanya Dapat membeli 1 Pickaxe!', m)
+                            if (global.db.data.users[m.sender].pickaxe == 1) return conn.reply(m.chat, 'Anda Sudah Memiliki pickaxe Di inventory anda!\nCek Dengan cara *#inv*', m)
+                            if (global.db.data.users[m.sender].money >= Baxe * 1) {
+                                global.db.data.users[m.sender].pickaxe += 1
+                                global.db.data.users[m.sender].pickaxedurability = 100
+                                global.db.data.users[m.sender].money -= Baxe * 1
+                                conn.reply(m.chat, `Succes membeli 1 Pickaxe dengan harga ${Baxe * 1} money`, m)
+                            } else conn.reply(m.chat, `Uang anda tidak cukup untuk membeli 1 Pickaxe dengan harga ${Baxe * 1} money\n\nAmbil gaji dengan cara ketik: *${usedPrefix}gaji*\nAtau ambil bonus mingguan & bulanan dengan cara *#weekly* dan *#monthly*`, m)
+                        
+                        break    
                     case 'common':
                             if (global.db.data.users[m.sender].money >= Bcommon * count) {
                                 global.db.data.users[m.sender].common += count * 1
@@ -261,6 +274,17 @@ Sampah:     ${Ssampah}\n\n
                                 global.db.data.users[m.sender].money -= Bfish * 1
                                 conn.reply(m.chat, `Succes membeli 1 Fishingrod dengan harga ${Bfish * 1} money`, m)
                             } else conn.reply(m.chat, `Uang anda tidak cukup untuk membeli 1 Fishingrod dengan harga ${Bfish * 1} money\n\nAmbil gaji dengan cara ketik: *${usedPrefix}gaji*\nAtau ambil bonus mingguan & bulanan dengan cara *#weekly* dan *#monthly*`, m)
+                        
+                        break 
+                     case 'pickaxe':
+                            if (count > 1) return conn.reply(m.chat, 'Hanya Dapat membeli 1 Pickaxe!', m)
+                            if (global.db.data.users[m.sender].pickaxe == 1) return conn.reply(m.chat, 'Anda Sudah Memiliki pickaxe Di inventory anda!\nCek Dengan cara *#inv*', m)
+                            if (global.db.data.users[m.sender].money >= Baxe * 1) {
+                                global.db.data.users[m.sender].pickaxe += 1
+                                global.db.data.users[m.sender].pickaxedurability = 100
+                                global.db.data.users[m.sender].money -= Baxe * 1
+                                conn.reply(m.chat, `Succes membeli 1 Pickaxe dengan harga ${Baxe * 1} money`, m)
+                            } else conn.reply(m.chat, `Uang anda tidak cukup untuk membeli 1 Pickaxe dengan harga ${Baxe * 1} money\n\nAmbil gaji dengan cara ketik: *${usedPrefix}gaji*\nAtau ambil bonus mingguan & bulanan dengan cara *#weekly* dan *#monthly*`, m)
                         
                         break 
                 case 'common':

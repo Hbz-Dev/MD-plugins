@@ -26,25 +26,20 @@ let tags = {
   'info': 'ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ',
 }
 const defaultMenu = {
-  before: `*_HAI %name 🥀_*
+  before: `*_HAI %name ☬_*
 
-🕛 Time: %time
-📅 Date: %date
+Time: %time
+Date: %date
 
-❑ 「 INFO USER 」
-• Name: %name
-• Limit: %limit
-• Limit Game: %game
-• Money: %money
-• Level: %level (%exp / %maxexp)
-• Totalexp: %totalexp
-• Role: %role
+Ⓟ = Premium
+Ⓛ = Limit
 
+⍟ WhatsApp Bot Multi-Device
 %readmore`.trimStart(),
-  header: '❑ 「 *%category* 」',
-  body: '➜ _%cmd_ %islimit %isPremium',
+  header: '⏍ 「 *%category* 」 ⏍',
+  body: '⎇ %cmd %islimit %isPremium',
   footer: '\n',
-  after: 'Dont Spam Bot!\nV2.0.0',
+  after: 'WhatsApp Bot Multi-Device\nDont spam bot!',
 }
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
@@ -119,8 +114,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
           ...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
             return menu.help.map(help => {
               return body.replace(/%cmd/g, menu.prefix ? help : '%p' + help)
-                .replace(/%islimit/g, menu.limit ? '(𝙻𝚒𝚖𝚒𝚝)' : '')
-                .replace(/%isPremium/g, menu.premium ? '(ᴘʀᴇᴍɪᴜᴍ)' : '')
+                .replace(/%islimit/g, menu.limit ? '(Ⓛ)' : '')
+                .replace(/%isPremium/g, menu.premium ? '(Ⓟ)' : '')
                 .trim()
             }).join('\n')
           }),

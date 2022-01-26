@@ -12,7 +12,7 @@ handler.after = async function (m, { text }) {
                 }
                 m.reply(`Sukses Mengirim Broadcast Ke ${anu.length} Group`)
 }
-handler.help = ['bcgc2'].map(v => v + ' <teks>')
+handler.help = ['bcgc'].map(v => v + ' <teks>')
 handler.tags = ['owner']
 handler.command = /^(broadcast|bc)(group|grup|gc)$/i
 handler.owner = true

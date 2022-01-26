@@ -23,7 +23,7 @@ handler.before = async function (m) {
 
              
                 if (before !== user.level) {
-                        await this.sendMessage(m.chat, { text: `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nGunakan *.my* Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, mentions: [m.sender], jpegThumbnail: pp }, { quoted: m })
+                        await this.reply(m.chat, `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nGunakan *.my* Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, m, { mentions: [m.sender], jpegThumbnail: pp })
                 }
         }
 }

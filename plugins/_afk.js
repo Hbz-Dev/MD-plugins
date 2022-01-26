@@ -1,5 +1,5 @@
 let handler = m => m
-handler.before = m => {
+handler.before = async function (m, { conn }) {
     let user = global.db.data.users[m.sender]
     if (user.afk > -1) {
         m.reply(`
@@ -16,11 +16,11 @@ Selama ${clockString(new Date - user.afk)}
         let afkTime = user.afk
         if (!afkTime || afkTime < 0) continue
         let reason = user.afkReason || ''
-        this.sendButton(m.chat, `
-Jangan tag dia!
-Dia sedang AFK ${reason ? 'dengan alasan ' + reason : 'tanpa alasan'}
+        conn.sendButton(m.chat, `
+Jangan tag Dia!\n
+Dia Sedang AFK ${reason ? 'Dengan alasan: ' + reason : 'Tanpa Alasan'}
 Selama ${clockString(new Date - afkTime)}
-`.trim(), 'Tinggalkan pesan saja kak\nJangan di tag🌹', 'Tinggalkan Pesan', '.pesan', m)
+`.trim(), 'Tinggalkan pesan saja kak\nJangan di tag🌹', 'Tinggalkan pesan', `.pesan ${jid}`, m)
     }
     return true
 }

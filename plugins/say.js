@@ -1,7 +1,12 @@
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) throw `uhm. teksnya mana?\n\ncontoh:\n${usedPrefix + command} halo`
-    conn.reply(m.chat, text, m)
+let handler = async (m, { conn, text }) => {
+  if (!text) return `Uhm.. Textnya mana?\nContoh .say ${wm}`
+  m.reply(text, false, {
+    contextInfo: {
+      mentionedJid: conn.parseMention(text)
+    }
+  })
 }
-handler.command = /^(say)$/i
+
+handler.command = /^say$/i
 
 module.exports = handler

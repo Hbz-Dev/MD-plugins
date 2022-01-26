@@ -15,7 +15,7 @@ let mangaingfo = `*Title:* ${title}
 }
 handler.help = ['manga <judul>']
 handler.tags = ['anime']
-handler.limit = 5
+handler.limit = 1
 handler.command = /^(manga)$/i
 //udah di maapin kan?
 module.exports = handler

@@ -10,6 +10,7 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
             let rubah = global.db.data.users[m.sender].rubah
             let kuda = global.db.data.users[m.sender].kuda
             let kucing = global.db.data.users[m.sender].kucing
+            let anjing = global.db.data.users[m.sender].anjing
             let ____health = `${Math.floor(Math.random() * 101)}`.trim()
             let ___health = (____health * 1)
             let kucingnya = (kucing == 0? 0 : '' || kucing == 1 ? 5 : '' || kucing == 2 ? 10 : '' || kucing == 3 ? 15 : '' || kucing == 4 ? 21 : ''  || kucing == 5 ? 30 : '')
@@ -17,7 +18,7 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
             let __health = (___health > 60 ? ___health - kucingnya - armornya : ___health)
             let healt = (kucing == 0 && armor == 0 ? pickRandom(['100', '99', '98', '97', '96', '95', '94', '93', '92', '91', '90']) : kucing > 0 && armor > 0 ? __health : ___health)
             let exp = (Math.floor(Math.random() * 400) + (kuda * 70))
-            let uang = `${Math.floor(Math.random() * 400)}`.trim() 
+            let uang = (Math.floor(Math.random() * 400) + (anjing * 500))
             let _potion = `${Math.floor(Math.random() * 2)}`.trim()
             let potion = (_potion * 1)
             let _diamond = (rubah == 0 ? pickRandom(['0', '1', '0', '1', '0', '1', '0']) : '' || rubah == 1 ? pickRandom(['0', '1', '0', '1']) : '' || rubah == 2 ? pickRandom(['0', '1', '0', '1', '2']) : '' || rubah == 3 ? pickRandom(['0', '1', '0', '2', '2', '0']) : '' || rubah == 4 ? pickRandom(['0', '1', '1', '2', '1', '1', '0']) : '' || rubah == 5 ? pickRandom(['0', '0', '1', '2', '2', '1', '1', '0']) : '' )
@@ -30,6 +31,8 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
             let mythic = (_mythic * 1)
             let _rod = `${pickRandom(['1', '0', '0', '1'])}`
             let rod = (_rod * 1)
+            let _axe = `${pickRandom(['1', '0', '0', '1'])}`
+            let axe = (_axe * 1)
             let _legendary = `${pickRandom(['1', '0', '0', '0'])}`
             let sampah = `${Math.floor(Math.random() * 300)}`.trim()
             let legendary = (_legendary * 1)
@@ -40,10 +43,15 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah berpetualang sampai ${pickRan
 *sampah:* ${sampah}${potion == 0 ? '' : '\n*Potion:* ' + potion + ''}${diamond == 0 ? '' : '\n*diamond:* ' + diamond + ''}${common == 0 ? '' : '\n*common crate:* ' + common + ''}${uncommon == 0 ? '' : '\n*uncommon crate:* ' + uncommon + ''}
 `.trim()
             conn.reply(m.chat, str, m)
-            if (rod > 0 && global.db.data.users[m.sender].fishingrod != 1) {
+            if (rod > 0 && global.db.data.users[m.sender].fishingrod !== 1) {
                global.db.data.users[m.sender].fishingrod += rod
                global.db.data.users[m.sender].fishingroddurability = 100
                conn.reply(m.chat, '*Selamat anda mendapatkan item Epic yaitu*\n' + rod + ' Fishingrod', m)
+            }
+           if (axe > 0 && global.db.data.users[m.sender].pickaxe !== 1) {
+               global.db.data.users[m.sender].pickaxe += rod
+               global.db.data.users[m.sender].pickaxedurability = 100
+               conn.reply(m.chat, '*Selamat anda mendapatkan item Epic yaitu*\n' + axe + ' Pickaxe', m)
             }
             if (mythic > 0) {
                    global.db.data.users[m.sender].mythic += mythic * 1
@@ -62,8 +70,8 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah berpetualang sampai ${pickRan
             global.db.data.users[m.sender].uncommon += uncommon * 1
             global.db.data.users[m.sender].sampah += sampah * 1
             global.db.data.users[m.sender].lastadventure = new Date * 1
-            } else conn.reply(m.chat, `Anda sudah berpetualang dan kelelahan, silahkan coba 🕛*${timers}* lagi`, m)
-        } else conn.reply(m.chat, 'Minimal 80 health untuk bisa berpetualang, beli nyawa dulu dengan ketik *' + usedPrefix + 'shop buy potion <jumlah>*\ndan ketik *' + usedPrefix + 'use potion <jumlah>*\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*', m)
+            } else conn.reply(m.chat, `Anda sudah berpetualang dan kelelahan, silahkan coba\n🕛 *${timers}* lagi`, m)
+        } else conn.reply(m.chat, 'Minimal 80 health untuk bisa berpetualang, pulihkan nyawa dulu dengan ketik *' + usedPrefix + 'heal*\natau ketik *' + usedPrefix + 'use potion <jumlah>*\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*', m)
     } catch (e) {
         console.log(e)
         conn.reply(m.chat, 'Error', m)

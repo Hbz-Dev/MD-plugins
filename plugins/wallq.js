@@ -10,7 +10,7 @@ let handler = async (m, { conn, text }) => {
   if (!res.ok) throw eror
   let json = await res.json()
   let img = json.wallpapers[Math.floor(Math.random() * json.wallpapers.length)]
-  await conn.sendFile(m.chat, img.url_image, 'wallpaper', '', m, 0, { thumbnail: Buffer.alloc(0) })
+  await conn.sendFile(m.chat, img.url_image, 'wallpaper.jpg', img.url_image, m, false, { ...Buffer.alloc(0) })
 }
 handler.help = ['wallpaperq <pencarian>']
 handler.tags = ['internet']

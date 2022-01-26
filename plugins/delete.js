@@ -1,8 +1,12 @@
-let handler = function (m) {
+let handler = function (m, { isOwner }) {
   if (!m.quoted) throw false
+ if (!isOwner) {
  let { chat, fromMe, id, isBaileys } = m.quoted
  if (!isBaileys) throw false
  conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: true, id: m.quoted.id, participant: m.quoted.sender } })
+ } else {
+   return m.quoted.delete()
+ }
 }
 handler.help = ['delete']
 handler.tags = ['main']

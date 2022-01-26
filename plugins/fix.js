@@ -15,7 +15,7 @@ let handler  = async (m, { conn, text }) => {
       users[jid].health = 0
       total+=1
     }
-    if (users[jid].health > 101){
+    if (users[jid].health > 100){
       users[jid].health = 100
       total+=1
     }

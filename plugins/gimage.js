@@ -15,9 +15,9 @@ ${text}
 ➸ *height*: ${height}
 `.trim(), m)
 }
-handler.help = ['image <query>']
+handler.help = ['gimage <query>']
 handler.tags = ['internet']
-handler.command = /^(gimage|image)$/i
+handler.command = /^(gimage)$/i
 
 module.exports = handler
 

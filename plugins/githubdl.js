@@ -6,18 +6,18 @@ try {
 let url = `https://github.com/${args[0]}/${args[1]}/archive/refs/heads/main.zip`
 //ByRizkyAdi
 m.reply(`waiting for compress to zip`)
-conn.sendFile(m.chat, url, 'repo.zip', null, m)
+conn.sendFile(m.chat, url, 'repo.zip', '', m)
 } catch {
 let url2 = `https://github.com/${args[0]}/${args[1]}/archive/refs/heads/master.zip`
 //For master branch
 m.reply(`waiting for compress to zip`)
-conn.sendFile(m.chat, url2, 'repo2.zip', null, m)
+conn.sendFile(m.chat, url2, 'repo2.zip', '', m)
  }
 }
 handler.help = ['githubdl']
 handler.tags = ['github']
 handler.command = /githubdl/i
 
-handler.limit = 10
+handler.limit = 1
 
 module.exports = handler
