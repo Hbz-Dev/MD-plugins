@@ -517,16 +517,16 @@ module.exports = {
         }
     },
     async delete({ remoteJid, fromMe, id, participant }) {
-        if (!fromMe) return
+        if (fromMe) return
         let chats = Object.entries(conn.chats).find(([user, data]) => data.messages && data.messages[id])
         if (!chats) return
         let msg = JSON.parse(chats[1].messages[id])
         let chat = global.db.data.chats[msg.key.remoteJid] || {}
-        if (chat.delete) return
+        if (!chat.delete) return
         await this.reply(msg.key.remoteJid, `
 Terdeteksi @${participant.split`@`[0]} telah menghapus pesan
 Untuk mematikan fitur ini, ketik
-*.enable delete*
+*.off delete*
 `.trim(), msg, {
             mentions: [participant]
         })
@@ -548,7 +548,7 @@ global.dfail = (type, m, conn) => {
         unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Ryu.16',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButton(m.chat, msg, 'Process Rejected\n'+wm, 'MENU', '.help', m)
+    if (msg) return conn.sendHydrate(m.chat, msg, 'Process Rejected\n'+wm, '🌟 RPG BOT 🌟', '\nBot Ini memiliki fitur game RPG', '👑 MULTI-DEVICE 👑', '\nBot Ini memakai lib Multi-device', 'MENU', '.help', m)
 }
 
 let fs = require('fs')
