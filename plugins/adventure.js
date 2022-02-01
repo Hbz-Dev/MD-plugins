@@ -42,14 +42,14 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah berpetualang sampai ${pickRan
 *uang:* ${uang}
 *sampah:* ${sampah}${potion == 0 ? '' : '\n*Potion:* ' + potion + ''}${diamond == 0 ? '' : '\n*diamond:* ' + diamond + ''}${common == 0 ? '' : '\n*common crate:* ' + common + ''}${uncommon == 0 ? '' : '\n*uncommon crate:* ' + uncommon + ''}
 `.trim()
-            conn.reply(m.chat, str, m)
+            await conn.reply(m.chat, str, m)
             if (rod > 0 && global.db.data.users[m.sender].fishingrod !== 1) {
                global.db.data.users[m.sender].fishingrod += rod
                global.db.data.users[m.sender].fishingroddurability = 100
                conn.reply(m.chat, '*Selamat anda mendapatkan item Epic yaitu*\n' + rod + ' Fishingrod', m)
             }
            if (axe > 0 && global.db.data.users[m.sender].pickaxe !== 1) {
-               global.db.data.users[m.sender].pickaxe += rod
+               global.db.data.users[m.sender].pickaxe += axe
                global.db.data.users[m.sender].pickaxedurability = 100
                conn.reply(m.chat, '*Selamat anda mendapatkan item Epic yaitu*\n' + axe + ' Pickaxe', m)
             }

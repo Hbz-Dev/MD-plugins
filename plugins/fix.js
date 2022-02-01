@@ -11,12 +11,12 @@ let handler  = async (m, { conn, text }) => {
       users[jid].money = 0
       total+=1
     }
-    if (users[jid].health < 0){
-      users[jid].health = 0
+    if (users[jid].healt < 0){
+      users[jid].healt = 0
       total+=1
     }
-    if (users[jid].health > 100){
-      users[jid].health = 100
+    if (users[jid].healt > 100){
+      users[jid].healt = 100
       total+=1
     }
     users[jid].money = Math.floor(users[jid].money)

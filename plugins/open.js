@@ -580,13 +580,14 @@ Anda telah membuka *Legendary crate* dan mendapatkan:${lm3 > 0 ? `\nMoney: ${lm3
             }
             break
         case 'pet':
+            if (jumlah) return conn.reply(m.chat, 'Pet crate hanya bisa dibuka 1x dan tidak bisa di stack!\nCoba gunakan: *#open pet* saja!', m)
             let _mknp = pickRandom([1, 2, 1, 5, 3, 2, 1, 2, 4, 1, 3, 5, 2, 4, 3])
             let mknp = (_mknp * 1)
             let kucing = global.db.data.users[m.sender].kucing
             let rubah = global.db.data.users[m.sender].rubah
             let kuda = global.db.data.users[m.sender].kuda
             let anjing = global.db.data.users[m.sender].anjing
-            let _pet = `${pickRandom(['0', '0', 'kucing', 'rubah', 'kuda', 'anjing', '0', '0', '0'])}`.trim()
+            let _pet = `${pickRandom(['0', '0', 'kucing', 'rubah', 'kuda', 'anjing', '0', '0', '0', '0'])}`.trim()
             if (global.db.data.users[m.sender].pet > 0) { 
                 global.db.data.users[m.sender].pet -= 1
                 if (_pet == 'kucing' && kucing > 0) {

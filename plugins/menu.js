@@ -26,10 +26,7 @@ let tags = {
   'info': 'ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ',
 }
 const defaultMenu = {
-  before: `*_HAI %name ☬_*
-
-Time: %time
-Date: %date
+  before: `*HAI %name ☬*
 
 Ⓟ = Premium
 Ⓛ = Limit
@@ -150,7 +147,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            hydratedButtons: [{
              urlButton: {
                displayText: '𝙶𝚒𝚝𝚑𝚞𝚋',
-               url: `Github Owner ${conn.user.name}`
+               url: `Github`
              }
 
            },
@@ -183,7 +180,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 }
 handler.help = ['menu', 'help']
 handler.tags = ['main']
-handler.command = /^(menu)$/i
+handler.command = /^(menu|help)$/i
 handler.owner = false
 handler.mods = false
 handler.premium = false

@@ -37,7 +37,7 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
 ⚜️Xp: ${exp}
 
 Berkurang -${dmg} Durability
-Tersisa ${player.pickaxedurability}/{100}
+Tersisa ${player.pickaxedurability}/100
 `.trim()
             await conn.reply(m.chat, str, m)
             if (diamond > 0) {

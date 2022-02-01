@@ -7,7 +7,7 @@ async function handler(m, { command }) {
         case 'leave': {
             let room = Object.values(this.anonymous).find(room => room.check(m.sender))
             if (!room) throw 'Kamu tidak sedang berada di anonymous chat'
-            m.reply('Ok')
+            m.reply('Baiklah Kamu Telah menghentikan percakapannya!')
             let other = room.other(m.sender)
             if (other) this.sendButton(other, 'Partner meninggalkan chat...', 'Anonymous chat By '+wm, 'Find Partner', '.start', null)
             delete this.anonymous[room.id]
@@ -19,11 +19,12 @@ async function handler(m, { command }) {
             if (room) {
             let { name, age } = global.db.data.users[room.a]
             let part = global.db.data.users[m.sender]
-            let gen = Math.floor(['Male', 'Female'] * Math.random())
-                this.sendButton(room.a, 'Menemukan partner!', `Profile Partner:\nName: ${part.name}\nAge: ${part.age}\nGender: ${gen}\nHappy Talking🌹\nMade by ${wm}`, 'Next', '.next', null)
+            let _gen = ['Male', 'Female', 'Unknown']
+            let gen = _gen[Math.floor([_gen.length * Math.random())]
+                this.send2Button(room.a, 'Menemukan partner!', `Profile Partner:\nName: ${part.name}\nAge: ${part.age}\nGender: ${gen}\nHappy Talking🌹\nMade by ${wm}`, 'Next', '.next', 'Leave', '.leave', null)
                 room.b = m.sender
                 room.state = 'CHATTING'
-                this.sendButton(m.chat, 'Menemukan partner!', `Profile Partner:\nName: ${name}\nAge: ${age}\nGender: ${gen}\nHappy Talking🌹\nMade by ${wm}`, 'Next', '.next', null)
+                this.send2Button(m.chat, 'Menemukan partner!', `Profile Partner:\nName: ${name}\nAge: ${age}\nGender: ${gen}\nHappy Talking🌹\nMade by ${wm}`, 'Next', '.next', 'Leave', '.leave', null)
             } else {
                 let id = + new Date
                 this.anonymous[id] = {

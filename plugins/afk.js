@@ -8,7 +8,7 @@ _${conn.getName(m.sender)}_ Sekarang Afk\n*${text ? 'Dengan Alasan: ' + text : '
 `)
 } else if (command == "pesan") {
  if (!text) return
- await conn.reply(text, `_@${m.sender.split('@')[0]} Mencarimu ketika kamu sedang afk!_\n\n*Group:* ${m.isGroup ? groupMetadata.subject : 'Tidak Diketahui'}`, null, { mentions: [m.sender] })
+ await conn.reply(text, `*@${m.sender.split('@')[0]}* Mencarimu ketika kamu sedang afk!\n\n*Group:* ${m.isGroup ? groupMetadata.subject : 'Tidak Diketahui'}`, null, { mentions: [m.sender] })
  m.reply('_Sukses meninggalkan pesan kepada user_')
  }
 }
