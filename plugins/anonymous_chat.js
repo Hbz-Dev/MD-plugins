@@ -20,7 +20,7 @@ async function handler(m, { command }) {
             let { name, age } = global.db.data.users[room.a]
             let part = global.db.data.users[m.sender]
             let _gen = ['Male', 'Female', 'Unknown']
-            let gen = _gen[Math.floor([_gen.length * Math.random())]
+            let gen = _gen[Math.floor(_gen.length * Math.random())]
                 this.send2Button(room.a, 'Menemukan partner!', `Profile Partner:\nName: ${part.name}\nAge: ${part.age}\nGender: ${gen}\nHappy Talking🌹\nMade by ${wm}`, 'Next', '.next', 'Leave', '.leave', null)
                 room.b = m.sender
                 room.state = 'CHATTING'
