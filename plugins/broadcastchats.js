@@ -1,5 +1,5 @@
 let handler = async (m, { conn, text }) => {
-  let chats = Object.entries(conn.chats).filter(([jid, chat]) => !jid.endsWith('@g.us') && chat.isChats).map(v => v[0])
+  let chats = Object.entries(conn.chats).filter(([jid, chat]) => !jid.endsWith('@g.us')).map(v => v[0])
   let cc = conn.serializeM(text ? m : m.quoted ? await m.getQuotedObj() : false || m)
   let teks = text ? text : cc.text
   await conn.reply(m.chat, `_Mengirim pesan broadcast ke ${chats.length} chat_`, m)
