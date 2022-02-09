@@ -1,25 +1,31 @@
 const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
 let fs = require('fs')
+let fetch = require('node-fetch')
 let handler = async (m) => {
     let who
     if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
     else who = m.sender
     let user = global.db.data.users[who]
-let anu = `╭──❑ 「 PROFILE 」 ❑───
-│ ✇ Name: ${user.name}
-│ ✇ Limit: ${user.limit}
-│ ✇ Limit Game: ${user.game}
-│ ✇ Money: ${user.money}
-│ ✇ Exp: ${user.exp}
-│ ✇ Level: ${user.level}
-│ ✇ Role: ${user.role}
-╰❑`
+    let _pp = conn.profilePictureUrl(who)
+    let pp = _pp ? await (await fetch(_pp)).buffer() : fs.readFileSync('./media/4.jpg')
+let anu = `
+╭◈ *「 PROFILE 」*
+├─ 📇 *Name* : ${user.name}
+├─ 🆔 *Nomor* : ${m.sender.split('@')[0]}
+├─ 🎨 *Age* : ${user.age + ''}
+├─ 📍 *Role* : ${user.role}
+├─ 🎫 *Limit* : ${user.limit}
+├─ 🎟 ️ *Limit Game* : ${user.game}
+├─ 💹 *Money* : ${user.money}
+├─ 📊 *Level* : ${user.level}
+╰─ ✨ *Exp* : ${user.exp}
+`
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
      templateMessage: {
          hydratedTemplate: {
            hydratedContentText: anu,
            locationMessage: { 
-           jpegThumbnail: fs.readFileSync('./media/bank.jpg') }, 
+           jpegThumbnail: pp, 
            hydratedFooterText: wm,
            hydratedButtons: [{
              urlButton: {
@@ -47,6 +53,7 @@ let anu = `╭──❑ 「 PROFILE 」 ❑───
 }
 handler.help = ['my', 'me', 'profile']
 handler.tags = ['xp']
+handler.register = true
 handler.command = /^(my|me|profile)$/i
 
 module.exports = handler

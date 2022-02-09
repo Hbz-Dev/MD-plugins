@@ -47,6 +47,19 @@ case 'simi':
       }
       setting.auto = isEnable
       break
+    case 'delete':
+    case 'antidelete':
+    if (!m.isGroup) {
+     if (!isOwner) {
+        global.dfail('group', m, conn)
+        throw false
+       }
+      } else if (!(isAdmin || isOwner)) {
+        global.dfail('admin', m, conn)
+        throw false
+        }
+        chat.delete = isEnable
+        break
     case 'antilink':
     case 'antiurl':
       if (!m.isGroup) {
@@ -110,9 +123,10 @@ case 'simi':
       break
     default:
       if (!/[01]/.test(command)) throw `
-┌〔 Daftar Opsi 〕${isOwner ? '\n├ autoread\n├ autolink\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
+┌〔 Daftar Opsi 〕${isOwner ? '\n├ delete\n├ autoread\n├ autolink\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
 ├ autolevelup
 ├ antilink
+├ antidelete
 ├ simi
 ├ welcome
 └────

@@ -5,7 +5,7 @@ let handler = async (m, { conn, isOwner }) => {
 ┌〔 Daftar Chat Terbanned 〕
 ├ Total : ${chats.length} Chat${chats ? '\n' + chats.map(([jid], i) => `
 ├ ${i + 1}. ${conn.getName(jid) == undefined ? 'Unknown' : conn.getName(jid)}
-├ ${isOwner ? '@' + jid.split`@`[0] : jid}
+├ ${isOwner ? `@${jid.split(`@`)[0]}` : `${jid1}`}
 `.trim()).join('\n') : ''}
 └────
 
@@ -21,5 +21,4 @@ let handler = async (m, { conn, isOwner }) => {
 handler.help = ['bannedlist']
 handler.tags = ['info']
 handler.command = /^listban(ned)?|ban(ned)?list|daftarban(ned)?$/i
-handler.owner = false
 module.exports = handler

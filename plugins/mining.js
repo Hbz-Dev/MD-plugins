@@ -73,7 +73,6 @@ handler.help = ['mine', 'mining']
 handler.tags = ['rpg']
 handler.command = /^(mine|mining)$/i
 
-handler.fail = null
 handler.register = true
 handler.group = true
 

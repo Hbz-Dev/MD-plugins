@@ -10,6 +10,7 @@ handler.before = async function (m) {
                 return { ...value, jid: key }
         })
         let pp = fs.readFileSync('./src/avatar_contact.png')
+        let buttons = [{buttonId: `.my`, buttonText: {displayText: 'My Profile'}, type: 1}]
         let sortedLevel = users.map(toNumber('level')).sort(sort('level'))
         let usersLevel = sortedLevel.map(enumGetKey)
         let { min, xp, max } = levelling.xpRange(user.level, global.multiplier)
@@ -23,7 +24,8 @@ handler.before = async function (m) {
 
              
                 if (before !== user.level) {
-                        await this.reply(m.chat, `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nGunakan *.my* Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, m, { mentions: [m.sender], jpegThumbnail: pp })
+                        //await this.reply(m.chat, `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nGunakan *.my* Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, m, { mentions: [m.sender], jpegThumbnail: pp })
+                        await this.sendMessage(m.chat, { caption: `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nTekan tombol dibawah Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, location: { jpegThumbnail: pp }, buttons: buttons, footer: `AUTOLEVELUP📌\n${wm}`, headerType: 'LOCATION', mentions: [m.sender] })
                 }
         }
 }

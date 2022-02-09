@@ -76,14 +76,6 @@ lolpentakill
 handler.help = ['photooxy <effect|teks>']
 handler.tags = ['sticker']
 handler.command = /^(photooxy)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-
-handler.fail = null
-handler.exp = 0
 handler.limit = true
 
 module.exports = handler

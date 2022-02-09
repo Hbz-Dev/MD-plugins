@@ -47,9 +47,9 @@ let handler = async (m, { conn, text }) => {
 	]
 	let player = global.db.data.users[m.sender]
 	let pname = conn.getName(m.sender)
-	
+
 	if (player.fishingrod == 0) {
-	      m.reply('Kamu Tidak memiliki Fishingrod Untuk memancing!\nDapatkan Fishingrod Dari *#adventure* Atau beli Di shop dengan Cara *#shop buy fishingrod*!')
+	      conn.send2Button(m.chat, 'Kamu Tidak memiliki Fishingrod Untuk memancing!\nDapatkan Fishingrod Dari *#adventure* Atau crafting dengan Cara *#craft pancing*!', `Pilih Opsi Dibawah\n${wm}`, 'Adventure', '.work', 'Crafting', '.craft pancing', m)
 	      return
     }
 	let cdm = `${MeNit(new Date - player.lastfishing)}`

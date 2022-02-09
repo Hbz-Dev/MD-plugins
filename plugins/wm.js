@@ -8,16 +8,16 @@ try {
    let mime = m.quoted.mimetype || ''
    if (/webp/.test(mime)) {
       let img = await q.download()
-      let enc = await conn.sendImageAsSticker(m.chat, img, m, { packname: text1 ? text1 : 'Kosong :(', author: text2 ? text2 : 'Tidak ada wm :(' })
+      let enc = await conn.sendImageAsSticker(m.chat, img, m, { packname: text1 ? text1 : '', author: text2 ? text2 : '' })
       await fs.unlinkSync(enc)
     } else if (/image/.test(mime)) {
       let img = await q.download()
-      let enc = await conn.sendImageAsSticker(m.chat, img, m, { packname: text1 ? text1 : 'Kosong :(', author: text2 ? text2 : 'Tidak ada wm :(' })
+      let enc = await conn.sendImageAsSticker(m.chat, img, m, { packname: text1 ? text1 : '', author: text2 ? text2 : '' })
       await fs.unlinkSync(enc)
     } else if (/video/.test(mime)) {
       if ((q.msg || q).seconds > 11) throw 'Maksimal 10 detik!'
       let img = await q.download()
-      let enc = await conn.sendVideoAsSticker(m.chat, img, m, { packname: text1 ? text1 : 'Kosong :(', author: text2 ? text2 : 'Tidak ada wm :(' })
+      let enc = await conn.sendVideoAsSticker(m.chat, img, m, { packname: text1 ? text1 : '', author: text2 ? text2 : '' })
       await fs.unlinkSync(enc)
     } else {
      m.reply('Tag image/video/sticker yang ingin diberikan wm custom!!')
