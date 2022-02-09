@@ -4,7 +4,7 @@ let handler = async (m, { conn, text }) => {
   let teks = text ? text : cc.text
   await conn.reply(m.chat, `_Mengirim pesan broadcast ke ${chats.length} chat_`, m)
   for (let id of chats) {
-     await conn.copyNForward(id, conn.cMod(id, cc, /bc|broadcast/i.test(teks) ? teks : teks + '\n' + readMore + '「 All Chat Broadcast 」\n'), true).catch(_ => _)
+     await conn.sendButton(id, teks + '\n' + readMore + '「 All Chat Broadcast 」\n', global.wm, 'MENU', '.menu', m)
     }
   m.reply('Selesai Broadcast All private Chat :)')
 }
