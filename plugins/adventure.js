@@ -29,9 +29,9 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
             let uncommon = (_uncommon * 1) 
             let _mythic = `${pickRandom(['1', '0', '0', '1'])}`
             let mythic = (_mythic * 1)
-            let _rod = `${pickRandom(['1', '0', '0', '1'])}`
+            let _rod = `${pickRandom(['1', '0', '0', '1', '0', '0', '0', '0'])}`
             let rod = (_rod * 1)
-            let _axe = `${pickRandom(['1', '0', '0', '1'])}`
+            let _axe = `${pickRandom(['1', '0', '0', '1', '0', '0', '0', '0'])}`
             let axe = (_axe * 1)
             let _legendary = `${pickRandom(['1', '0', '0', '0'])}`
             let sampah = `${Math.floor(Math.random() * 300)}`.trim()
