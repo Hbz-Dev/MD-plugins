@@ -1,5 +1,6 @@
 const simple = require('./lib/simple')
 const util = require('util')
+const fetch = require('node-fetch')
 
 const isNumber = x => typeof x === 'number' && !isNaN(x)
 const delay = ms => isNumber(ms) && new Promise(resolve => setTimeout(resolve, ms))
@@ -18,7 +19,18 @@ module.exports = {
         try {
             m = simple.smsg(this, m) || m
             if (!m) return
-            // console.log(m)
+           switch (m.mtype) {
+		case "imageMessage": 
+		case "videoMessage":
+		case "audioMessage":
+		case "stickerMessage":
+		case "documentMessage":
+        case "senderKeyDistributionMessage":
+			if (!m.key.fromMe) await sleep(1000)
+			quoted = m.msg ? m.msg.url : m.quoted.url
+			if (!quoted) await this.refreshMediaConn(true)
+		    break
+            } 
             m.exp = 0
             m.limit = false
             m.game = false
@@ -29,6 +41,8 @@ module.exports = {
                     if (!isNumber(user.exp)) user.exp = 0
                     if (!isNumber(user.limit)) user.limit = 20
                     if (!isNumber(user.game)) user.game = 30
+                    if (!isNumber(user.pc)) user.pc = 0
+                    if (!('code' in user)) user.code = false
                     if (!('registered' in user)) user.registered = false
                     if (!user.registered) {
                         if (!('name' in user)) user.name = m.name
@@ -87,6 +101,7 @@ module.exports = {
                     if (!isNumber(user.fishingroddurability)) user.fishingroddurability = 0
 
                     if (!isNumber(user.lastclaim)) user.lastclaim = 0
+                    if (!isNumber(user.lastbansos)) user.lastbansos = 0
                     if (!isNumber(user.lastdaily)) user.lastdaily = 0
                     if (!isNumber(user.lastexp)) user.lastexp = 0
                     if (!isNumber(user.lastadventure)) user.lastadventure = 0
@@ -103,6 +118,8 @@ module.exports = {
                     exp: 0,
                     limit: 20,
                     game: 30,
+                    pc: 0,
+                    code: false,
                     registered: false,
                     name: m.name,
                     age: -1,
@@ -158,6 +175,7 @@ module.exports = {
                     fishingroddurability: 0,
 
                     lastclaim: 0,
+                    lastbansos: 0,
                     lastdaily: 0,
                     lastexp: 0,
                     lastadventure: 0,
@@ -184,6 +202,7 @@ module.exports = {
                     if (!('antiLink' in chat)) chat.antiLink = false
                     if (!('viewonce' in chat)) chat.viewonce = false
                     if (!('simi' in chat)) chat.simi = false
+                    if (!('stiker' in chat)) chat.stiker = false
                     if (!('antiToxic' in chat)) chat.antiToxic = false
                 } else global.db.data.chats[m.chat] = {
                     isBanned: false,
@@ -197,6 +216,7 @@ module.exports = {
                     antiLink: false,
                     viewonce: false,
                     simi: false,
+                    stiker: false,
                     antiToxic: true,
                 }
                 
@@ -364,7 +384,7 @@ module.exports = {
                        continue
                     }
                     m.isCommand = true
-                    let xp = 'exp' in plugin ? parseInt(plugin.exp) : 40 // XP Earning per command
+                    let xp = 'exp' in plugin ? parseInt(plugin.exp) : 20 // XP Earning per command
                     if (xp > 200) m.reply('Ngecit -_-') // Hehehe
                     else m.exp += xp
                     if (!isPrems && plugin.limit && global.db.data.users[m.sender].limit < plugin.limit * 1) {
@@ -521,20 +541,19 @@ module.exports = {
         let chats = Object.entries(conn.chats).find(([user, data]) => data.messages && data.messages[id])
         if (!chats) return
         let msg = JSON.parse(chats[1].messages[id])
+        let buttons = [{buttonId: `${prefix}on delete`, buttonText: {displayText: 'Matikan Antidelete'}, type: 1}]
         let chat = global.db.data.chats[msg.key.remoteJid] || {}
-        if (!chat.delete) return
-        await this.reply(msg.key.remoteJid, `
+        if (chat.delete) return
+        await this.sendMessage(msg.key.remoteJid, { text: `
 Terdeteksi @${participant.split`@`[0]} telah menghapus pesan
 Untuk mematikan fitur ini, ketik
-*.off delete*
-`.trim(), msg, {
-            mentions: [participant]
-        })
+*.on delete*
+`.trim(), buttons: buttons, footer: `Antidelete By ${wm}`, headerType: 'TEXT', mentions: [participant] }, { quoted: msg })
         this.copyNForward(msg.key.remoteJid, msg).catch(e => console.log(e, msg))
     }
 }
 
-global.dfail = (type, m, conn) => {
+global.dfail = async(type, m, conn) => {
     let msg = {
         rowner: 'Perintah ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
         owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
@@ -548,8 +567,8 @@ global.dfail = (type, m, conn) => {
         unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Ryu.16',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendHydrate(m.chat, msg, 'Process Rejected\n'+wm, '🌟 RPG BOT 🌟', '\nBot Ini memiliki fitur game RPG', '👑 MULTI-DEVICE 👑', '\nBot Ini memakai lib Multi-device', 'MENU', '.help', m)
-}
+    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fra + type)).buffer(), msg, global.wm, 'Rules', '.rules')
+   }
 
 let fs = require('fs')
 let chalk = require('chalk')

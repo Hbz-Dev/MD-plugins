@@ -27,16 +27,17 @@ global.APIKeys = { // APIKey Here
 }
 
 // Sticker WM
-global.packname = ''
-global.author = 'Red is Blue 複ツ 🐞\nBlue is Red 複ツ 🦋'
+global.packname = '🌙 𝚂𝚑𝚒𝚗𝚘𝚊 вσт\nwa.me/+17069199618\n\n\n𝙱𝚢 ʀʏᴜ あ\n\n\nFollow IG: @_Ryu12\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.'
+global.author = '۰ ⸼'
 
-global.wm = '© 𝐑𝐲𝐮𝐁𝐨𝐭𝐳複'
-global.media = 'https://telegra.ph/file/5d45a3d1e12726d98c5e4.jpg'
+global.wm = '𓊈 𒆜ꜱʜɪɴᴏᴀ ʙᴏᴛᴢ𒆜 𓊉'
+global.fla = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&text='
+global.fra = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&fillColor1Color=%23f2aa4c&fillColor2Color=%23f2aa4c&fillColor3Color=%23f2aa4c&fillColor4Color=%23f2aa4c&fillColor5Color=%23f2aa4c&fillColor6Color=%23f2aa4c&fillColor7Color=%23f2aa4c&fillColor8Color=%23f2aa4c&fillColor9Color=%23f2aa4c&fillColor10Color=%23f2aa4c&fillOutlineColor=%23f2aa4c&fillOutline2Color=%23f2aa4c&backgroundColor=%23101820&text='
 
 global.wait = '_*tunggu sedang di proses...*_'
 global.eror = '_*Server Error*_'
 
-global.multiplier = 100 // The higher, The harder levelup
+global.multiplier = 40 // The higher, The harder levelup
 
 global.rpg = {
   emoticon(string) {
