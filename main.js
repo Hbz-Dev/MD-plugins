@@ -68,6 +68,7 @@ loadDatabase()
 // }
 global.authFile = `${opts._[0] || 'session'}.data.json`
 global.isInit = !fs.existsSync(authFile)
+opts['self'] = true
 const { state, saveState } = useSingleFileAuthState(global.authFile)
 
 const connectionOptions = {

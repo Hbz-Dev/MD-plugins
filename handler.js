@@ -42,6 +42,7 @@ module.exports = {
                     if (!isNumber(user.limit)) user.limit = 20
                     if (!isNumber(user.game)) user.game = 30
                     if (!isNumber(user.pc)) user.pc = 0
+                    if (!('pasangan' in user)) user.pasangan = ''
                     if (!('code' in user)) user.code = false
                     if (!('registered' in user)) user.registered = false
                     if (!user.registered) {
@@ -59,6 +60,7 @@ module.exports = {
 
                     if (!isNumber(user.money)) user.money = 0
                     if (!isNumber(user.healt)) user.healt = 100
+                    if (!isNumber(user.stamina)) user.stamina = 100
                     if (!isNumber(user.potion)) user.potion = 0
                     if (!isNumber(user.sampah)) user.sampah = 0
                     if (!isNumber(user.kayu)) user.kayu = 0
@@ -70,6 +72,26 @@ module.exports = {
                     if (!isNumber(user.diamond)) user.diamond = 0
                     if (!isNumber(user.gold)) user.gold = 0
                     if (!isNumber(user.iron)) user.iron = 0
+                    
+                   if (!isNumber(user.banteng)) user.banteng = 0
+                   if (!isNumber(user.harimau)) user.harimau = 0
+                   if (!isNumber(user.gajah)) user.gajah = 0
+                   if (!isNumber(user.kambing)) user.kambing = 0
+                   if (!isNumber(user.panda)) user.panda = 0
+                   if (!isNumber(user.buaya)) user.buaya = 0
+                   if (!isNumber(user.kerbau)) user.kerbau = 0
+                   if (!isNumber(user.sapi)) user.sapi = 0
+                   if (!isNumber(user.monyet)) user.monyet = 0
+                   if (!isNumber(user.babihutan)) user.babihutan = 0
+                   if (!isNumber(user.babi)) user.babi = 0
+                   if (!isNumber(user.ayam)) user.ayam = 0
+                   
+                  if (!isNumber(user.ayamb)) user.ayamb = 0
+                  if (!isNumber(user.ayamg)) user.ayamg = 0
+                  if (!isNumber(user.sapir)) user.sapir = 0
+                  if (!isNumber(user.ssapi)) user.ssapi = 0
+                  if (!isNumber(user.leleg)) user.leleg = 0
+                  if (!isNumber(user.leleb)) user.leleb = 0
 
                     if (!isNumber(user.common)) user.common = 0
                     if (!isNumber(user.uncommon)) user.uncommon = 0
@@ -102,6 +124,7 @@ module.exports = {
 
                     if (!isNumber(user.lastclaim)) user.lastclaim = 0
                     if (!isNumber(user.lastbansos)) user.lastbansos = 0
+                    if (!isNumber(user.lastlabirin)) user.lastlabirin = 0
                     if (!isNumber(user.lastdaily)) user.lastdaily = 0
                     if (!isNumber(user.lastexp)) user.lastexp = 0
                     if (!isNumber(user.lastadventure)) user.lastadventure = 0
@@ -119,6 +142,7 @@ module.exports = {
                     limit: 20,
                     game: 30,
                     pc: 0,
+                    pasangan: '',
                     code: false,
                     registered: false,
                     name: m.name,
@@ -133,6 +157,7 @@ module.exports = {
 
                     money: 0,
                     healt: 100,
+                    stamina: 100,
                     potion: 10,
                     sampah: 0,
                     kayu: 0,
@@ -144,6 +169,26 @@ module.exports = {
                     diamond: 0,
                     gold: 0,
                     iron: 0,
+                    
+                   banteng: 0,
+                   harimau: 0,
+                   gajah: 0,
+                   kambing: 0,
+                   panda: 0,
+                   buaya: 0,
+                   kerbau : 0,
+                   sapi: 0,
+                   monyet : 0,
+                   babihutan: 0,
+                   babi: 0,
+                   ayam: 0,
+                   
+                  ayamb: 0,
+                  ayamg: 0,
+                  ssapi: 0,
+                  sapir: 0,
+                  leleb: 0,
+                  leleg: 0,
 
                     common: 0,
                     uncommon: 0,
@@ -176,6 +221,7 @@ module.exports = {
 
                     lastclaim: 0,
                     lastbansos: 0,
+                    lastlabirin: 0,
                     lastdaily: 0,
                     lastexp: 0,
                     lastadventure: 0,
@@ -240,7 +286,8 @@ module.exports = {
             } catch (e) {
                 console.error(e)
             }
-            if (!m.fromMe && opts['self']) return
+            let isROwner = [global.conn.user.jid, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+            if (!isROwner && opts['self']) return
             if (global.db.data.settings.groupOnly && !m.chat.endsWith('g.us')) return
             if (typeof m.text !== 'string') m.text = ''
             if (opts['queque'] && m.text) {
@@ -265,8 +312,7 @@ module.exports = {
 
             let usedPrefix
             let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
-
-            let isROwner = [global.conn.user.jid, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+          
             let isOwner = isROwner || m.fromMe
             let isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
             let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
