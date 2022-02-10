@@ -4,7 +4,7 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
         let __timers = (new Date - global.db.data.users[m.sender].lastadventure)
         let _timers = (300000 - __timers) 
         let timers = clockString(_timers)
-        if (global.db.data.users[m.sender].healt > 79) {
+        if (global.db.data.users[m.sender].healt > 79 && global.db.data.users[m.sender].stamina > 49) {
             if (new Date - global.db.data.users[m.sender].lastadventure > 300000) {
             let armor = global.db.data.users[m.sender].armor
             let rubah = global.db.data.users[m.sender].rubah
@@ -71,7 +71,7 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah ${command == 'adventure' || c
             global.db.data.users[m.sender].sampah += sampah * 1
             global.db.data.users[m.sender].lastadventure = new Date * 1
             } else conn.reply(m.chat, `Anda sudah berpetualang dan kelelahan, silahkan coba\n🕛 *${timers}* lagi`, m)
-        } else conn.reply(m.chat, 'Minimal 80 health untuk bisa berpetualang, pulihkan nyawa dulu dengan ketik *' + usedPrefix + 'heal*\natau ketik *' + usedPrefix + 'use potion <jumlah>*\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*', m)
+        } else conn.reply(m.chat, 'Minimal 80 health dan 50 stamina untuk bisa berpetualang, pulihkan nyawa dulu dengan ketik *' + usedPrefix + 'heal*\natau ketik *' + usedPrefix + 'use potion <jumlah>*\nPulihkan Stamina dengan memakan makanan!\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*', m)
     } catch (e) {
         console.log(e)
         conn.reply(m.chat, 'Error', m)

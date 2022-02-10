@@ -1,4 +1,4 @@
-let { MessageType } = require('@adiwajshing/baileys')
+let { MessageType } = require('@adiwajshing/baileys-md')
 let handler = async (m, { conn, command, args, usedPrefix, DevMode }) => { 
     conn.slots = conn.slots ? conn.slots : {}
     if (m.chat in conn.slots) return m.reply('Masih ada yang melakukan slots disini, tunggu sampai selesai!!')

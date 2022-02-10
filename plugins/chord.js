@@ -12,7 +12,7 @@ let handler = async(m, { conn, text, usedPrefix }) => {
         .catch()
 }
 handler.help = ['chord <judul lagu>']
-handler.tags = ['tool']
+handler.tags = ['tools']
 handler.command = /^(chord)$/i
 handler.limit = true
 

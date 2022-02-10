@@ -6,6 +6,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 }
 handler.help = ['facebook'].map(v => v + ' <url>')
 handler.tags = ['downloader']
+handler.limit = 1
 
 handler.command = /^((facebook|fb)(downloder|dl)?)$/i
 

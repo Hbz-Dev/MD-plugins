@@ -52,6 +52,10 @@ let handler = async (m, { conn, text }) => {
 	      conn.send2Button(m.chat, 'Kamu Tidak memiliki Fishingrod Untuk memancing!\nDapatkan Fishingrod Dari *#adventure* Atau crafting dengan Cara *#craft pancing*!', `Pilih Opsi Dibawah\n${wm}`, 'Adventure', '.work', 'Crafting', '.craft pancing', m)
 	      return
     }
+    if (player.stamina < 30) {
+        conn.reply(m.chat, 'Minimal 30 Stamina untuk memancing!\nPulihkan stamina Dengan makan!', m)
+        return
+    }
 	let cdm = `${MeNit(new Date - player.lastfishing)}`
 	let cds = `${DeTik(new Date - player.lastfishing)}`
 	let cd1 = Math.ceil(01 - cdm)
@@ -73,7 +77,8 @@ let handler = async (m, { conn, text }) => {
 
 		if (player.fishingroddurability < 0) {
             player.fishingrod = 0
-			let msg = `*${pname}* Fishingrod anda hancur!`
+            player.stamina -= 10
+			let msg = `*${pname}* Fishingrod anda hancur saat sedang Memancing!!`
 			player.fishingroddurability = 0
 			m.reply(msg)
 			return
@@ -81,6 +86,7 @@ let handler = async (m, { conn, text }) => {
 
 		player.money += coins * 1
 		player.exp += exp * 1
+		player.stamina -= 20
 
 		let pesan = `*${pname}* Menangkap *${fishName}*\nMendapatkan ${new Intl.NumberFormat('en-US').format(coins)} coins & ${new Intl.NumberFormat('en-US').format(exp)} XP\nBerkurang -${durability}Durability, Tersisa ${player.fishingroddurability}/${100}`
 		m.reply(pesan)
@@ -93,10 +99,6 @@ handler.command = /^fish|mancing/i
 handler.group = true
 handler.register = true
 handler.level = 5
-
-handler.disabled = false
-
-handler.fail = null
 
 module.exports = handler
 

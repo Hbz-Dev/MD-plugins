@@ -1,6 +1,6 @@
 let handler = async (m, { text, usedPrefix }) => {
-    let salah = `Pilihan yang tersedia\n\ngunting, kertas, batu\n\n${usedPrefix}suit gunting\n\nkasih spasi!`
-    if (!text) throw salah
+    //let salah = `Pilihan yang tersedia\n\ngunting, kertas, batu\n\n${usedPrefix}suit gunting\n\nkasih spasi!`
+    if (!text) return conn.send3Button(m.chat, 'Silahkan Pilih batu, gunting, kertas dibawah ini', `Pilih Kak🌌\n${wm}`, 'Gunting', '.suit gunting', 'Kertas', '.suit kertas', 'Batu', '.suit batu', m)
     var astro = Math.random()
 
     if (astro < 0.34) {
@@ -37,7 +37,7 @@ let handler = async (m, { text, usedPrefix }) => {
             m.reply(`[ SUIT GAME ]\n\nKamu kalah!\nkamu: ${text}\nBot: ${astro}`)
         }
     } else {
-        throw salah
+        return conn.send3Button(m.chat, 'Silahkan Pilih batu, gunting, kertas dibawah ini', `Pilih Kak🌌\n${wm}`, 'Gunting', '.suit gunting', 'Kertas', '.suit kertas', 'Batu', '.suit batu', m)
     }
 }
 handler.help = ['suit <opts>']

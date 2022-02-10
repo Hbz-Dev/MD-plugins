@@ -6,6 +6,7 @@
 const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
 let fs = require('fs')
 let handler = async (m) => {
+if (!m.isGroup) {
 let esce = `
 Bot ini Menggunakan Script Dari
 
@@ -49,6 +50,7 @@ Bot ini Menggunakan Script Dari
          template.message,
          { messageId: template.key.id }
      )
+  } else return conn.sendButton(m.chat, 'Script Bot ShinoaBot Tidak di public kan!', global.wm, 'Ok', 'iyaa', m)
 }
 handler.help = ['sc', 'sourcecode']
 handler.tags = ['info']

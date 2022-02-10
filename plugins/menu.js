@@ -7,10 +7,12 @@ let tags = {
   'anonymous': 'ᴀɴᴏɴʏᴍᴏᴜꜱ',
   'game': 'ɢᴀᴍᴇ',
   'rpg': 'ʀᴘɢ',
+  'jodoh': 'ᴊᴀᴅɪᴀɴ',
   'xp': 'ᴇxᴘ',
   'premium': 'ᴘʀᴇᴍɪᴜᴍ',
   'group': 'ɢʀᴏᴜᴘ',
   'absen': 'ᴀʙꜱᴇɴ',
+  'vote': 'ᴠᴏᴛᴇ',
   'owner': 'ᴏᴡɴᴇʀ',
   'fun': 'ꜰᴜɴ ᴍᴇɴᴜ',
   'sticker': 'ᴄᴏɴᴠᴇʀᴛ',
@@ -153,8 +155,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            },
              {
              urlButton: {
-               displayText: 'ᴊᴀꜱᴀ ɪᴋʟᴀɴ ᴅɪꜱɪɴɪ',
-               url: '\nHubungi Owner untuk memasang iklan disini'
+               displayText: `${m.sender}`,
+               url: '\nMenu Shinoa Bot'
              }
 
            },
@@ -181,17 +183,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
 handler.help = ['menu', 'help']
 handler.tags = ['main']
 handler.command = /^(menu|help)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
 handler.register = true
-
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
 handler.exp = 13
 
 module.exports = handler

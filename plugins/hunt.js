@@ -48,8 +48,8 @@ let handler = async (m, { conn, text }) => {
 	let player = global.db.data.users[m.sender]
 	let pname = conn.getName(m.sender)
 
-	let cdm = `${MeNit(new Date - player.lasthunt)}`
-	let cds = `${DeTik(new Date - player.lasthunt)}`
+	let cdm = `${MeNit(new Date - player.lastlabirin)}`
+	let cds = `${DeTik(new Date - player.lastlabirin)}`
 	let cd1 = Math.ceil(01 - cdm)
 	let cd2 = Math.ceil(60 - cds)
 
@@ -61,7 +61,7 @@ let handler = async (m, { conn, text }) => {
 	let monsterName = monster.name.toUpperCase()
     
 
-	if (new Date -  global.db.data.users[m.sender].lasthunt > 120000) {
+	if (new Date -  global.db.data.users[m.sender].lastlabirin > 120000) {
 		let sum = 10 * areaPlayer - 59
 		let dmg = (player.sword  * 5 + player.armor * 5 - sum)
 		dmg = dmg < 0 ? Math.abs(dmg) : 0
@@ -69,7 +69,7 @@ let handler = async (m, { conn, text }) => {
 		let exp = areaPlayer * 35
 
 		player.healt -= dmg
-		player.lasthunt = new Date * 1 // waktu hunt 2menit
+		player.lastlabirin = new Date * 1 // waktu labirin 2menit
 
 		if (player.healt < 0) {
 			let msg = `*${pname}* Anda Mati Di Bunuh Oleh *${monsterName}*`
@@ -85,20 +85,16 @@ let handler = async (m, { conn, text }) => {
 		player.money += coins * 1
 		player.exp += exp * 1
 
-		let pesan = `*${pname}* Menemukan Dan Membunuh *${monsterName}*\nMendapatkan ${new Intl.NumberFormat('en-US').format(coins)} coins & ${new Intl.NumberFormat('en-US').format(exp)} XP\nBerkurang -${dmg}Hp, Tersisa ${player.healt}/${100}`
+		let pesan = `*${pname}* Pergi Ke Labirin Dan Menemukan *${monsterName}*\n*${pname}*Berhasil Membunuh *${monsterName}*\n\nMendapatkan ${new Intl.NumberFormat('en-US').format(coins)} coins & ${new Intl.NumberFormat('en-US').format(exp)} XP\nBerkurang -${dmg}Hp, Tersisa ${player.healt}/${100}`
 		m.reply(pesan)
-	} else throw `Tunggu *${cd1}:${cd2}* Untuk Berburu Lagi`
+	} else throw `Tunggu *${cd1}:${cd2}* Untuk Pergi Ke Labirin Lagi!`
 }
 
-handler.help = ['hunt', 'berburu']
+handler.help = ['labirin']
 handler.tags = ['rpg']
-handler.command = /^hunt|berburu/i
+handler.command = /^labirin/i
 handler.register = true
 handler.level = 10
-
-handler.disabled = false
-
-handler.fail = null
 
 module.exports = handler
 

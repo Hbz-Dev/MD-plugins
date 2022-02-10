@@ -29,6 +29,16 @@ case 'simi':
       }
       chat.simi = isEnable
       break
+     case 'stiker':
+     case 'autostiker':
+    if (m.isGroup) {
+        if (!(isAdmin || isOwner)) {
+          global.dfail('admin', m, conn)
+          throw false
+        }
+      }
+      chat.stiker = isEnable
+      break
    case 'read':
    case 'autoread':
      isAll = true
@@ -123,7 +133,7 @@ case 'simi':
       break
     default:
       if (!/[01]/.test(command)) throw `
-┌〔 Daftar Opsi 〕${isOwner ? '\n├ delete\n├ autoread\n├ autolink\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
+┌〔 Daftar Opsi 〕${isOwner ? '\n├ stiker\n├ delete\n├ autoread\n├ autolink\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
 ├ autolevelup
 ├ antilink
 ├ antidelete

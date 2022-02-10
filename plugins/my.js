@@ -6,7 +6,7 @@ let handler = async (m) => {
     if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
     else who = m.sender
     let user = global.db.data.users[who]
-    let _pp = conn.profilePictureUrl(who)
+    let _pp = await conn.profilePictureUrl(who).catch(_ => false)
     let pp = _pp ? await (await fetch(_pp)).buffer() : fs.readFileSync('./media/4.jpg')
 let anu = `
 ╭◈ *「 PROFILE 」*
@@ -25,7 +25,7 @@ let anu = `
          hydratedTemplate: {
            hydratedContentText: anu,
            locationMessage: { 
-           jpegThumbnail: pp, 
+           jpegThumbnail: pp }, 
            hydratedFooterText: wm,
            hydratedButtons: [{
              urlButton: {
