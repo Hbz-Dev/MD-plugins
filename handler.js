@@ -600,6 +600,8 @@ Untuk mematikan fitur ini, ketik
 }
 
 global.dfail = async(type, m, conn) => {
+    let user = global.db.data.users[m.sender]
+    let username = await conn.getName(m.sender)
     let msg = {
         rowner: 'Perintah ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
         owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
@@ -613,7 +615,7 @@ global.dfail = async(type, m, conn) => {
         unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Ryu.16',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fra + type)).buffer(), msg, global.wm, 'Rules', '.rules')
+    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fla + type)).buffer(), msg, global.wm, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules', `daftar ${username}.15`)
    }
 
 let fs = require('fs')
