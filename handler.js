@@ -615,7 +615,7 @@ global.dfail = async(type, m, conn) => {
         unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Ryu.16',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fla + type)).buffer(), msg, global.wm, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules', `daftar ${username}.15`)
+    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fla + type)).buffer(), msg, global.wm, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules' : `daftar ${username}.15`)
    }
 
 let fs = require('fs')
