@@ -155,7 +155,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            },
              {
              urlButton: {
-               displayText: `${m.sender}`,
+               displayText: `${wm}`,
                url: '\nMenu Shinoa Bot'
              }
 

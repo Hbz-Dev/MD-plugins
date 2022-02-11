@@ -18,7 +18,7 @@ let handler = async(m, { text, command, groupMetadata, conn }) => {
 ┆
 ┆  ~ *(Away From Keyboard)* ~
 ╰┅────★`.trim()
-return conn.sendMessage(m.chat, { caption: str, location: { jpegThumbnail: b }, buttons: buttons, footer: 'Jangan Diganggu Yahhhh🥀', headerType: 'LOCATION', mentions: [m.sender] })
+return conn.sendMessage(m.chat, { caption: str, location: { jpegThumbnail: b }, buttons: buttons, footer: 'Jangan Diganggu Yahhhh🥀', headerType: 'LOCATION', mentions: conn.parseMention(str) })
 } else if (command == "pesan") {
  if (!text) return
  await conn.reply(text, `*@${m.sender.split('@')[0]}* Mencarimu ketika kamu sedang afk!\n\n*Group:* ${m.isGroup ? groupMetadata.subject : 'Tidak Diketahui'}`, null, { mentions: [m.sender] })

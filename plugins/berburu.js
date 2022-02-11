@@ -15,20 +15,22 @@ const buttonMessage = {
     headerType: 1
 }
     if (new Date - global.db.data.users[m.sender].lasthunt > 500000) {
-let zero1 = `${Math.floor(Math.random() * 7) * 1}`
-let zero2 = `${Math.floor(Math.random() * 7) * 1}`
-let zero4 = `${Math.floor(Math.random() * 7) * 1}`
-let zero3 = `${Math.floor(Math.random() * 7) * 1}`
-let zero5 = `${Math.floor(Math.random() * 7) * 1}`
-let zero6 = `${Math.floor(Math.random() * 7) * 1}`
-let zero7 = `${Math.floor(Math.random() * 7) * 1}`
-let zero8 = `${Math.floor(Math.random() * 7) * 1}`
-let zero9 = `${Math.floor(Math.random() * 7) * 1}`
-let zero10 = `${Math.floor(Math.random() * 7) * 1}`
-let zero11 = `${Math.floor(Math.random() * 7) * 1}`
-let zero12 = `${Math.floor(Math.random() * 7) * 1}`
+let zero1 = `${Math.floor(Math.random() * 7)}`
+let zero2 = `${Math.floor(Math.random() * 7)}`
+let zero4 = `${Math.floor(Math.random() * 7)}`
+let zero3 = `${Math.floor(Math.random() * 7)}`
+let zero5 = `${Math.floor(Math.random() * 7)}`
+let zero6 = `${Math.floor(Math.random() * 7)}`
+let zero7 = `${Math.floor(Math.random() * 7)}`
+let zero8 = `${Math.floor(Math.random() * 7)}`
+let zero9 = `${Math.floor(Math.random() * 7)}`
+let zero10 = `${Math.floor(Math.random() * 7)}`
+let zero11 = `${Math.floor(Math.random() * 7)}`
+let zero12 = `${Math.floor(Math.random() * 7)}`
 let heal = `${Math.floor(Math.random() * 40)}`
 .trim()
+
+global.db.data.users[m.sender].stamina -= heal * 1
 
 hsl = `*━━━━━━━━━[ Hasil Berburu]━━━━━━━━━*
 
@@ -42,39 +44,23 @@ hsl = `*━━━━━━━━━[ Hasil Berburu]━━━━━━━━━*
 Berkurang -${heal} Stamina
 Tersisa [${user.stamina} / 100]
 `
-global.db.data.users[m.sender].banteng += zero1
-global.db.data.users[m.sender].harimau += zero2
-global.db.data.users[m.sender].gajah += zero3
-global.db.data.users[m.sender].kambing += zero4
-global.db.data.users[m.sender].panda+= zero5
-global.db.data.users[m.sender].buaya += zero6
-global.db.data.users[m.sender].kerbau += zero7
-global.db.data.users[m.sender].sapi += zero8
-global.db.data.users[m.sender].monyet += zero9
-global.db.data.users[m.sender].babihutan += zero10
-global.db.data.users[m.sender].babi += zero11
-global.db.data.users[m.sender].ayam += zero12
-global.db.data.users[m.sender].stamina -= heal * 1
+global.db.data.users[m.sender].banteng += zero1 * 1
+global.db.data.users[m.sender].harimau += zero2 * 1
+global.db.data.users[m.sender].gajah += zero3 * 1
+global.db.data.users[m.sender].kambing += zero4 * 1
+global.db.data.users[m.sender].panda+= zero5 * 1
+global.db.data.users[m.sender].buaya += zero6 * 1
+global.db.data.users[m.sender].kerbau += zero7 * 1
+global.db.data.users[m.sender].sapi += zero8 * 1
+global.db.data.users[m.sender].monyet += zero9 * 1
+global.db.data.users[m.sender].babihutan += zero10 * 1
+global.db.data.users[m.sender].babi += zero11 * 1
+global.db.data.users[m.sender].ayam += zero12 * 1
 
 setTimeout(() => {
-                     conn.sendButton(m.chat, hsl, wm, 'Kandang', '#kandang',m)
-                     }, 20000) 
-               
-                     setTimeout(() => {
-                     m.reply(`*DUAR*`)
-                      }, 18000)
-                    
-                     setTimeout(() => {
-                     m.reply('KPUMNN !!')
-                     }, 15000) 
-                    
-                     setTimeout(() => {
-                     m.reply('DORR DORR !!')
-                     }, 14000) 
-                     
-                     setTimeout(() => {
-                     m.reply('_Sedang Berburu..._')
-                     }, 0) 
+                     conn.sendButton(m.chat, hsl, wm, 'Kandang', '#kandang', m)
+                     }, 3000) 
+  conn.reply(m.chat, '_Sedang Berburu..._', m)
   user.lasthunt = new Date * 1
     } else conn.sendMessage(m.chat, buttonMessage, { quoted: m })
 }
@@ -82,6 +68,7 @@ handler.help = ['berburu']
 handler.tags = ['rpg']
 handler.command = /^(berburu)$/i
 handler.register = true
+handler.group = true
 
 module.exports = handler
 function clockString(ms) {

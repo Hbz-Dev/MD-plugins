@@ -1,22 +1,24 @@
 let { MessageType } = require('@adiwajshing/baileys-md')
-const potion = 520
-const Spotion = 150 
-const limit = 350
-const Slimit = 100
-const Bdiamond = 900
-const Sdiamond = 750
-const Bcommon = 200
-const Scommon = 20
-const Suncommon = 100
-const Buncommon = 600
-const Bmythic = 2000 
-const Smythic = 500
-const Blegendary = 7500 
-const Slegendary = 3000
-const Bfish = 5000
-const Baxe = 5000
-const Bsampah = 10
-const Ssampah = 2
+const potion = 5000
+const Spotion = 2500
+const limit = 50000
+const Slimit = 10000
+const Bdiamond = 35000
+const Sdiamond = 20000
+const Bcommon = 4500
+const Scommon = 2000
+const Suncommon = 6000
+const Buncommon = 4500
+const Bmythic = 10000
+const Smythic = 5000
+const Blegendary = 20000
+const Slegendary = 10000
+const Bfish = 85000
+const Baxe = 85000
+const Semerald = 35000
+const Sgold = 30000
+const Bsampah = 50
+const Ssampah = 30
 let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
     const _armor = global.db.data.users[m.sender].armor
     const _sword = global.db.data.users[m.sender].sword
@@ -49,6 +51,8 @@ Diamond:     ${Sdiamond}
 Common:     ${Scommon}
 Uncommon:  ${Suncommon}
 Mythic:     ${Smythic}
+Emerald:    ${Semerald}
+Gold:       ${Sgold}
 Legendary: ${Slegendary}
 Sampah:     ${Ssampah}\n\n
 `.trim()
@@ -232,6 +236,20 @@ Sampah:     ${Ssampah}\n\n
                             conn.reply(m.chat, `Succes menjual ${count} Diamond, dan anda mendapatkan ${Sdiamond * count} money`, m)
                         } else conn.reply(m.chat, `Diamond anda tidak cukup`, m)
                         break
+                      case 'emerald':
+                        if (global.db.data.users[m.sender].emerald >= count * 1) {
+                            global.db.data.users[m.sender].emerald -= count * 1
+                            global.db.data.users[m.sender].money += Semerald * count
+                            conn.reply(m.chat, `Succes menjual ${count} Emerald, dan anda mendapatkan ${Semerald * count} money`, m)
+                        } else conn.reply(m.chat, `Emerald anda tidak cukup`, m)
+                        break 
+                     case 'gold':
+                        if (global.db.data.users[m.sender].gold >= count * 1) {
+                            global.db.data.users[m.sender].gold -= count * 1
+                            global.db.data.users[m.sender].money += Sgold * count
+                            conn.reply(m.chat, `Succes menjual ${count} Gold, dan anda mendapatkan ${Sgold * count} money`, m)
+                        } else conn.reply(m.chat, `Gold anda tidak cukup`, m)
+                        break 
                     default:
                         return conn.reply(m.chat, Kchat, m)
                 }
@@ -419,6 +437,20 @@ Sampah:     ${Ssampah}\n\n
                         conn.reply(m.chat, `Succes menjual ${count} Diamond, dan anda mendapatkan ${Sdiamond * count} money`, m)
                     } else conn.reply(m.chat, `Diamond anda tidak cukup`, m)
                     break
+                  case 'emerald':
+                        if (global.db.data.users[m.sender].emerald >= count * 1) {
+                            global.db.data.users[m.sender].emerald -= count * 1
+                            global.db.data.users[m.sender].money += Semerald * count
+                            conn.reply(m.chat, `Succes menjual ${count} Emerald, dan anda mendapatkan ${Semerald * count} money`, m)
+                        } else conn.reply(m.chat, `Emerald anda tidak cukup`, m)
+                        break 
+                     case 'gold':
+                        if (global.db.data.users[m.sender].gold >= count * 1) {
+                            global.db.data.users[m.sender].gold -= count * 1
+                            global.db.data.users[m.sender].money += Sgold * count
+                            conn.reply(m.chat, `Succes menjual ${count} Gold, dan anda mendapatkan ${Sgold * count} money`, m)
+                        } else conn.reply(m.chat, `Gold anda tidak cukup`, m)
+                        break  
                 default:
                     return conn.reply(m.chat, Kchat, m)
             }

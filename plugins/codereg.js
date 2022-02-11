@@ -9,20 +9,13 @@ let handler = async(m, { conn, args, usedPrefix }) => {
     global.db.data.users[m.sender].exp += 1000
     global.db.data.users[m.sender].money += 500
     global.db.data.users[m.sender].limit += 2
-    global.db.data.users[m.sender].bank += 1000
     global.db.data.users[m.sender].pet += 2
     global.db.data.users[m.sender].legendary += 1
-    global.db.data.users[m.sender].diamond += 3
-    global.db.data.users[m.sender].botol += 10
-    global.db.data.users[m.sender].kardus += 10
-    global.db.data.users[m.sender].kaleng += 10
-    global.db.data.users[m.sender].anggur += 5
-    global.db.data.users[m.sender].jeruk += 5
-    global.db.data.users[m.sender].apel += 5
-    global.db.data.users[m.sender].pisang += 5
-    global.db.data.users[m.sender].mangga += 5
+    global.db.data.users[m.sender].diamond += 1
+    global.db.data.users[m.sender].gold += 1
+    global.db.data.users[m.sender].emerald += 2
     global.db.data.users[m.sender].code = true
-    chatnye =`Selamat kamu mendapatkan :\n+1000 Exp ✨\n+500 Money 💹\n+2 Limit 🎫\n+1000 Tabungan 💳\n+2 Pet Crate 📫\n+1 Legendary 🧰\n+3 Diamond 💎\n+10 Kaleng 🥫\n+10 Kardus 📦\n+10 Botol 🍾\n+5 Anggur 🍇\n+5 Jeruk 🍊\n+5 Apel 🍎\n+5 Mangga 🥭\n+5 Pisang 🍌`
+    chatnye =`Selamat kamu mendapatkan :\n+1000 Exp ✨\n+500 Money 💹\n+2 Limit 🎫\n+2 Pet Crate 📫\n+1 Legendary 🧰\n+1 Diamond 💎\n+1 Gold👑\n+2 Emerald🧬`
    conn.reply(m.chat, chatnye, m)
 } else conn.reply(m.chat, 'Kode anda sudah kadaluarsa.... :(', m)
    } else {

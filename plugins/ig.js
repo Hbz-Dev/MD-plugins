@@ -8,7 +8,7 @@ instagramdl(args[0]).then(async res => {
     let json = JSON.parse(instagramdl)
     for (let { url, type } of json) {
       await delay(1500)
-      conn.sendFile(m.chat, url, 'ig' + (type == 'image' ? '.jpg' : '.mp4'), 'Instagram Downloader\n'+wm, m, { thumbnail: Buffer.alloc(0) })
+      conn.sendFile(m.chat, url, 'ig' + (type == 'image' ? '.jpg' : '.mp4'), 'Instagram Downloader\n'+wm, m, { thumbnail: Buffer.alloc(0), fileLength: 100000 })
     }
   })
 }

@@ -20,7 +20,6 @@ let username = conn.getName(who)
 ${user.banned ? 'Kamu Dibanned!' : 'Saya adalah SHINOABOT, salah satu bot Whatsapp. harap tidak spam/telpon/minta save kemonor ini. Ada yang bisa saya bantu?\n(ㆁωㆁ)'}
 `.trim(), global.wm, user.registered ? '⋮☰ Menu' : 'Verify', user.registered ? '.menu' : `.daftar ${username}.15`, 'Rules', '.rules', 'Owner', '.owner', m)
     user.pc = new Date * 1
-    return
 }
 
 module.exports = handler

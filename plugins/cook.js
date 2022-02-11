@@ -6,15 +6,15 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
     let msk= (args[0] || '').toLowerCase()
 let cok = `
 Please choose what to cook🍳
-🍖 ⟩ ${usedPrefix}ayamb *[ to cook grilled chicken ]*
-🍗 ⟩ ${usedPrefix}ayamg *[ to cook fried chicken]*
-🍣${usedPrefix}leleg
+🍖 ⟩ ${usedPrefix}ayamb *[ ayam bakar ]*
+🍗 ⟩ ${usedPrefix}ayamg *[ ayam goreng ]*
+🍣${usedPrefix}leleg *[ lele goreng ]*
 🍣${usedPrefix}leleb *[ lele bakar ]*
-🍖${usedPrefix}sapir
-🍖${usedPrefix}ssapi [ to cook beef steak ]
-typing command↓
+🍖${usedPrefix}sapir *[ rendang ]*
+🍖${usedPrefix}ssapi *[ steak sapi ]*
+Contoh Perintah ↓
 ${usedPrefix + command } sapir
-Untuk makan ${usedPrefix}eat ayamg
+Untuk makan ${usedPrefix}eat sapir
 `
 
 try {

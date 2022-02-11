@@ -7,7 +7,7 @@ let handler = async (m) => {
     else who = m.sender
     let user = global.db.data.users[who]
     let _pp = await conn.profilePictureUrl(who).catch(_ => false)
-    let pp = _pp ? await (await fetch(_pp)).buffer() : fs.readFileSync('./media/4.jpg')
+    let pp = _pp ? await (await fetch(_pp)).buffer() : fs.readFileSync('./media/1.jpg')
 let anu = `
 ╭◈ *「 PROFILE 」*
 ├─ 📇 *Name* : ${user.name}

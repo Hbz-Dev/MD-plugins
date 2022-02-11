@@ -3,20 +3,11 @@ let handler  = async (m, { conn }) => {
 	await m.reply('Si ajg mau coli.')
   conn.reply(m.chat,`${pickRandom(global.bokep)}`, m)
 }
-handler.help = ['filebkp']
+handler.help = ['ero']
 handler.tags = ['nsfw', 'premium']
 handler.command = /^(filebokep|filebkp)$/i
-handler.owner = false
-handler.mods = false
 handler.premium = true
-handler.group = false
 handler.nsfw = true
-
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
-handler.limit = false
 
 module.exports = handler
 
