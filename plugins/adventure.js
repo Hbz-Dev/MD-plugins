@@ -1,5 +1,5 @@
 let { MessageType } = require('@adiwajshing/baileys-md')
-let handler = async (m, { conn, usedPrefix, DevMode }) => { 
+let handler = async (m, { conn, usedPrefix, DevMode, command }) => { 
     try { 
         let __timers = (new Date - global.db.data.users[m.sender].lastadventure)
         let _timers = (300000 - __timers) 
@@ -17,6 +17,7 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
             let armornya = (armor == 0 ? 0 : '' || armor == 1 ? 5 : '' || armor == 2 ? 10 : '' || armor == 3 ? 15 : '' || armor == 4 ? 21 : '' || armor == 5 ? 30 : '')
             let __health = (___health > 60 ? ___health - kucingnya - armornya : ___health)
             let healt = (kucing == 0 && armor == 0 ? pickRandom(['100', '99', '98', '97', '96', '95', '94', '93', '92', '91', '90']) : kucing > 0 && armor > 0 ? __health : ___health)
+            let stam = `${Math.floor(Math.random() * 50)}`
             let exp = (Math.floor(Math.random() * 400) + (kuda * 70))
             let uang = (Math.floor(Math.random() * 400) + (anjing * 500))
             let _potion = `${Math.floor(Math.random() * 2)}`.trim()
@@ -62,6 +63,7 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah ${command == 'adventure' || c
                 conn.reply(m.chat, '*Selamat anda mendapatkan item Epic yaitu*\n' + legendary + ' Legendary Crate', m)
             }
             global.db.data.users[m.sender].healt -= healt * 1
+            global.db.data.users[m.sender].stamina -= stam * 1
             global.db.data.users[m.sender].exp += exp * 1
             global.db.data.users[m.sender].money += uang * 1
             global.db.data.users[m.sender].potion += potion * 1

@@ -8,7 +8,7 @@ handler.after = async function (m, { text }) {
                 m.reply(`Mengirim Broadcast Ke ${anu.length} Chat, Waktu Selesai ${anu.length * 1.5} detik`)
                 for (let i of anu) {
                     await sleep(1500)
-                    await this.butct(i, '[ *𝐑𝐲𝐮𝐁𝐨𝐭𝐳-𝐌𝐃複 Broadcast* ]\n\n'+text, `ALL GROUP BROADCAST `, m.sender, fs.readFileSync('./media/bc.jpg'), 'Ok Bang', '.say Siap ;)')
+                    await this.butct(i, '[ *Broadcast* ]\n\n'+text, `ALL GROUP BROADCAST`, m.sender, fs.readFileSync('./media/1.jpg'), 'MENU', '.help')
                 }
                 m.reply(`Sukses Mengirim Broadcast Ke ${anu.length} Group`)
 }

@@ -98,7 +98,7 @@ handler.tags = ['rpg']
 handler.command = /^fish|mancing/i
 handler.group = true
 handler.register = true
-handler.level = 5
+handler.level = 3
 
 module.exports = handler
 

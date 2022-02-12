@@ -5,7 +5,6 @@ handler.before = async function (m) {
   let id = m.chat
   if (!m.quoted || !m.quoted.fromMe || !m.quoted.isBaileys || !/Ketik.*hints/i.test(m.quoted.contentText)) return !0
   this.tebaklogo = this.tebaklogo ? this.tebaklogo : {}
-  if (!(id in this.tebaklogo)) return m.reply('Soal itu telah berakhir')
   if (m.quoted.id == this.tebaklogo[id][0].id) {
     let json = JSON.parse(JSON.stringify(this.tebaklogo[id][1]))
     if (['.hints', 'Bantuan', ''].includes(m.text)) return !0

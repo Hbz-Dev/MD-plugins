@@ -35,10 +35,10 @@ let handler = async (m, { conn, usedPrefix, text }) => {
 			}  
 		} catch (e) {
   } finally {
-    let groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat) : {}
+    /*let groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat) : {}
     let participants = m.isGroup ? groupMetadata.participants : []
     let users = m.isGroup ? participants.find(u => u.jid == user) : {}
-    if(!users) return conn.reply(m.chat, `[❗] Target atau Nomor tidak ditemukan, mungkin sudah keluar atau bukan anggota grup ini`, m)
+    if(!users) return conn.reply(m.chat, `[❗] Target atau Nomor tidak ditemukan, mungkin sudah keluar atau bukan anggota grup ini`, m)*/
     if(user === m.sender) return conn.reply(m.chat, `[❗] Tidak bisa berpacaran dengan diri sendiri ! 👤`, m)
     if(user === conn.user.jid) return conn.reply(m.chat, `[❗] Tidak bisa berpacaran dengan bot ! 🤖`, m)
 
@@ -60,7 +60,7 @@ let handler = async (m, { conn, usedPrefix, text }) => {
         }})
       }else{
         global.db.data.users[m.sender].pasangan = user
-        conn.reply(m.chat,`Anda baru saja mengajak @${user.split('@')[0]} berpacaran 💐\n\nSilahkan menunggu jawaban darinya!\n▸ Ketik\n*${usedPrefix}terima @user* untuk menerima ✔️\n*${usedPrefix}tolak @user* untuk menolak ✖️`,m,{contextInfo: {
+        conn.reply(m.chat,`Anda baru saja mengajak\n@${user.split('@')[0]} berpacaran 💐\n\nSilahkan menunggu jawaban darinya!\n▸ Ketik\n*${usedPrefix}terima @user* untuk menerima ✔️\n*${usedPrefix}tolak @user* untuk menolak ✖️`,m,{contextInfo: {
           mentionedJid: [user]
         }})
       }
@@ -71,7 +71,7 @@ let handler = async (m, { conn, usedPrefix, text }) => {
       }})
     }else {
       global.db.data.users[m.sender].pasangan = user
-      conn.reply(m.chat,`Kamu baru saja mengajak @${user.split('@')[0]} berpacaran 💐\n\nSilahkan menunggu jawaban darinya. . .!\n▸ Ketik\n*${usedPrefix}terima @user* untuk menerima ✔️\n*${usedPrefix}tolak @user* untuk menolak ✖️`,m,{contextInfo: {
+      conn.reply(m.chat,`Kamu baru saja mengajak\n@${user.split('@')[0]} berpacaran 💐\n\nSilahkan menunggu jawaban darinya. . .!\n▸ Ketik\n*${usedPrefix}terima @user* untuk menerima ✔️\n*${usedPrefix}tolak @user* untuk menolak ✖️`,m,{contextInfo: {
         mentionedJid: [user]
       }})
     }
@@ -81,5 +81,4 @@ handler.help = ['tembak @tag']
 handler.tags = ['jodoh']
 handler.command = /^(tembak)$/i
 handler.group = true
-handler.fail = null
 module.exports = handler

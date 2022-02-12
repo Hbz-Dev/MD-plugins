@@ -4,6 +4,7 @@ let handler = async (m, { conn, text }) => {
   if (!text) return conn.reply(m.chat, 'Harap masukan kanji nya', m)
   let res = await fetch(`https://kanjiapi.dev/v1/kanji/${encodeURIComponent(text)}`)
   let json = await res.json()
+  if (!json) throw await res.text()
   let { kanji, grade, stroke_count, meanings, kun_readings, on_readings, name_readings, jlpt, unicode, heisig_en } = json
   let pesan = `
   「Kanji Information」

@@ -8,14 +8,14 @@ let handler = async (m, { conn }) => {
   beb = global.db.data.users[global.db.data.users[m.sender].pasangan]
 
   if (typeof beb == "undefined"){
-    conn.reply(m.chat,`✔️ Berhasil putus hubungan dengan @${global.db.data.users[m.sender].pasangan.split('@')[0]}`,m,{contextInfo: {
+    conn.reply(m.chat,`✔️ Berhasil putus hubungan dengan @${global.db.data.users[m.sender].pasangan.split('@')[0]}\n\nYang Sabar Yah @${global.db.data.users[m.sender].pasangan.split('@')[0]} 😕`,m,{contextInfo: {
       mentionedJid: [global.db.data.users[m.sender].pasangan]
     }})
     ayg.pasangan = ""
   }
 
   if (m.sender == beb.pasangan){
-    conn.reply(m.chat,`✔️ Berhasil putus hubungan dengan @${global.db.data.users[m.sender].pasangan.split('@')[0]}`,m,{contextInfo: {
+    conn.reply(m.chat,`✔️ Berhasil putus hubungan dengan @${global.db.data.users[m.sender].pasangan.split('@')[0]}\n\nYang Sabar Yah @${global.db.data.users[m.sender].pasangan.split('@')[0]} 😕`,m,{contextInfo: {
       mentionedJid: [global.db.data.users[m.sender].pasangan]
     }})
     ayg.pasangan = ""

@@ -94,7 +94,7 @@ handler.help = ['labirin']
 handler.tags = ['rpg']
 handler.command = /^labirin/i
 handler.register = true
-handler.level = 10
+handler.level = 3
 
 module.exports = handler
 

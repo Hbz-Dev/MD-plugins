@@ -11,8 +11,5 @@ let handler = async (m, { conn, text }) => {
 handler.help = ['ikhlasin']
 handler.tags = ['jodoh']
 handler.command = /^(ikhlasin|ikhlas)$/i
-handler.mods = false
-handler.premium = false
 handler.group = true
-handler.fail = null
 module.exports = handler

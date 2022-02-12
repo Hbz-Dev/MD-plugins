@@ -1,6 +1,7 @@
 let { MessageType } = require('@adiwajshing/baileys-md')
 let handler = async (m, { conn, usedPrefix, DevMode }) => {
     if (global.db.data.users[m.sender].pickaxe == 0) return m.reply('Kamu tidak memiliki pickaxes Untuk menambang!\nDapatkan dengan cara *#adventure* Atau beli di shop dengan cara *#shop buy pickaxes*')
+    if (global.db.data.users[m.sender].stamina < 30) return m.reply('Membutuhkan minimal 30 stamina untuk menambang!\nMakan untuk menambah stamina!')
     try { 
         let __timers = (new Date - global.db.data.users[m.sender].lastmining)
         let _timers = (300000 - __timers) 
@@ -15,11 +16,16 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
             let dmg = (diamond == 5 || emerald == 5 || gold == 5 ? pickRandom(['99', '98', '97', '96', '95', '94', '93', '92', '91', '90']) : _dmg)
             player.pickaxedurability -= dmg * 1
             player.lastmining = new Date * 1
+            if (player.stamina < 30) {
+            m.reply('Membutuhkan minimal 30 stamina untuk menambang!\nMakan untuk menambah stamina!')
+            return
+            }
             if (player.pickaxedurability < 0) {
             player.pickaxe = 0
             player.pickaxedurability = 0
             m.reply('Pickaxe Anda hancur saat sedang menambang!\nAnda hanya mendapatkan *50 EXP* Dan *5 Kayu*')
             player.exp += 50
+            player.stamina -= 15
             player.kayu += 5
             return
             }     
@@ -53,6 +59,7 @@ Tersisa ${player.pickaxedurability}/100
                  conn.reply(m.chat, '*Selamat kamu menemukan*\n' + gold + ' Gold! 👑', m)
                }
             player.kayu += kayu * 1
+            player.stamina -= 30
             player.batu += batu * 1
             player.iron += iron * 1
             player.exp += exp * 1

@@ -1,6 +1,6 @@
 let handler = async (m, { conn, command, text }) => {
 	
-    if (!text) return conn.reply(m.chat, 'Masukan Namamu Udin!', m)
+    if (!text) return conn.reply(m.chat, 'Masukan Namamu!', m)
 	
   conn.reply(m.chat, `
 ┏━━°❀❬ *Sifat ${text}* ❭❀°━━┓

@@ -15,17 +15,6 @@ let handler = async(m, { conn, text }) => {
 handler.help = ['tebakumur'].map(v => v + ' <nama>')
 handler.tags = ['internet', 'fun']
 handler.command = /^(tebakumur)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
 handler.exp = 10
-handler.limit = true
 // https://github.com/uhdahlah
 module.exports = handler
