@@ -612,10 +612,10 @@ global.dfail = async(type, m, conn) => {
         admin: 'Perintah ini hanya untuk *Admin* grup!',
         nsfw: 'Perintah ini Mengandung *18+* Harap hidupkan mode nsfw!',
         botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
-        unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Ryu.16',
+        unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Shinoa.15',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fla + type)).buffer(), msg, global.wm, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules' : `daftar ${username}.15`)
+    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fla + type)).buffer(), msg, global.wm, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules' : `.daftar ${username}.15`)
    }
 
 let fs = require('fs')
