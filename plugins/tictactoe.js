@@ -34,6 +34,11 @@ ${arr.slice(6).join('')}
 Menunggu @${room.game.currentTurn.split('@')[0]}
 Ketik *nyerah* untuk nyerah
 `.trim()
+  if (room.x === room.o) m.reply(str, m.chat, {
+      contextInfo: {
+            mentionedJid: conn.parseMention(str)
+           }
+         })
         if (room.x !== room.o) m.reply(str, room.x, {
             contextInfo: {
                 mentionedJid: conn.parseMention(str)

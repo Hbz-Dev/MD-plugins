@@ -8,7 +8,7 @@ let handler = async(m, { text, command, groupMetadata, conn }) => {
     let a = fs.readFileSync('./src/avatar_contact.png')
     let b = a
     try {
-        a = await conn.profilePictureUrl(m.sender)    
+        a = await conn.profilePictureUrl(m.sender, 'image')    
         b = await (await fetch(a)).buffer()
     } catch (e) {}
     let buttons = [{buttonId: `#say Ok ^^`, buttonText: {displayText: 'Iyaaaa'}, type: 1}]

@@ -28,7 +28,7 @@ let zer = `
  *◩   ️ 🐖 = [ ${babi} ] Ekor Babi*
  *◩   ️ 🐓 = [ ${ayam} ] Ekor Ayam*
  `.trim()
- conn.sendButton(m.chat, zer, global.wm, 'Toko', '.pasar', m)
+ conn.sendButton(m.chat, zer, global.wm, 'Toko', '.shop', m)
 } 
 handler.help = ['kandang']
 handler.tags = ['rpg']
