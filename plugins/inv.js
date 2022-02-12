@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix }) => {
     let kayu = global.db.data.users[m.sender].kayu
     let batu = global.db.data.users[m.sender].batu
     let pasangan = global.db.data.users[m.sender].pasangan
-    let namapasangan = global.db.data.users[`${pasangan}`].name || false
+    let namapasangan = global.db.data.users[`${pasangan}`] ? global.db.data.users[`${pasangan}`].name : '-'
     let stamina = global.db.data.users[m.sender].stamina
     let jaring = global.db.data.users[m.sender].string
     let besi = global.db.data.users[m.sender].iron
