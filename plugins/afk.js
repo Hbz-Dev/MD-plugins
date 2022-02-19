@@ -5,7 +5,7 @@ let handler = async(m, { text, command, groupMetadata, conn }) => {
     let user = global.db.data.users[m.sender]
     user.afk = +new Date
     user.afkReason = text
-    let a = fs.readFileSync('./src/avatar_contact.png')
+    let a = await (await fetch(fla + `${user.name} AFK!`)).buffer()
     let b = a
     try {
         a = await conn.profilePictureUrl(m.sender, 'image')    
@@ -13,7 +13,7 @@ let handler = async(m, { text, command, groupMetadata, conn }) => {
     } catch (e) {}
     let buttons = [{buttonId: `#say Ok ^^`, buttonText: {displayText: 'Iyaaaa'}, type: 1}]
     let str = `╭──[ *NOW AFK !* ]──✧
-┆ *Nama* : ${m.sender.split('@')[0]}
+┆ *Nama* : @${m.sender.split('@')[0]}
 ┆ *Alasan* : ${text ? '' + text : 'Tanpa Alasan'}
 ┆
 ┆  ~ *(Away From Keyboard)* ~

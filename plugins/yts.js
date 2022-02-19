@@ -1,24 +1,22 @@
-let yts = require('yt-search')
+const { youtubeSearch } = require('@bochilteam/scraper')
 let handler = async (m, { text }) => {
-  if (!text) throw 'Apa yang mau dicari?\nContoh: !yts Orange 7'
-  let results = await yts(text)
-  let teks = results.all.map(v => {
+  if (!text) throw 'Cari apa?'
+  const { video, channel } = await youtubeSearch(text)
+  let teks = [...video, ...channel].map(v => {
     switch (v.type) {
       case 'video': return `
-*${v.title}*
-_Duration: ${v.timestamp}_
-_Uploaded ${v.ago}_
-_${v.views} views_
-_${v.url}_
+📌 *${v.title}* (${v.url})
+⌚ Duration: ${v.durationH}
+⏲️ Uploaded ${v.publishedTime}
+👁️ ${v.view} views
       `.trim()
       case 'channel': return `
-*${v.name}*
-_${v.subCountLabel} (${v.subCount}) Subscriber_
-_${v.videoCount} video_
-_${v.url}_
+📌 *${v.channelName}* (${v.url})
+🧑‍🤝‍🧑 _${v.subscriberH} (${v.subscriber}) Subscriber_
+🎥 ${v.videoCount} video
 `.trim()
     }
-  }).filter(v => v).join('\n\n')
+  }).filter(v => v).join('\n\n========================\n\n')
   m.reply(teks)
 }
 handler.help = ['ytsearch <pencarian>']

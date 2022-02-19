@@ -4,8 +4,9 @@ let handler = async (m, { conn, usedPrefix, DevMode, command }) => {
         let __timers = (new Date - global.db.data.users[m.sender].lastadventure)
         let _timers = (300000 - __timers) 
         let timers = clockString(_timers)
-        if (global.db.data.users[m.sender].healt > 79 && global.db.data.users[m.sender].stamina > 49) {
+        if (global.db.data.users[m.sender].healt > 79 && global.db.data.users[m.sender].stamina > 79) {
             if (new Date - global.db.data.users[m.sender].lastadventure > 300000) {
+            await conn.reply(m.chat, '_Sedang Berpetualang..._', m)
             let armor = global.db.data.users[m.sender].armor
             let rubah = global.db.data.users[m.sender].rubah
             let kuda = global.db.data.users[m.sender].kuda
@@ -17,7 +18,6 @@ let handler = async (m, { conn, usedPrefix, DevMode, command }) => {
             let armornya = (armor == 0 ? 0 : '' || armor == 1 ? 5 : '' || armor == 2 ? 10 : '' || armor == 3 ? 15 : '' || armor == 4 ? 21 : '' || armor == 5 ? 30 : '')
             let __health = (___health > 60 ? ___health - kucingnya - armornya : ___health)
             let healt = (kucing == 0 && armor == 0 ? pickRandom(['100', '99', '98', '97', '96', '95', '94', '93', '92', '91', '90']) : kucing > 0 && armor > 0 ? __health : ___health)
-            let stam = `${Math.floor(Math.random() * 50)}`
             let exp = (Math.floor(Math.random() * 400) + (kuda * 70))
             let uang = (Math.floor(Math.random() * 400) + (anjing * 500))
             let _potion = `${Math.floor(Math.random() * 2)}`.trim()
@@ -38,7 +38,7 @@ let handler = async (m, { conn, usedPrefix, DevMode, command }) => {
             let sampah = `${Math.floor(Math.random() * 300)}`.trim()
             let legendary = (_legendary * 1)
             let str = `
-Nyawa mu berkurang -${healt * 1} karena Kamu telah ${command == 'adventure' || command == 'berpetualang' ? 'berpetualang' : 'Mulung'} sampai ${pickRandom(['Jepang', 'Korea', 'Bali', 'Amerika', 'Iraq', 'Arab', 'Pakistan', 'German', 'Finlandia', 'Dunia Mimpi', 'Ujung dunia', 'Mars', 'Bulan', 'Pluto', 'Matahari', 'Negeri angin', 'Isekai'])} dan mendapatkan
+Nyawa mu berkurang -${healt * 1} Dan stamina mu berkurang -${healt * 1} karena Kamu telah ${command == 'adventure' || command == 'berpetualang' ? 'berpetualang' : 'Mulung'} sampai ${pickRandom(['Jepang', 'Korea', 'Bali', 'Amerika', 'Iraq', 'Arab', 'Pakistan', 'German', 'Finlandia', 'Dunia Mimpi', 'Ujung dunia', 'Mars', 'Bulan', 'Pluto', 'Matahari', 'Negeri angin', 'Isekai'])} dan mendapatkan
 *exp:* ${exp} 
 *uang:* ${uang}
 *sampah:* ${sampah}${potion == 0 ? '' : '\n*Potion:* ' + potion + ''}${diamond == 0 ? '' : '\n*diamond:* ' + diamond + ''}${common == 0 ? '' : '\n*common crate:* ' + common + ''}${uncommon == 0 ? '' : '\n*uncommon crate:* ' + uncommon + ''}
@@ -63,7 +63,7 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah ${command == 'adventure' || c
                 conn.reply(m.chat, '*Selamat anda mendapatkan item Epic yaitu*\n' + legendary + ' Legendary Crate', m)
             }
             global.db.data.users[m.sender].healt -= healt * 1
-            global.db.data.users[m.sender].stamina -= stam * 1
+            global.db.data.users[m.sender].stamina -= healt * 1
             global.db.data.users[m.sender].exp += exp * 1
             global.db.data.users[m.sender].money += uang * 1
             global.db.data.users[m.sender].potion += potion * 1
@@ -73,7 +73,7 @@ Nyawa mu berkurang -${healt * 1} karena Kamu telah ${command == 'adventure' || c
             global.db.data.users[m.sender].sampah += sampah * 1
             global.db.data.users[m.sender].lastadventure = new Date * 1
             } else conn.reply(m.chat, `Anda sudah berpetualang dan kelelahan, silahkan coba\n🕛 *${timers}* lagi`, m)
-        } else conn.reply(m.chat, 'Minimal 80 health dan 50 stamina untuk bisa berpetualang, pulihkan nyawa dulu dengan ketik *' + usedPrefix + 'heal*\natau ketik *' + usedPrefix + 'use potion <jumlah>*\nPulihkan Stamina dengan memakan makanan!\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*', m)
+        } else conn.reply(m.chat, 'Minimal 80 health dan 80 stamina untuk bisa berpetualang, pulihkan nyawa dulu dengan ketik *' + usedPrefix + 'heal*\natau ketik *' + usedPrefix + 'use potion <jumlah>*\nPulihkan Stamina dengan memakan makanan!\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*', m)
     } catch (e) {
         console.log(e)
         conn.reply(m.chat, 'Error', m)

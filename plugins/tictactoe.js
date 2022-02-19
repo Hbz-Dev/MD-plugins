@@ -6,7 +6,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
     let room = Object.values(conn.game).find(room => room.state === 'WAITING' && (text ? room.name === text : true))
     // m.reply('[WIP Feature]')
     if (room) {
-        m.reply('Lawan ditemukan!')
+        //m.reply('Lawan ditemukan!')
         room.o = m.chat
         room.game.playerO = m.sender
         room.state = 'PLAYING'
@@ -25,7 +25,7 @@ let handler = async (m, { conn, usedPrefix, command, text }) => {
                 9: '9️⃣',
             }[v]
         })
-        let str = `
+        let str = `Lawan ditemukan!🔥
 Room ID: ${room.id}\n
 ${arr.slice(0, 3).join('')}
 ${arr.slice(3, 6).join('')}

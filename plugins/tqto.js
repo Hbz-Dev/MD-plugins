@@ -65,6 +65,6 @@ https://github.com/adulhy
 }
 handler.help = ['credit']
 handler.tags = ['info']
-handler.command = /^(credits|credit|thanks|thanksto|tqto)$/i
+handler.command = /^(credit|tqto)$/i
 
 module.exports = handler

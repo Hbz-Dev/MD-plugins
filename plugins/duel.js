@@ -41,28 +41,29 @@ let handler = async ( m, { conn, args, command}) => {
      let kenal = who.includes(m.sender)
      if (!kenal) return conn.sendButton(m.chat, `Kamu siapa?\nkok ikut kut mau duel`, `Sesion`, `YA`, `.dya`, m)
      user.lastduel = new Date * 1
+     await conn.reply(m.chat, '*Duel Dimulaii!*', m)
      if (Aku > Kamu) {
        user.money -= 900
        enemy.money += 900
        delete conn.duel[m.sender]
-       conn.reply(m.chat, `@${who.split("@")[0]} Menang Gelud🤼\n*Hadiah:*\n900 Money buat beli gorengan`.trim(), m, { mentions: [who] })
+       conn.reply(m.chat, `@${who.split("@")[0]} Menang Gelud🤼\n*Hadiah:*\n900 Money🏅`.trim(), m, { mentions: [who] })
      } else if (Aku < Kamu) {
        user.money += 450
        enemy.money -= 450
        delete conn.duel[m.sender]
-       conn.reply(m.chat, `@${who.split("@")[0]} Kalah Gelud🤼\n*Hadiah:*\n 450 money Mayan buat beli Limit`.trim(), m, { mentions: [who] })
+       conn.reply(m.chat, `@${who.split("@")[0]} Kalah Gelud🤼\n*Hadiah:*\n450 Money🥉`.trim(), m, { mentions: [who] })
      } else {
        user.money += 250
        enemy.money += 250
        delete conn.duel[m.sender]
-       conn.reply(m.chat, `@${who.split("@")[0]}\n *Seri*\n masing masing 250 Money`.trim(), m, { mentions: [who] })
+       conn.reply(m.chat, `@${who.split("@")[0]}\n *Seri*\n Masing Masing Mendapatkan 250 Money🎗`.trim(), m, { mentions: [who] })
      }
    }
    if (/dno/.test(command)) {
    let kenal = who.includes(m.sender)
    if (!kenal) return conn.sendButton(m.chat, `Kamu siapa?\nkok ikut kut mau duel`, `Sesion`, `NO`, `.dno`, m)
     //if (!who) return m.reply('tag yg ingin di ajak duel!')
-    conn.reply( m.chat, `@${who.split("@")[0]} Membatalkan Ajakan Duel`, m, { mentions: [who] })
+    conn.reply( m.chat, `@${who.split("@")[0]} Membatalkan Ajakan Duel\nDuel Dihentikan!`, m, { mentions: [who] })
     delete conn.duel[m.sender]
    }
  } catch (e) {

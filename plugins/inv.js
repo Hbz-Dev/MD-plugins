@@ -78,7 +78,8 @@ let handler = async (m, { conn, usedPrefix }) => {
     let usersuncommon = sorteduncommon.map(v => v[0])
     let usersmythic = sortedmythic.map(v => v[0])
     let userslegendary = sortedlegendary.map(v => v[0])
-    let str = `
+    let str = `*Inventory Mu*
+${readMore}\n
 *╭─────────[ Status ]─────────✧*
 ├◪ ♥️ Health: *${healt}*
 ├◪ 🍸 *Stamina:* ${stamina}
@@ -199,11 +200,13 @@ let handler = async (m, { conn, usedPrefix }) => {
 8.Top Legendary *${userslegendary.indexOf(m.sender) + 1}* dari *${userslegendary.length}*
 9.Top Sampah *${userssampah.indexOf(m.sender) + 1}* dari *${userssampah.length}*
 *╰─────────────────────────·····*
-\n${readMore}
+\n
 Warn: *${warn}*
 `.trim()
 
-    conn.reply(m.chat, str, m)
+    await conn.reply(m.sender, str, m)
+    conn.reply(m.chat, 'Inventory Mu Sudah dikirim melalui private chat!', m)
+    
 }
 handler.help = ['inventory', 'inv']
 handler.tags = ['rpg']

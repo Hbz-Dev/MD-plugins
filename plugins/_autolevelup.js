@@ -14,7 +14,7 @@ handler.before = async function (m) {
         let sortedLevel = users.map(toNumber('level')).sort(sort('level'))
         let usersLevel = sortedLevel.map(enumGetKey)
         let { min, xp, max } = levelling.xpRange(user.level, global.multiplier)
-        let a = fs.readFileSync('./src/avatar_contact.png')
+        let a = await (await fetch(fla + 'Selamat Naik Level!🥳')).buffer()
         let b = a
         try {
         a = await this.profilePictureUrl(m.sender, 'image')    

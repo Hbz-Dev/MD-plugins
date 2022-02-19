@@ -19,6 +19,18 @@ let handler  = async (m, { conn, text }) => {
       users[jid].healt = 100
       total+=1
     }
+    if (users[jid].stamina < 0){
+      users[jid].stamina = 0
+      total+=1
+    }
+    if (users[jid].stamina > 100){
+      users[jid].stamina = 100
+      total+=1
+    }
+    if (users[jid].exp < 0){
+      users[jid].exp = 0
+      total+=1
+    }
     users[jid].money = Math.floor(users[jid].money)
     users[jid].limit = Math.floor(users[jid].limit)
   }

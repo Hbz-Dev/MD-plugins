@@ -23,6 +23,7 @@ let handler  = async (m, { conn, command, args, usedPrefix}) => {
   global.db.data.users[m.sender].pickaxe = global.db.data.users[m.sender].pickaxe || 0
   global.db.data.users[m.sender].sword = global.db.data.users[m.sender].sword || 0
   global.db.data.users[m.sender].fishingrod = global.db.data.users[m.sender].fishingrod || 0
+  let user = global.db.data.users[m.sender]
   let botol = global.wm
 
   let caption = `*💠 Crafting :*

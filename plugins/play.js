@@ -1,43 +1,33 @@
 //made by https://github.com/Paquito1923
 const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
-const { servers, yta, ytv } = require('../lib/y2mate')
 let fs = require('fs')
-let yts = require('yt-search')
-let fetch = require('node-fetch')
+let { youtubeSearch } = require('@bochilteam/scraper')
+let fetch = require('node-fetch') 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
-  if (!text) throw `uhm.. cari apa?\n\ncontoh:\n${usedPrefix + command} Lemon Kenzhi Yonezu`
-  let chat = global.db.data.chats[m.chat]
-  let results = await yts(text)
-  let vid = results.all.find(video => video.seconds < 3600)
-  if (!vid) throw 'Konten Tidak ditemukan'
-  let isVideo = /2$/.test(command)
-  let yt = false
-  let yt2 = false
-  let usedServer = servers[0]
-  for (let i in servers) {
-    let server = servers[i]
-    try {
-      yt = await yta(vid.url, server)
-      yt2 = await ytv(vid.url, server)
-      usedServer = server
-      break
-    } catch (e) {
-      m.reply(`Server ${server} error!${servers.length >= i + 1 ? '' : '\nmencoba server lain...'}`)
-    }
-  }
-  if (yt === false) throw 'semua server gagal'
-  if (yt2 === false) throw 'semua server gagal'
-  let { dl_link, thumb, title, filesize, filesizeF } = yt
+  if (!text) throw `Use example ${usedPrefix}${command} Alan walker faded`
+  let vid = (await youtubeSearch(text)).video[0]
+  if (!vid) throw 'Video/Audio Tidak ditemukan'
+  let { title, description, thumbnail, videoId, durationH, viewH, publishedTime } = vid
+  const url = 'https://www.youtube.com/watch?v=' + videoId
+  /*await conn.sendButton(m.chat, `
+📌 *Title:* ${title}
+🔗 *Url:* ${url}
+🖹 *Description:* ${description}
+⏲️ *Published:* ${publishedTime}
+⌚ *Duration:* ${durationH}
+👁️ *Views:* ${viewH}
+  `.trim(), author, thumbnail, [
+    ['Audio 🎧', `${usedPrefix}yta ${url} yes`], ['Video 🎥', `${usedPrefix}ytv ${url} yes`]
+  ], m)*/
 let anu =  `
 📚 *Title:* ${title}
-🎵 *Size Audio:* ${filesizeF}
-🎬 *Size Video:* ${yt2.filesizeF}
-📹 *Duration:* ${vid.timestamp}
-📌 *Upload:* ${vid.ago}
+📹 *Duration:* ${durationH}
+📌 *Upload:* ${publishedTime}
 👨 *Author:* ${vid.author.name}
+👁 *Views:* ${viewH}
 
 Choose *Audio* or *Video* in button below
-Dont see it? Type:\n- *!yts yt_url <Audio>*\n- *!ytv yt_url <Video>*
+Dont see it? Type:\n- *!yta yt_url <Audio>*\n- *!ytv yt_url <Video>*
 `
 
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
@@ -45,26 +35,26 @@ Dont see it? Type:\n- *!yts yt_url <Audio>*\n- *!ytv yt_url <Video>*
          hydratedTemplate: {
            hydratedContentText: anu,
            locationMessage: { 
-           jpegThumbnail: await (await fetch(thumb)).buffer() }, 
-           hydratedFooterText: `DESKRIPSI:\n${vid.description}`,
+           jpegThumbnail: await (await fetch(thumbnail)).buffer() }, 
+           hydratedFooterText: `DESKRIPSI:\n${description}`,
            hydratedButtons: [{
              urlButton: {
                displayText: '🌟 Link YouTube',
-               url: `${vid.url}`,
+               url: `${url}`,
              }
 
            },
                {
              quickReplyButton: {
                displayText: '🎬 Video',
-               id: `.ytmp4 ${vid.url}`,
+               id: `.ytmp4 ${vid.url} yes`,
              }
 
             },
                {
              quickReplyButton: {
                displayText: '🎵 Audio',
-               id: `.ytmp3 ${vid.url}`,
+               id: `.ytmp3 ${vid.url} yes`,
              }
 
            }]

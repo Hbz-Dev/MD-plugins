@@ -17,7 +17,7 @@ let username = conn.getName(who)
     await this.send3ButtonLoc(m.chat, logo, `
 *Hai, ${ucapan()}*
 
-${user.banned ? 'Kamu Dibanned!' : 'Saya adalah SHINOABOT, salah satu bot Whatsapp. harap tidak spam/telpon/minta save kemonor ini. Ada yang bisa saya bantu?\n(ㆁωㆁ)'}
+${user.banned ? 'Kamu Dibanned!' : 'Saya adalah salah satu bot Whatsapp. harap tidak spam/telpon/minta save kemonor ini. Ada yang bisa saya bantu?\n(ㆁωㆁ)'}
 `.trim(), global.wm, user.registered ? '⋮☰ Menu' : 'Verify', user.registered ? '.menu' : `.daftar ${username}.15`, 'Rules', '.rules', 'Owner', '.owner', m)
     user.pc = new Date * 1
 }
