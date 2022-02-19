@@ -1,7 +1,6 @@
 let fs = require('fs')
 
 global.owner = ['994407430641', '6283844009539'] // Put your number here
-global.mods = [] // Want some help?
 global.prems = JSON.parse(fs.readFileSync('./src/premium.json'))
 global.APIs = { // API Prefix
   // name: 'https://website'
@@ -27,49 +26,16 @@ global.APIKeys = { // APIKey Here
 }
 
 // Sticker WM
-global.packname = '🌙 𝚂𝚑𝚒𝚗𝚘𝚊 вσт\nwa.me/+17069199618\n\n\n𝙱𝚢 ʀʏᴜ あ\n\n\nFollow IG: @_Ryu12\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.'
+global.packname = '🌙 Stickers\nBot Whatsapp\n\n\n𝙱𝚢 𝙲𝚎𝚗𝚝𝚊𝚞𝚛𝚒 あ\n\n\nAnimelovers :3\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n.'
 global.author = '۰ ⸼'
 
-global.wm = '𒆜ꜱʜɪɴᴏᴀ ʙᴏᴛᴢ𒆜'
+global.wm = '𝙲𝚎𝚗𝚝𝚊𝚞𝚛𝚒 複'
 global.fla = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&text='
-global.fra = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=sketch-name&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&fillTextType=1&fillTextPattern=Warning!&fillColor1Color=%23f2aa4c&fillColor2Color=%23f2aa4c&fillColor3Color=%23f2aa4c&fillColor4Color=%23f2aa4c&fillColor5Color=%23f2aa4c&fillColor6Color=%23f2aa4c&fillColor7Color=%23f2aa4c&fillColor8Color=%23f2aa4c&fillColor9Color=%23f2aa4c&fillColor10Color=%23f2aa4c&fillOutlineColor=%23f2aa4c&fillOutline2Color=%23f2aa4c&backgroundColor=%23101820&text='
+global.fra = 'https://www6.flamingtext.com/net-fu/proxy_form.cgi?&imageoutput=true&script=booking-logo&doScale=true&scaleWidth=800&scaleHeight=500&fontsize=100&&fontname=barlow+black+italic&fillTextColor=%23f2aa4c&fillOutlineColor=%23f5c17c&fillOutline2Color=%23f5c17c&useInsetHighlight=false&insetHighlightColor=%23f5c17c&insetHighlightOffset=3&shadowType=0&shadowColor=%2315202b&shadowOpacity=0&backgroundColor=%23101920&text='
 
-global.wait = '_*tunggu sedang di proses...*_'
 global.eror = '_*Server Error*_'
 
 global.multiplier = 40 // The higher, The harder levelup
-
-global.rpg = {
-  emoticon(string) {
-    string = string.toLowerCase()
-    let emot = {
-      exp: '✉️',
-      money: '💵',
-      potion: '🥤',
-      diamond: '💎',
-      common: '📦',
-      uncommon: '🎁',
-      mythic: '🗳️',
-      legendary: '🗃️',
-      pet: '🎁',
-      sampah: '🗑',
-      armor: '🥼',
-      sword: '⚔️',
-      kayu: '🪵',
-      batu: '🪨',
-      string: '🕸️',
-      kuda: '🐎',
-      kucing: '🐈' ,
-      anjing: '🐕',
-      petFood: '🍖',
-      gold: '👑',
-      emerald: '💚'
-    }
-    let results = Object.keys(emot).map(v => [v, new RegExp(v, 'gi')]).filter(v => v[1].test(string))
-    if (!results.length) return ''
-    else return emot[results[0][0]]
-  }
-}
 
 
 let chalk = require('chalk')

@@ -314,7 +314,6 @@ module.exports = {
             let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
           
             let isOwner = isROwner || m.fromMe
-            let isMods = isOwner || global.mods.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
             let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
             let groupMetadata = (m.isGroup ? (conn.chats[m.chat] || {}).metadata : {}) || {}
             let participants = (m.isGroup ? groupMetadata.participants : []) || []
@@ -326,10 +325,6 @@ module.exports = {
                 let plugin = global.plugins[name]
                 if (!plugin) continue
                 if (plugin.disabled) continue
-                if (!opts['restrict']) if (plugin.tags && plugin.tags.includes('admin')) {
-                    // global.dfail('restrict', m, this)
-                    continue
-                }
                 const str2Regex = str => str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
                 let _prefix = plugin.customPrefix ? plugin.customPrefix : conn.prefix ? conn.prefix : global.prefix
                 let match = (_prefix instanceof RegExp ? // RegExp Mode?
@@ -399,15 +394,11 @@ module.exports = {
                         fail('owner', m, this)
                         continue
                     }
-                    if (plugin.mods && !isMods) { // Moderator
-                        fail('mods', m, this)
-                        continue
-                    }
                     if (plugin.premium && !isPrems) { // Premium
                         fail('premium', m, this)
                         continue
                     }
-                    if (plugin.group && !m.isGroup) { // Group Only
+                    if (plugin.group && !m.isGroup && !isOwner) { // Group Only
                         fail('group', m, this)
                         continue
                     } else if (plugin.botAdmin && !isBotAdmin) { // You Admin
@@ -587,7 +578,7 @@ module.exports = {
         let chats = Object.entries(conn.chats).find(([user, data]) => data.messages && data.messages[id])
         if (!chats) return
         let msg = JSON.parse(chats[1].messages[id])
-        let buttons = [{buttonId: `${prefix}on delete`, buttonText: {displayText: 'Matikan Antidelete'}, type: 1}]
+        let buttons = [{buttonId: `.on delete`, buttonText: {displayText: 'Matikan Antidelete'}, type: 1}]
         let chat = global.db.data.chats[msg.key.remoteJid] || {}
         if (chat.delete) return
         await this.sendMessage(msg.key.remoteJid, { text: `
@@ -615,7 +606,7 @@ global.dfail = async(type, m, conn) => {
         unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Shinoa.15',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fla + type)).buffer(), msg, global.wm, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules' : `.daftar ${username}.15`)
+    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fra + type)).buffer(), msg, global.wm, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules' : `.daftar ${username}.15`)
    }
 
 let fs = require('fs')
