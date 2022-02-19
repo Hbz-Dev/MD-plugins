@@ -1,0 +1,73 @@
+{
+  creds: {
+    noiseKey: { private: [Object], public: [Object] },
+    signedIdentityKey: { private: [Object], public: [Object] },
+    signedPreKey: { keyPair: [Object], signature: [Object], keyId: 1 },
+    registrationId: 225,
+    advSecretKey: '2m/JqLTsUNAlQnu0C5FYbo7wVVfHKRq/PKmPyRcanNs=',
+    nextPreKeyId: 31,
+    firstUnuploadedPreKeyId: 31,
+    serverHasPreKeys: true,
+    account: {
+      details: 'CJaa+NMFEMzBw5AGGAE=',
+      accountSignatureKey: 'bLEyYkRQiwgjuP2SQUR0dDK06G7gh14Y/tGqneArAR0=',
+      accountSignature: 'Q3m1yaMpnUqvMyxQXYVCvjsjIYBP4VPLuYYTx1p358quzgvnkhBZyorB9264HAHxoZ1yrEhpvs9BrqruiPOdAQ==',
+      deviceSignature: 'YaUmKBaUkYX8LQWQ9vpLdfiIF6omNXfbBw1YNowtseNdPzd5Q8ATz7ASazwUOzgJJlUXKOSn3RtoQgE4NnV1Bw=='
+    },
+    me: {
+      id: '17069199618:6@s.whatsapp.net',
+      verifiedName: '',
+      jid: '17069199618@s.whatsapp.net',
+      name: '꧁ʙᴏᴛᴢ꧂'
+    },
+    signalIdentities: [ [Object] ],
+    lastAccountSyncTimestamp: 1645273294,
+    myAppStateKeyId: 'AAAAALpq'
+  },
+  keys: {
+    preKeys: {
+      '1': [Object],
+      '2': null,
+      '3': [Object],
+      '4': [Object],
+      '5': [Object],
+      '6': [Object],
+      '7': [Object],
+      '8': [Object],
+      '9': [Object],
+      '10': [Object],
+      '11': [Object],
+      '12': [Object],
+      '13': [Object],
+      '14': [Object],
+      '15': [Object],
+      '16': null,
+      '17': [Object],
+      '18': [Object],
+      '19': [Object],
+      '20': [Object],
+      '21': [Object],
+      '22': [Object],
+      '23': [Object],
+      '24': [Object],
+      '25': [Object],
+      '26': [Object],
+      '27': [Object],
+      '28': [Object],
+      '29': null,
+      '30': [Object]
+    },
+    sessions: {
+      '17069199618.0': [Object],
+      '6288905309141.0': [Object],
+      '6283844009539.0': [Object]
+    },
+    appStateSyncKeys: { AAAAALpq: [Object] },
+    appStateVersions: {
+      critical_block: [Object],
+      critical_unblock_low: [Object],
+      regular_low: [Object]
+    },
+    senderKeys: { 'status@broadcast::6288905309141::0': [Array] }
+  }
+}
