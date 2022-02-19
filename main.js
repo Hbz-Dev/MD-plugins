@@ -73,6 +73,7 @@ const { state, saveState } = useSingleFileAuthState(global.authFile)
 const connectionOptions = {
   printQRInTerminal: true,
   auth: state,
+  version: [2, 2204, 13],
   browser: ['reska MD','safari','1.0.0'],
   logger: P({ level: 'fatal' })
 }
