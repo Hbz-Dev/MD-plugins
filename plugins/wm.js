@@ -6,7 +6,11 @@ let text2 = text.split('|')[1]
 try {
    let q = m.quoted ? m.quoted : m
    let mime = m.quoted.mimetype || ''
-   if (/webp/.test(mime)) {
+      if (m.quoted.isAnimated) {
+      let img = await q.download()
+      let rd = await sticker5(img, false, packname, author)
+      conn.sendFile(m.chat, rd, 'stiker.webp', '', m)
+    } else if (/webp/.test(mime)) {
       let img = await q.download()
       let enc = await conn.sendImageAsSticker(m.chat, img, m, { packname: text1 ? text1 : '', author: text2 ? text2 : '' })
       await fs.unlinkSync(enc)

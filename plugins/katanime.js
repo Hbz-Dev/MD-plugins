@@ -5,9 +5,9 @@ let handler = async(m, { conn, text }) => {
   let json = await res.json()
   if(!json.result[0]) throw json
   let { indo, character, anime } = json.result[0]
-m.reply(`${indo}\n\n${character}\n${anime}`)
+  conn.sendButton(m.chat, `${indo}\n\nBy: ~ _${character}_ ~`, `Anime:\n${anime}`, 'Kata² Anime', '.quotesnime', m)
 }
 handler.help = ['quotesnime']
 handler.tags = ['anime', 'quotes']
-handler.command = /^(quotesnime|kataanima)$/i
+handler.command = /^(quotesnime|kataanime)$/i
 module.exports = handler

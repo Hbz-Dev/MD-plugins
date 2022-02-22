@@ -2,7 +2,8 @@ let syntaxerror = require('syntax-error')
 let util = require('util')
 
 let handler  = async (m, _2) => {
-  let { conn, usedPrefix, noPrefix, args, groupMetadata } = _2
+  let { conn, usedPrefix, noPrefix, args, groupMetadata, isOwner } = _2
+  if (!isOwner) return
   let _return
   let _syntax = ''
   let _text = (/^=/.test(usedPrefix) ? 'return ' : '') + noPrefix
@@ -34,17 +35,6 @@ handler.help = ['>', '=>']
 handler.tags = ['advanced']
 handler.customPrefix = /^=?> /
 handler.command = /(?:)/i
-handler.rowner = true
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
 
 module.exports = handler
 

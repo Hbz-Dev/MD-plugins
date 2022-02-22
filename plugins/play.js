@@ -7,7 +7,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) throw `Use example ${usedPrefix}${command} Alan walker faded`
   let vid = (await youtubeSearch(text)).video[0]
   if (!vid) throw 'Video/Audio Tidak ditemukan'
-  let { title, description, thumbnail, videoId, durationH, viewH, publishedTime } = vid
+  let { title, authorName, description, thumbnail, videoId, durationH, viewH, publishedTime } = vid
   const url = 'https://www.youtube.com/watch?v=' + videoId
   /*await conn.sendButton(m.chat, `
 📌 *Title:* ${title}
@@ -23,7 +23,7 @@ let anu =  `
 📚 *Title:* ${title}
 📹 *Duration:* ${durationH}
 📌 *Upload:* ${publishedTime}
-👨 *Author:* ${vid.author.name}
+👺 *Author:* ${authorName}
 👁 *Views:* ${viewH}
 
 Choose *Audio* or *Video* in button below
@@ -47,14 +47,14 @@ Dont see it? Type:\n- *!yta yt_url <Audio>*\n- *!ytv yt_url <Video>*
                {
              quickReplyButton: {
                displayText: '🎬 Video',
-               id: `.ytmp4 ${vid.url} yes`,
+               id: `.ytmp4 ${url} yes`,
              }
 
             },
                {
              quickReplyButton: {
                displayText: '🎵 Audio',
-               id: `.ytmp3 ${vid.url} yes`,
+               id: `.ytmp3 ${url} yes`,
              }
 
            }]

@@ -1,12 +1,8 @@
-let fetch = require("node-fetch");
+let fetch = require("node-fetch")
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) throw `Pokemonnya mana?`;
-  let res = await fetch(
-    API("https://some-random-api.ml", "/pokedex", { pokemon: text })
-  );
-  if (!res.ok) throw `${res.status} ${res.statusText}`;
-  let json = await res.json();
+  if (!text) throw `Pokemonnya mana?`
+  let json = await (await fetch(`https://some-random-api.ml/pokedex?pokemon=${text}`)).json()
   let pokedex = `
 Name: ${json.name}
 Id: ${json.id}
@@ -32,19 +28,18 @@ Evolution Line: ${json.family.evolutionLine}\n
 DESCRIPTION
 ${json.description}
 Generation: ${json.generation}
-  `.trim();
-  if (!json.error)
-    await conn.sendFile(
+  `.trim()
+  
+      conn.sendFile(
       m.chat,
-      json.sprites.animated,
-      "pokemon.gif",
+      json.sprites.normal,
+      "pokemon.png",
       pokedex,
       m
-    );
-  else throw json.error;
-};
-handler.help = ["pokemon", "catch"].map((v) => v + " <pokemon>");
-handler.tags = ["internet"];
-handler.command = /^(pokemon|pokedex|catch|c)$/i;
+    )
+}
+handler.help = ["pokemon", "catch"].map((v) => v + " <pokemon>")
+handler.tags = ["internet"]
+handler.command = /^(pokemon|pokedex|catch|c)$/i
 
-module.exports = handler;
+module.exports = handler

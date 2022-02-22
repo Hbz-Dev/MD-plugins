@@ -25,7 +25,7 @@ handler.help = ['githubsearch'].map(v => v + ' <pencarian>')
 handler.tags = ['github']
 
 handler.command = /^g(ithub|h)search$/i
-handler.limit = 5
+handler.limit = 1
 
 module.exports = handler
 

@@ -11,16 +11,14 @@ let handler = async (m, { conn }) => {
         user.pet += 3
         user.lastmonthly = new Date * 1
     } else {
-        let buttons = button(`silahkan tunggu *🕛${timers}* lagi untuk bisa mengclaim lagi`, user)
-        conn.sendMessage(m.chat, buttons, MessageType.buttonsMessage, { quoted: m })
+        conn.sendButton(m.chat, `silahkan tunggu *🕛${timers}* lagi untuk bisa mengclaim lagi`, 'Monthly RPG', 'Weekly', '.weekly', m)
+        //conn.sendMessage(m.chat, buttons, { quoted: m })
     }
 }
 handler.help = ['monthly']
 handler.tags = ['rpg']
 handler.register = true
 handler.command = /^(monthly)$/i
-
-handler.fail = null
 
 module.exports = handler
 
@@ -33,27 +31,4 @@ function clockString(ms) {
   let s = Math.floor(ms / 1000) % 60
   console.log({ms,h,m,s})
   return [h, m, s].map(v => v.toString().padStart(2, 0) ).join(':')
-}
-
-function button(teks, user) {
-    const buttons = []
-    
-    let claim = new Date - user.lastclaim > 86400000
-    let monthly = new Date - user.lastmonthly > 2592000000
-    let weekly = new Date - user.lastweekly > 604800000
-    console.log({claim, monthly, weekly})
-    
-    if (monthly) buttons.push({buttonId: `id${buttons.length + 1}`, buttonText: {displayText: '/monthly'}, type: 1})
-    if (weekly) buttons.push({buttonId: `id${buttons.length + 1}`, buttonText: {displayText: '/weekly'}, type: 1})
-    if (claim) buttons.push({buttonId: `id${buttons.length + 1}`, buttonText: {displayText: '/claim'}, type: 1})
-    if (buttons.length == 0) throw teks
-    
-    const buttonMessage = {
-        text: teks,
-        footer: 'Bulanan RPG',
-        buttons: buttons,
-        headerType: 1
-    }
-    
-    return buttonMessage
 }

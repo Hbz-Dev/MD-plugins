@@ -62,6 +62,9 @@ setTimeout(() => {
                      }, 3000) 
   conn.reply(m.chat, '_Sedang Berburu..._', m)
   user.lasthunt = new Date * 1
+  setTimeout(() => {
+          conn.reply(m.sender, 'Cooldown Berburu mu Sudah selesai!', null)
+          }, 500000)
     } else conn.sendMessage(m.chat, buttonMessage, { quoted: m })
 }
 handler.help = ['berburu']

@@ -4,7 +4,7 @@ let { MessageType } = require('@adiwajshing/baileys-md')
 let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
 	let type = (args[0] || '').toLowerCase()
     let msk= (args[0] || '').toLowerCase()
-    if (global.db.data.users[m.sender].stamina > 50) return conn.reply(m.chat, 'Kamu Sudah kenyang!\nSilahkan Makan lagi nanti!', m)
+    if (global.db.data.users[m.sender].stamina > 80) return conn.reply(m.chat, 'Kamu Sudah kenyang!\nSilahkan Makan lagi nanti!', m)
 let cok = `
 Please choose what to eat🍟
 🍖 ${usedPrefix}ayamb *[ ayam bakar ]*

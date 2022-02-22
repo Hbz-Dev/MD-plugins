@@ -22,20 +22,14 @@ let handler = async (m, { conn, args: [event], text }) => {
         case 'demote':
             action = 'demote'
             break
-        case 'delete':
-            deleted = m
-            break
-        default: throw `List Event: welcome, bye, delete, promote, demote`
+        default: throw `List Event: welcome, bye, promote, demote`
     }
-    if (action) return conn.groupParticipantsUpdate({
-        jid: m.chat,
-        participants,
-        action
-    })
-    return conn.onDelete(m)
+    if (action) return conn.participantsUpdate({ id: m.chat, participants: [m.sender], action: action })
+    //return conn.onDelete(m)
 }
-handler.help = ['simulate <event> [@mention]']
+handler.help = ['simulate <event>']
 handler.tags = ['owner', 'group']
+handler.admin = true
 
 handler.command = /^simulate$/i
 module.exports = handler

@@ -72,6 +72,10 @@ Nyawa mu berkurang -${healt * 1} Dan stamina mu berkurang -${healt * 1} karena K
             global.db.data.users[m.sender].uncommon += uncommon * 1
             global.db.data.users[m.sender].sampah += sampah * 1
             global.db.data.users[m.sender].lastadventure = new Date * 1
+            
+          setTimeout(() => {
+          conn.reply(m.sender, 'Cooldown Adventure mu Sudah selesai!', null)
+          }, 300000)
             } else conn.reply(m.chat, `Anda sudah berpetualang dan kelelahan, silahkan coba\n🕛 *${timers}* lagi`, m)
         } else conn.reply(m.chat, 'Minimal 80 health dan 80 stamina untuk bisa berpetualang, pulihkan nyawa dulu dengan ketik *' + usedPrefix + 'heal*\natau ketik *' + usedPrefix + 'use potion <jumlah>*\nPulihkan Stamina dengan memakan makanan!\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*', m)
     } catch (e) {

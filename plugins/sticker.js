@@ -17,7 +17,8 @@ let handler = async (m, { conn }) => {
             if ((q.msg || q).seconds > 11) return m.reply('max is 10 seconds!')
             let img = await q.download()
             if (!img) throw `reply video with command s`
-            stiker = await sticker5(img, false, packname, author)
+            la = await conn.sendVideoAsSticker(m.chat, img, m, { packname: global.packname, author: global.author })
+            fs.unlinkSync(la)
         } else if (m.quoted.text) {
             if (isUrl(m.quoted.text)) stiker = await sticker(false, m.quoted.text, packname, author)
             else throw 'URL is not valid! end with jpg/gif/png'
