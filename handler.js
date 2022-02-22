@@ -398,13 +398,13 @@ module.exports = {
                         fail('premium', m, this)
                         continue
                     }
-                    if (plugin.group && !m.isGroup && !isOwner) { // Group Only
+                    if (plugin.group && !m.isGroup) { // Group Only
                         fail('group', m, this)
                         continue
                     } else if (plugin.botAdmin && !isBotAdmin) { // You Admin
                         fail('botAdmin', m, this)
                         continue
-                    } else if (plugin.admin && !(isAdmin || isOwner)) { // User Admin
+                    } else if (plugin.admin && !isAdmin) { // User Admin
                         fail('admin', m, this)
                         continue
                     }
@@ -593,6 +593,7 @@ Untuk mematikan fitur ini, ketik
 global.dfail = async(type, m, conn) => {
     let user = global.db.data.users[m.sender]
     let username = await conn.getName(m.sender)
+    let foot = user.registered ? global.wm : 'Kamu belum Terdaftar kak!\nDaftar dengan mengklick tombol dibawah!'
     let msg = {
         rowner: 'Perintah ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
         owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
@@ -606,7 +607,7 @@ global.dfail = async(type, m, conn) => {
         unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Shinoa.15',
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButtonLoc(m.chat, await (await fetch(fra + type)).buffer(), msg, global.wm, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules' : `.daftar ${username}.15`)
+    if (msg) return conn.sendButton(m.chat, msg, foot, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules' : `.daftar ${username}.15`, m)
    }
 
 let fs = require('fs')
