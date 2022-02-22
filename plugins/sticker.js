@@ -5,7 +5,11 @@ let handler = async (m, { conn }) => {
     try {
         let q = m.quoted ? m.quoted : m
         let mime = (q.msg || q).mimetype || ''
-        if (/webp/.test(mime)) {
+        if (m.quoted.isAnimated) {
+          let img = await q.download()
+          let rd = await sticker5(img, false, packname, author)
+          conn.sendFile(m.chat, rd, 'stiker.webp', '', m)
+        } else if (/webp/.test(mime)) {
             let img = await q.download()
             if (!img) throw `reply sticker with command s`
             stiker = await sticker5(img, false, packname, author)

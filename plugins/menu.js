@@ -156,14 +156,14 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
              {
              urlButton: {
                displayText: `${wm}`,
-               url: '\nMenu Shinoa Bot'
+               url: '\nMenu Bot'
              }
 
            },
                {
              quickReplyButton: {
-               displayText: ' 𝙊𝙬𝙣𝙚𝙧 ',
-               id: '.owner',
+               displayText: ' Rules ',
+               id: '.rules',
              }
            }]
          }
