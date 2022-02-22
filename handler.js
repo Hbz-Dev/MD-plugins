@@ -26,7 +26,7 @@ module.exports = {
 		case "stickerMessage":
 		case "documentMessage":
         case "senderKeyDistributionMessage":
-			if (!m.key.fromMe) await sleep(1000)
+			if (!m.key.fromMe) await delay(1000)
 			quoted = m.msg ? m.msg.url : m.quoted.url
 			if (!quoted) await this.refreshMediaConn(true)
 		    break
