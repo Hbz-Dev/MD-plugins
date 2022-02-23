@@ -322,7 +322,7 @@ module.exports = {
             let groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat).catch(e => {}) : ''
             let participants = m.isGroup ? await groupMetadata.participants : ''
             let user = m.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : '' // User Data
-            //let bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
+            let bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
             let isAdmin = m.isGroup ? user.includes(m.sender) : false // Is User Admin?
             let isBotAdmin = m.isGroup ? user.includes(this.user.jid) : false // Are you Admin?
             for (let name in global.plugins) {
