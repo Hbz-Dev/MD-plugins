@@ -1,11 +1,11 @@
-let handler = function (m, { text, command }) {
+let handler = async function (m, { text, command }) {
  if (command == 'ebinary') {
-      if (!m.quoted.text && !text) throw `Kirim/reply text dengan caption ${prefix + command}`
+      if (!m.quoted.text && !text) throw `Kirim/reply text dengan caption #${command}`
       let teks = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.text
       let eb = await eBinary(teks)
       m.reply(eb)
  } else if (command == 'dbinary') {
-     if (!m.quoted.text && !text) throw `Kirim/reply text dengan caption ${prefix + command}`
+     if (!m.quoted.text && !text) throw `Kirim/reply text dengan caption #${command}`
      let teks = text ? text : m.quoted && m.quoted.text ? m.quoted.text : m.text
      let db = await dBinary(teks)
      m.reply(db)
