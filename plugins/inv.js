@@ -27,12 +27,12 @@ let handler = async (m, { conn, usedPrefix }) => {
     let banteng = global.db.data.users[m.sender].banteng
     let sapi = global.db.data.users[m.sender].sapi
     let ayam = global.db.data.users[m.sender].ayam
-    let babi = global.db.data.users[m.sender].babi
+    let ikan = global.db.data.users[m.sender].ikan
     let kambing = global.db.data.users[m.sender].kambing
     let kerbau = global.db.data.users[m.sender].kerbau
     let harimau = global.db.data.users[m.sender].harimau
     let monyet = global.db.data.users[m.sender].monyet
-    let babihutan = global.db.data.users[m.sender].babihutan
+    let lele = global.db.data.users[m.sender].lele
     let panda = global.db.data.users[m.sender].panda
     let gajah = global.db.data.users[m.sender].gajah
     let buaya = global.db.data.users[m.sender].buaya
@@ -42,6 +42,8 @@ let handler = async (m, { conn, usedPrefix }) => {
     let ssapi = global.db.data.users[m.sender].ssapi
     let leleg = global.db.data.users[m.sender].leleg
     let leleb = global.db.data.users[m.sender].leleb
+    let ikanb = global.db.data.users[m.sender].ikanb
+    let ikang = global.db.data.users[m.sender].ikang
     let common = global.db.data.users[m.sender].common
     let makananpet = global.db.data.users[m.sender].makananpet
     let uncommon = global.db.data.users[m.sender].uncommon
@@ -117,18 +119,18 @@ ${readMore}\n
 ├◪ 🐐 *Kambing:* ${kambing}
 ├◪ 🐄 *Sapi:* ${sapi} 
 ├◪ 🐃 *Kerbau:* ${kerbau}
-├◪ 🐖 *Babi:* ${babi}    
+├◪ 🐟 *Ikan:* ${ikan}    
 ├◪ 🐅 *Harimau:* ${harimau}
 ├◪ 🐂 *Banteng:* ${banteng} 
 ├◪ 🐒 *Monyet:* ${monyet}
-├◪ 🐗 *Babi Hutan:* ${babihutan}
+├◪ 🐠 *Lele:* ${lele}
 ├◪ 🐼 *Panda:* ${panda}
 ├◪ 🐘 *Gajah:* ${gajah}
 ├◪ 🐊 *Buaya:* ${buaya}
 │
 │ 🥢 Bisa kamu masak */masak ayamb*
 ├─────────────────────────◪
-├◪ 💬 *Total Hewan:* ${ buaya + gajah + panda + babihutan + monyet + harimau + kerbau + kambing + ayam + sapi + babi + banteng } tangkapan
+├◪ 💬 *Total Hewan:* ${ buaya + gajah + panda + lele + monyet + harimau + kerbau + kambing + ayam + sapi + ikan + banteng } tangkapan
 *╰─────────────────────────·····*
 
 *╭──────────[ Food ]──────────✧*
@@ -138,8 +140,10 @@ ${readMore}\n
 ├◪ 🥩 *steak sapi:* ${ssapi}
 ├◪ 🍤 *lele bakar:* ${leleb}
 ├◪ 🍤 *lele goreng:* ${leleg}
+├◪ 🍣 *ikan goreng:* ${ikang}
+├◪ 🍢 *ikan bakar:* ${ikanb}
 ├─────────────────────────◪
-├◪ 🎒 *Total Makanan:* ${ssapi + sapir + ayamg + ayamb + leleg + leleb}
+├◪ 🎒 *Total Makanan:* ${ssapi + sapir + ayamg + ayamb + leleg + leleb + ikang + ikanb}
 *╰─────────────────────────·····*
 *╭──────────[ Cooldown ]──────────✧*
 ├◪ ⏳ Claim: *${lastclaim > 0 ? '❌' : '✅'}*
@@ -204,8 +208,7 @@ ${readMore}\n
 Warn: *${warn}*
 `.trim()
 
-    await conn.reply(m.sender, str, m)
-    conn.reply(m.chat, 'Inventory Mu Sudah dikirim melalui private chat!', m)
+    conn.reply(m.chat, str, m)
     
 }
 handler.help = ['inventory', 'inv']

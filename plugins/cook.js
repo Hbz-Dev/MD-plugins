@@ -5,13 +5,15 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
 	let type = (args[0] || '').toLowerCase()
     let msk= (args[0] || '').toLowerCase()
 let cok = `
-Please choose what to cook🍳
-🍖 ⟩ ${usedPrefix}ayamb *[ ayam bakar ]*
-🍗 ⟩ ${usedPrefix}ayamg *[ ayam goreng ]*
-🍣${usedPrefix}leleg *[ lele goreng ]*
-🍣${usedPrefix}leleb *[ lele bakar ]*
-🍖${usedPrefix}sapir *[ rendang ]*
-🍖${usedPrefix}ssapi *[ steak sapi ]*
+Pilih apa yang mau dimasak 🍳
+🍖 ⟩ ayamb *[ ayam bakar ]*
+🍗 ⟩ ayamg *[ ayam goreng ]*
+🍣 ⟩ leleg *[ lele goreng ]*
+🍣 ⟩ leleb *[ lele bakar ]*
+🍖 ⟩ sapir *[ rendang ]*
+🍖 ⟩ ssapi *[ steak sapi ]*
+🐟 ⟩ ikang *[ ikan goreng ]*
+🐟 ⟩ ikanb *[ ikan bakar ]*
 Contoh Perintah ↓
 ${usedPrefix + command } sapir
 Untuk makan ${usedPrefix}eat sapir
@@ -70,8 +72,24 @@ break
                             conn.reply(m.chat, `Succes memasak ${ count } steak sapi`, m)
                        } else conn.reply(m.chat, `Stok buruan mu tidak cukup untuk dimasak`, m)
 break
+                case 'ikanb':
+            if (global.db.data.users[m.sender].ikan >= count * 1) {
+                            global.db.data.users[m.sender].ikan >= count * 1///DONT DELETE THIS
+                            global.db.data.users[m.sender].ikan -= count * 1
+                            global.db.data.users[m.sender].ikanb += count * 1
+                            conn.reply(m.chat, `Succes memasak ${ count } Ikan Bakar`, m)
+                       } else conn.reply(m.chat, `Stok buruan mu tidak cukup untuk dimasak`, m)
+break
+             case 'ikang':
+            if (global.db.data.users[m.sender].ikan >= count * 1) {
+                            global.db.data.users[m.sender].ikan >= count * 1///DONT DELETE THIS
+                            global.db.data.users[m.sender].ikan -= count * 1
+                            global.db.data.users[m.sender].ikang += count * 1
+                            conn.reply(m.chat, `Succes memasak ${ count } ikan Goreng`, m)
+                       } else conn.reply(m.chat, `Stok buruan mu tidak cukup untuk dimasak`, m)
+break
                 default:
-                    return conn.sendButton(m.chat, cok, global.wm, `Makan`, `.eat`)
+                    return conn.sendButton(m.chat, cok, global.wm, `Makan`, `.eat`, m)
             }
         }
     } catch (e) {

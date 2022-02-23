@@ -1,5 +1,5 @@
-const free = 500
-const prem = 5000
+const free = 10000
+const prem = 50000
 let handler = async (m, { conn, usedPrefix, isPrems }) => {
   if (db.data.users[m.sender].level < 1) throw `Naikkan level kamu dengan mengetikkan\n${usedPrefix}levelup`
   let time = db.data.users[m.sender].lastdaily + 86400000
@@ -11,17 +11,7 @@ let handler = async (m, { conn, usedPrefix, isPrems }) => {
 handler.help = ['daily']
 handler.tags = ['xp']
 handler.command = /^(daily)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
 handler.register = true
-handler.group = false
-handler.private = false
-
-handler.admin = false
-handler.botAdmin = false
-
-handler.fail = null
 handler.exp = 0
 
 module.exports = handler

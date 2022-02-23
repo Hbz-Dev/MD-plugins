@@ -61,7 +61,7 @@ let handler = async (m, { conn, text }) => {
 	let monsterName = monster.name.toUpperCase()
     
 
-	if (new Date -  global.db.data.users[m.sender].lastlabirin > 120000) {
+	if (new Date -  global.db.data.users[m.sender].lastlabirin > 60000) {
 		let sum = 10 * areaPlayer - 59
 		let dmg = (player.sword  * 5 + player.armor * 5 - sum)
 		dmg = dmg < 0 ? Math.abs(dmg) : 0

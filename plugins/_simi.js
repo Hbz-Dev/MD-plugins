@@ -7,6 +7,7 @@ handler.before = async (m) => {
         if (/^.*false|disable|(turn)?off|0/i.test(m.text)) return
         if (!m.text) return
         let res = await fetchJson(`https://api.simsimi.net/v2/?text=${m.text}&lc=id`)
+        if (res.success == 'Aku tidak mengerti apa yang kamu katakan.Tolong ajari aku.') return m.reply('Kata² yang bagus Tetapi simi tidak memahaminya..')
         m.reply(res.success)
         return !0
     }

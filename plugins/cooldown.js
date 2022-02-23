@@ -23,7 +23,7 @@ let handler = async (m, { conn }) => {
 }
 handler.help = ['cooldown']
 handler.tags = ['rpg']
-handler.command = /^(cd|cooldown)$/i
+handler.command = /^(cooldown|cdw)$/i
 handler.register = true
 module.exports = handler
 

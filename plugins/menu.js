@@ -155,15 +155,15 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            },
              {
              urlButton: {
-               displayText: `${wm}`,
-               url: '\nMenu Bot'
+               displayText: `𝚆𝚎𝚋𝚜𝚒𝚝𝚎`,
+               url: 'https://wibusoft.com'
              }
 
            },
                {
              quickReplyButton: {
-               displayText: ' Rules ',
-               id: '.rules',
+               displayText: 'ろ翁価',
+               id: '.owner',
              }
            }]
          }
@@ -184,7 +184,7 @@ handler.help = ['menu', 'help']
 handler.tags = ['main']
 handler.command = /^(menu|help)$/i
 handler.register = true
-handler.exp = 13
+handler.exp = 45
 
 module.exports = handler
 

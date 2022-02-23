@@ -6,16 +6,16 @@ let handler = async(m, { conn, args, usedPrefix }) => {
     if (!global.db.data.users[m.sender].code) {
     //if (new Date - global.db.data.users[m.sender].lastcodereg < 889000000000) throw `Anda sudah mengambill code register, Code register anda sudah kadaluarsa..`
 
-    global.db.data.users[m.sender].exp += 1000
-    global.db.data.users[m.sender].money += 500
-    global.db.data.users[m.sender].limit += 2
-    global.db.data.users[m.sender].pet += 2
+    global.db.data.users[m.sender].exp += 4000
+    global.db.data.users[m.sender].money += 8000
+    global.db.data.users[m.sender].limit += 3
+    global.db.data.users[m.sender].pet += 3
     global.db.data.users[m.sender].legendary += 1
     global.db.data.users[m.sender].diamond += 1
     global.db.data.users[m.sender].gold += 1
     global.db.data.users[m.sender].emerald += 2
     global.db.data.users[m.sender].code = true
-    chatnye =`Selamat kamu mendapatkan :\n+1000 Exp ✨\n+500 Money 💹\n+2 Limit 🎫\n+2 Pet Crate 📫\n+1 Legendary 🧰\n+1 Diamond 💎\n+1 Gold👑\n+2 Emerald🧬`
+    chatnye =`Selamat kamu mendapatkan :\n+4000 Exp ✨\n+8000 Money 💹\n+3 Limit 🎫\n+3 Pet Crate 📫\n+1 Legendary 🧰\n+1 Diamond 💎\n+1 Gold👑\n+2 Emerald🧬`
    conn.reply(m.chat, chatnye, m)
 } else conn.reply(m.chat, 'Kode anda sudah kadaluarsa.... :(', m)
    } else {

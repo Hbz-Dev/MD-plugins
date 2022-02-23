@@ -4,17 +4,15 @@ let handler = async (m, { conn }) => {
     let timers = clockString(_timers) 
     let user = global.db.data.users[m.sender]
     if (new Date - global.db.data.users[m.sender].lastclaim > 43200000) {
-        conn.reply(m.chat, `_Selamat! Kamu sudah mengclaim dan mendapatkan *3000* 💵money dan *2* 🥤potion_`, m)
-        user.money += 3000
-        user.potion += 2
+        conn.reply(m.chat, `_Selamat! Kamu sudah mengclaim dan mendapatkan *5000* 💵money dan *4* 🥤potion_`, m)
+        user.money += 5000
+        user.potion += 4
         user.lastclaim = new Date * 1
     } else conn.reply(m.chat, `silahkan tunggu 🕛 *${timers}* lagi untuk bisa mengclaim lagi`, m)
 }
 handler.help = ['claim']
 handler.tags = ['rpg']
 handler.command = /^(collect|claim)$/i
-
-handler.fail = null
 
 module.exports = handler
 

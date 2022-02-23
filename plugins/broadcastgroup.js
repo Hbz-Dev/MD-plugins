@@ -1,6 +1,8 @@
 let fs = require('fs')
 let handler = m => m
 handler.after = async function (m, { text }) {
+                let ob = ['1', 'ku', 'su', '1', '4', 'su', '4', '2', '1', '2', 'ku']
+                let gb = ob[Math.floor(Math.random() * ob.length)]
                 if (!text) throw `Masukkan Textnya!`
                 let getGroups = await this.groupFetchAllParticipating()
                 let groups = Object.entries(getGroups).slice(0).map(entry => entry[1])
@@ -8,7 +10,7 @@ handler.after = async function (m, { text }) {
                 m.reply(`Mengirim Broadcast Ke ${anu.length} Chat, Waktu Selesai ${anu.length * 1.5} detik`)
                 for (let i of anu) {
                     await sleep(1500)
-                    await this.butct(i, '[ *Broadcast* ]\n\n'+text, `ALL GROUP BROADCAST`, m.sender, fs.readFileSync('./media/1.jpg'), 'MENU', '.help')
+                    await this.butct(i, '[ *Broadcast* ]\n\n'+text, `ALL GROUP BROADCAST`, m.sender, fs.readFileSync(`./media/${gb}.jpg`), 'MENU', '.help')
                 }
                 m.reply(`Sukses Mengirim Broadcast Ke ${anu.length} Group`)
 }
@@ -16,8 +18,6 @@ handler.help = ['bcgc'].map(v => v + ' <teks>')
 handler.tags = ['owner']
 handler.command = /^(broadcast|bc)(group|grup|gc)$/i
 handler.owner = true
-
-handler.fail = null
 
 module.exports = handler
 

@@ -19,7 +19,7 @@ async function handler(m, { conn, usedPrefix, command, text }) {
     global.dungeon = global.dungeon ? global.dungeon : {}
     if (Object.values(global.dungeon).find(room => room.id.startsWith('dungeon') && [room.game.player1, room.game.player2, room.game.player3, room.game.player4].includes(m.sender))) return m.reply('Kamu masih di dalam Dungeon') // nek iseh neng njero dungeon
     let timing = (new Date - (user.lastdungeon * 1)) * 1
-    if (timing < 600000) return m.reply(`Silahkan tunggu ${clockString(600000 - timing)} untuk bisa ke Dungeon Lagi!`) // Cooldown
+    if (timing < 120000) return m.reply(`Silahkan tunggu ${clockString(120000 - timing)} untuk bisa ke Dungeon Lagi!`) // Cooldown
     let room = Object.values(global.dungeon).find(room => room.state === 'WAITING' && (text ? room.name === text : true))
     if (room) {
 
@@ -634,8 +634,6 @@ Sedang berperang di dungeon...
 handler.help = ['dungeon'].map(v => v + ' [custom room name]')
 handler.tags = ['rpg']
 handler.command = /^(dungeon)$/i
-
-handler.mods = false
 
 module.exports = handler
 

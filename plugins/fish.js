@@ -67,7 +67,7 @@ let handler = async (m, { conn, text }) => {
 	let fishtype = area_fish[Math.floor(Math.random() * area_fish.length)]
 	let fishName = fishtype.name.toUpperCase()
 
-	if (new Date -  global.db.data.users[m.sender].lastfishing > 120000) {
+	if (new Date -  global.db.data.users[m.sender].lastfishing > 60000) {
 		let durability = areaPlayer * 2
 		let coins = areaPlayer * 50
 		let exp = areaPlayer * 35

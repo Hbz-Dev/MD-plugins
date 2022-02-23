@@ -2,7 +2,7 @@ let { MessageType } = require('@adiwajshing/baileys-md')
 let handler = async (m, { conn }) => {
     if (global.db.data.users[m.sender].stamina < 40) return conn.sendButton(m.chat, 'Stamina mu tidak cukup untuk berburu!\nSilakan masak makanan dan Memakan makanannya agar stamina mu kembali!', `Tekan tombol dibawah untuk memeriksa inventory anda!\n${wm}`, 'Periksa Inv', '.inv', m)
     let __timers = (new Date - global.db.data.users[m.sender].lasthunt)
-    let _timers = (500000 - __timers)
+    let _timers = (60000 - __timers)
     let timers = clockString(_timers) 
     let user = global.db.data.users[m.sender]
     let buttons = [
@@ -14,7 +14,7 @@ const buttonMessage = {
     buttons: buttons,
     headerType: 1
 }
-    if (new Date - global.db.data.users[m.sender].lasthunt > 500000) {
+    if (new Date - global.db.data.users[m.sender].lasthunt > 60000) {
 let zero1 = `${Math.floor(Math.random() * 7)}`
 let zero2 = `${Math.floor(Math.random() * 7)}`
 let zero4 = `${Math.floor(Math.random() * 7)}`
@@ -37,8 +37,8 @@ hsl = `*━━━━━━━━━[ Hasil Berburu]━━━━━━━━━*
  *🐂 = [ ${zero1} ]*			 *🐃 = [ ${zero7} ]*
  *🐅 = [ ${zero2} ]*			 *🐮 = [ ${zero8} ]*
  *🐘 = [ ${zero3} ]*			 *🐒 = [ ${zero9} ]*
- *🐐 = [ ${zero4} ]*			 *🐗 = [ ${zero10} ]*
- *🐼 = [ ${zero5} ]*			 *🐖 = [ ${zero11} ]*
+ *🐐 = [ ${zero4} ]*			 *🐟 = [ ${zero10} ]*
+ *🐼 = [ ${zero5} ]*			 *🐠 = [ ${zero11} ]*
  *🐊 = [ ${zero6} ]*			 *🐓 = [ ${zero12} ]*
 
 Berkurang -${heal} Stamina
@@ -53,8 +53,8 @@ global.db.data.users[m.sender].buaya += zero6 * 1
 global.db.data.users[m.sender].kerbau += zero7 * 1
 global.db.data.users[m.sender].sapi += zero8 * 1
 global.db.data.users[m.sender].monyet += zero9 * 1
-global.db.data.users[m.sender].babihutan += zero10 * 1
-global.db.data.users[m.sender].babi += zero11 * 1
+global.db.data.users[m.sender].ikan += zero10 * 1
+global.db.data.users[m.sender].lele += zero11 * 1
 global.db.data.users[m.sender].ayam += zero12 * 1
 
 setTimeout(() => {
@@ -62,9 +62,7 @@ setTimeout(() => {
                      }, 3000) 
   conn.reply(m.chat, '_Sedang Berburu..._', m)
   user.lasthunt = new Date * 1
-  setTimeout(() => {
-          conn.reply(m.sender, 'Cooldown Berburu mu Sudah selesai!', null)
-          }, 500000)
+
     } else conn.sendMessage(m.chat, buttonMessage, { quoted: m })
 }
 handler.help = ['berburu']

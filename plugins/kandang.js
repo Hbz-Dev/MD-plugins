@@ -8,8 +8,8 @@ let panda = global.db.data.users[m.sender].panda
  let kerbau = global.db.data.users[m.sender].kerbau
 let sapi = global.db.data.users[m.sender].sapi
  let monyet = global.db.data.users[m.sender].monyet
- let babihutan = global.db.data.users[m.sender].babihutan
- let babi = global.db.data.users[m.sender].babi
+ let babihutan = global.db.data.users[m.sender].ikan
+ let babi = global.db.data.users[m.sender].lele
  let ayam = global.db.data.users[m.sender].ayam
 
 let zer = `
@@ -24,8 +24,8 @@ let zer = `
  *◩   ️ 🐃 = [ ${kerbau} ] Ekor Kerbau*
  *◩   ️ 🐮 = [ ${sapi} ] Ekor Sapi*
  *◩   ️ 🐒 = [ ${monyet} ] Ekor Monyet*
- *◩   ️ 🐗 = [ ${babihutan} ] Ekor Babi Hutan*
- *◩   ️ 🐖 = [ ${babi} ] Ekor Babi*
+ *◩   ️ 🐟 = [ ${babihutan} ] Ekor Ikan*
+ *◩   ️ 🐠 = [ ${babi} ] Ekor Lele*
  *◩   ️ 🐓 = [ ${ayam} ] Ekor Ayam*
  `.trim()
  conn.sendButton(m.chat, zer, global.wm, 'Toko', '.shop', m)

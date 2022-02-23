@@ -1,15 +1,22 @@
 let handler = async (m, { conn, args }) => {
     var now = new Date() * 1
-    if (global.db.data.chats[m.chat].expired != 0) {
-    m.reply(`Tersisa waktu: ${msToDate(global.db.data.chats[m.chat].expired - now)}`)
+    
+    let who
+    if (m.isGroup) who = args[0] ? args[0] : m.chat
+    else who = args[0]
+    
+    let gc = await conn.groupMetadata(who)
+    let jdl = gc.subject
+    if (global.db.data.chats[who].expired != 0) {
+    m.reply(`Tersisa waktu: ${msToDate(global.db.data.chats[who].expired - now)}\n*Group: _${jdl}_*`)
     } else {
-     m.reply('Tidak Ada Waktu expired di grup ini!')
+     m.reply(`Tidak Ada Waktu Expired Di Group ${jdl}!`)
    }
 }
 handler.help = ['ceksewa']
 handler.tags = ['group']
 handler.command = /^(ceksewa|cekexpired)$/i
-handler.group = true
+handler.owner = true
 module.exports = handler
 
 function msToDate(ms) {

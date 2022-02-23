@@ -1,33 +1,28 @@
 let fs = require('fs')
+let { sticker5 } = require('../lib/sticker')
 
 let handler = async (m, { conn, text }) => {
 let text1 = text.split('|')[0]
 let text2 = text.split('|')[1]
+let stiker = false
 try {
    let q = m.quoted ? m.quoted : m
    let mime = m.quoted.mimetype || ''
-      if (m.quoted.isAnimated) {
+      if (/webp/.test(mime)) {
       let img = await q.download()
-      let rd = await sticker5(img, false, packname, author)
-      conn.sendFile(m.chat, rd, 'stiker.webp', '', m)
-    } else if (/webp/.test(mime)) {
-      let img = await q.download()
-      let enc = await conn.sendImageAsSticker(m.chat, img, m, { packname: text1 ? text1 : '', author: text2 ? text2 : '' })
-      await fs.unlinkSync(enc)
+      stiker = await sticker5(img, false, packname, author)
     } else if (/image/.test(mime)) {
       let img = await q.download()
-      let enc = await conn.sendImageAsSticker(m.chat, img, m, { packname: text1 ? text1 : '', author: text2 ? text2 : '' })
-      await fs.unlinkSync(enc)
+      stiker = await sticker5(img, false, packname, author)
     } else if (/video/.test(mime)) {
       if ((q.msg || q).seconds > 11) throw 'Maksimal 10 detik!'
       let img = await q.download()
-      let enc = await conn.sendVideoAsSticker(m.chat, img, m, { packname: text1 ? text1 : '', author: text2 ? text2 : '' })
-      await fs.unlinkSync(enc)
+      stiker = await sticker5(img, false, packname, author)
     } else {
      m.reply('Tag image/video/sticker yang ingin diberikan wm custom!!')
      }
    } finally {
-     console.log('Done wm')
+     if (stiker) conn.sendFile(m.chat, stiker, 'stiker.webp', '', m)
   }
 }
 handler.help = ['wm', 'take'].map(v => v + ' <packname|author>')
