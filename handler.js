@@ -82,8 +82,8 @@ module.exports = {
                    if (!isNumber(user.kerbau)) user.kerbau = 0
                    if (!isNumber(user.sapi)) user.sapi = 0
                    if (!isNumber(user.monyet)) user.monyet = 0
-                   if (!isNumber(user.babihutan)) user.babihutan = 0
-                   if (!isNumber(user.babi)) user.babi = 0
+                   if (!isNumber(user.ikan)) user.ikan = 0
+                   if (!isNumber(user.lele)) user.lele = 0
                    if (!isNumber(user.ayam)) user.ayam = 0
                    
                   if (!isNumber(user.ayamb)) user.ayamb = 0
@@ -92,6 +92,8 @@ module.exports = {
                   if (!isNumber(user.ssapi)) user.ssapi = 0
                   if (!isNumber(user.leleg)) user.leleg = 0
                   if (!isNumber(user.leleb)) user.leleb = 0
+                  if (!isNumber(user.ikanb)) user.ikanb = 0
+                  if (!isNumber(user.ikang)) user.ikang = 0
 
                     if (!isNumber(user.common)) user.common = 0
                     if (!isNumber(user.uncommon)) user.uncommon = 0
@@ -179,8 +181,8 @@ module.exports = {
                    kerbau : 0,
                    sapi: 0,
                    monyet : 0,
-                   babihutan: 0,
-                   babi: 0,
+                   ikan: 0,
+                   lele: 0,
                    ayam: 0,
                    
                   ayamb: 0,
@@ -189,6 +191,8 @@ module.exports = {
                   sapir: 0,
                   leleb: 0,
                   leleg: 0,
+                  ikang: 0,
+                  ikanb: 0,
 
                     common: 0,
                     uncommon: 0,
@@ -244,7 +248,7 @@ module.exports = {
                     if (!('sBye' in chat)) chat.sBye = ''
                     if (!('sPromote' in chat)) chat.sPromote = ''
                     if (!('sDemote' in chat)) chat.sDemote = ''
-                    if (!('delete' in chat)) chat.delete = true
+                    if (!('delete' in chat)) chat.delete = false
                     if (!('antiLink' in chat)) chat.antiLink = false
                     if (!('viewonce' in chat)) chat.viewonce = false
                     if (!('simi' in chat)) chat.simi = false
@@ -258,7 +262,7 @@ module.exports = {
                     sBye: '',
                     sPromote: '',
                     sDemote: '',
-                    delete: true,
+                    delete: false,
                     antiLink: false,
                     viewonce: false,
                     simi: false,
@@ -315,12 +319,12 @@ module.exports = {
           
             let isOwner = isROwner || m.fromMe
             let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-            let groupMetadata = (m.isGroup ? (conn.chats[m.chat] || {}).metadata : {}) || {}
-            let participants = (m.isGroup ? groupMetadata.participants : []) || []
-            let user = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) === m.sender) : {}) || {} // User Data
-            let bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
-            let isAdmin = user && user.admin || false // Is User Admin?
-            let isBotAdmin = bot && bot.admin || false // Are you Admin?
+            let groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat).catch(e => {}) : ''
+            let participants = m.isGroup ? await groupMetadata.participants : ''
+            let user = m.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : '' // User Data
+            //let bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
+            let isAdmin = m.isGroup ? user.includes(m.sender) : false // Is User Admin?
+            let isBotAdmin = m.isGroup ? user.includes(this.user.jid) : false // Are you Admin?
             for (let name in global.plugins) {
                 let plugin = global.plugins[name]
                 if (!plugin) continue
@@ -404,7 +408,7 @@ module.exports = {
                     } else if (plugin.botAdmin && !isBotAdmin) { // You Admin
                         fail('botAdmin', m, this)
                         continue
-                    } else if (plugin.admin && !isAdmin) { // User Admin
+                    } else if (plugin.admin && !(isAdmin || isOwner)) { // User Admin
                         fail('admin', m, this)
                         continue
                     }
