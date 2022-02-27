@@ -44,7 +44,7 @@ module.exports = {
                     if (!isNumber(user.pc)) user.pc = 0
                     if (!('pasangan' in user)) user.pasangan = ''
                     if (!('code' in user)) user.code = false
-                    if (!('registered' in user)) user.registered = false
+                    if (!('registered' in user)) user.registered = true
                     if (!user.registered) {
                         if (!('name' in user)) user.name = m.name
                         if (!isNumber(user.age)) user.age = -1
@@ -56,7 +56,7 @@ module.exports = {
                     if (!('banned' in user)) user.banned = false
                     if (!isNumber(user.warn)) user.warn = 0
                     if (!isNumber(user.level)) user.level = 0
-                    if (!('autolevelup' in user)) user.autolevelup = true
+                    if (!('autolevelup' in user)) user.autolevelup = false
 
                     if (!isNumber(user.money)) user.money = 0
                     if (!isNumber(user.healt)) user.healt = 100
@@ -146,7 +146,7 @@ module.exports = {
                     pc: 0,
                     pasangan: '',
                     code: false,
-                    registered: false,
+                    registered: true,
                     name: m.name,
                     age: -1,
                     regTime: -1,
@@ -155,7 +155,7 @@ module.exports = {
                     banned: false,
                     warn: 0,
                     level: 0,
-                    autolevelup: true,
+                    autolevelup: false,
 
                     money: 0,
                     healt: 100,
@@ -243,12 +243,12 @@ module.exports = {
                 if (chat) {
                     if (!('isBanned' in chat)) chat.isBanned = false
                     if (!('welcome' in chat)) chat.welcome = false
-                    if (!('detect' in chat)) chat.detect = false
                     if (!('sWelcome' in chat)) chat.sWelcome = ''
                     if (!('sBye' in chat)) chat.sBye = ''
                     if (!('sPromote' in chat)) chat.sPromote = ''
                     if (!('sDemote' in chat)) chat.sDemote = ''
                     if (!('delete' in chat)) chat.delete = false
+                    if (!('expired' in chat)) chat.expired = 0
                     if (!('antiLink' in chat)) chat.antiLink = false
                     if (!('viewonce' in chat)) chat.viewonce = false
                     if (!('simi' in chat)) chat.simi = false
@@ -257,12 +257,12 @@ module.exports = {
                 } else global.db.data.chats[m.chat] = {
                     isBanned: false,
                     welcome: false,
-                    detect: false,
                     sWelcome: '',
                     sBye: '',
                     sPromote: '',
                     sDemote: '',
                     delete: false,
+                    expired: 0,
                     antiLink: false,
                     viewonce: false,
                     simi: false,
@@ -277,6 +277,8 @@ module.exports = {
           if (!'antispam' in settings) settings.antispam = true
           if (!'groupOnly' in settings) settings.groupOnly = false
           if (!'nsfw' in settings) settings.nsfw = false
+          if (!'self' in settings) settings.self = false
+          if (!'queque' in settings) settings.queque = false
           if (!'auto' in settings) settings.auto = false
           if (!'autoread' in settings) settings.autoread = false
         } else global.db.data.settings = {
@@ -284,6 +286,8 @@ module.exports = {
           antispam: true,
           groupOnly: false,
           nsfw: false,
+          self: false,
+          queque: false,
           auto: false,
           autoread: false,
         }                
@@ -291,10 +295,10 @@ module.exports = {
                 console.error(e)
             }
             let isROwner = [global.conn.user.jid, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-            if (!isROwner && opts['self']) return
+            if (!isROwner && global.db.data.settings.self) return
             if (global.db.data.settings.groupOnly && !m.chat.endsWith('g.us')) return
             if (typeof m.text !== 'string') m.text = ''
-            if (opts['queque'] && m.text) {
+            if (global.db.data.settings.queque && m.text) {
                 this.msgqueque.push(m.id || m.key.id)
                 await delay(this.msgqueque.length * 1000)
             }
@@ -319,9 +323,9 @@ module.exports = {
           
             let isOwner = isROwner || m.fromMe
             let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-            let groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat).catch(e => {}) : ''
-            let participants = m.isGroup ? await groupMetadata.participants : ''
-            let user = m.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : '' // User Data
+            let groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat).catch(e => {}) : {}
+            let participants = m.isGroup ? await groupMetadata.participants.catch(e => {}) : {}
+            let user = m.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : {} // User Data
             let bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
             let isAdmin = m.isGroup ? user.includes(m.sender) : false // Is User Admin?
             let isBotAdmin = m.isGroup ? user.includes(this.user.jid) : false // Are you Admin?
@@ -533,11 +537,11 @@ module.exports = {
             // }
             if (global.db.data.settings.autoread) await this.sendReadReceipt(m.chat, m.sender, [m.id])
             let quequeIndex = this.msgqueque.indexOf(m.id || m.key.id)
-            if (opts['queque'] && m.text && quequeIndex !== -1) this.msgqueque.splice(quequeIndex, 1)
+            if (global.db.data.settings.queque && m.text && quequeIndex !== -1) this.msgqueque.splice(quequeIndex, 1)
         }
     },
     async participantsUpdate({ id, participants, action }) {
-        if (opts['self']) return
+        if (global.db.data.settings.self) return
         // if (id in conn.chats) return // First login will spam
         if (global.isInit) return
         let chat = global.db.data.chats[id] || {}
@@ -565,15 +569,11 @@ module.exports = {
                 }
                 break
             case 'promote':
-                text = (chat.sPromote || this.spromote || conn.spromote || '@user ```is now Admin```')
+                text = (chat.sPromote || this.spromote || conn.spromote || '@user ```Sekarang adalah admin```')
             case 'demote':
-                if (!text) text = (chat.sDemote || this.sdemote || conn.sdemote || '@user ```is no longer Admin```')
+                if (!text) text = (chat.sDemote || this.sdemote || conn.sdemote || '@user ```Sekarang bukan admin```')
                 text = text.replace('@user', '@' + participants[0].split('@')[0])
-                if (chat.detect) this.sendMessage(id, text, MessageType.extendedText, {
-                    contextInfo: {
-                        mentionedJid: this.parseMention(text)
-                    }
-                })
+                if (chat.welcome) this.reply(id, text, null, { mentions: this.parseMention(text) })
                 break
         }
     },
@@ -589,7 +589,7 @@ module.exports = {
 Terdeteksi @${participant.split`@`[0]} telah menghapus pesan
 Untuk mematikan fitur ini, ketik
 *.on delete*
-`.trim(), buttons: buttons, footer: `Antidelete By ${wm}`, headerType: 'TEXT', mentions: [participant] }, { quoted: msg })
+`.trim(), buttons: buttons, footer: `Antidelete Group`, headerType: 'TEXT', mentions: [participant] }, { quoted: msg })
         this.copyNForward(msg.key.remoteJid, msg).catch(e => console.log(e, msg))
     }
 }
