@@ -20,7 +20,7 @@ Selama ${clockString(new Date - user.afk)}
 Jangan tag Dia!\n
 Dia Sedang AFK ${reason ? 'Dengan alasan: ' + reason : 'Tanpa Alasan'}
 Selama ${clockString(new Date - afkTime)}
-`.trim(), 'Tinggalkan pesan saja kak\nJangan di tag🌹', 'Tinggalkan pesan', `.pesan ${jid}`, m)
+`.trim(), 'Tinggalkan pesan?', 'Tinggalkan pesan', `.pesan ${jid}`, m)
     }
     return true
 }

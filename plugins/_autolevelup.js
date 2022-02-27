@@ -10,15 +10,13 @@ handler.before = async function (m) {
         let users = Object.entries(global.db.data.users).map(([key, value]) => {
                 return { ...value, jid: key }
         })
-        let buttons = [{buttonId: `.my`, buttonText: {displayText: 'My Profile'}, type: 1}]
+        //let buttons = [{buttonId: `.my`, buttonText: {displayText: 'My Profile'}, type: 1}]
         let sortedLevel = users.map(toNumber('level')).sort(sort('level'))
         let usersLevel = sortedLevel.map(enumGetKey)
         let { min, xp, max } = levelling.xpRange(user.level, global.multiplier)
-        let a = await (await fetch(fla + 'Selamat Naik Level!🥳')).buffer()
-        let b = a
+        let a
         try {
-        a = await this.profilePictureUrl(m.sender, 'image')    
-        b = await (await fetch(a)).buffer()
+        a = await (await fetch(fla + 'Selamat Naik Level!')).buffer()
         } catch (e) {
         } finally {
      
@@ -27,8 +25,8 @@ handler.before = async function (m) {
 
              
                 if (before !== user.level) {
-                        //await this.reply(m.chat, `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nGunakan *.my* Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, m, { mentions: [m.sender], jpegThumbnail: pp })
-                        await this.sendMessage(m.chat, { caption: `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nTekan tombol dibawah Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, location: { jpegThumbnail: b }, buttons: buttons, footer: `AUTOLEVELUP📌\n${wm}`, headerType: 'LOCATION', mentions: [m.sender] })
+                        await this.reply(m.chat, `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nGunakan *.my* Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, m, { mentions: [m.sender] })
+                        //await this.sendMessage(m.chat, { caption: `*@${m.sender.split('@')[0]} Naik Level!*\n\n*${before}* ➞ *${user.level}*\n\nTekan tombol dibawah Untuk mengecek!\n*.disable autolevelup* Untuk mematikan auto levelup`, location: { jpegThumbnail: b }, buttons: buttons, footer: `AUTOLEVELUP📌\n${wm}`, headerType: 'LOCATION', mentions: [m.sender] })
                 }
         }
 }

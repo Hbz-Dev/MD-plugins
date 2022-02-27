@@ -2,10 +2,10 @@ let { MessageType } = require('@adiwajshing/baileys-md')
 let handler = async (m, { conn, usedPrefix, DevMode, command }) => { 
     try { 
         let __timers = (new Date - global.db.data.users[m.sender].lastadventure)
-        let _timers = (300000 - __timers) 
+        let _timers = (60000 - __timers) 
         let timers = clockString(_timers)
         if (global.db.data.users[m.sender].healt > 79 && global.db.data.users[m.sender].stamina > 79) {
-            if (new Date - global.db.data.users[m.sender].lastadventure > 300000) {
+            if (new Date - global.db.data.users[m.sender].lastadventure > 60000) {
             await conn.reply(m.chat, '_Sedang Berpetualang..._', m)
             let armor = global.db.data.users[m.sender].armor
             let rubah = global.db.data.users[m.sender].rubah

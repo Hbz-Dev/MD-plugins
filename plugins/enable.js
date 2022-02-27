@@ -90,7 +90,7 @@ case 'simi':
         global.dfail('rowner', m, conn)
         throw false
       }
-      global.opts['self'] = isEnable
+      setting.self = isEnable
       break
     case 'autolevelup':
     case 'levelup':

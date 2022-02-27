@@ -1,7 +1,7 @@
 let moment = require('moment-timezone')
 let fetch = require('node-fetch')
 let fs = require('fs')
-let logo = fs.readFileSync('./media/shinoa.jpg')
+let logo = fs.readFileSync('./media/ku.jpg')
 let handler = m => m
 
 handler.all = async function (m) {

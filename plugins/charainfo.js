@@ -9,7 +9,7 @@ let charaingfo = `[ *CHARACTER* ]
 🔑 *Id Character:* ${mal_id}
 💬 *Name:* ${name}
 💭 *Nickname:* ${alternative_names}
-👤 *Character Type:* ${type == 'undefined' ? 'Default' : type}
+👤 *Character Type:* ${type == undefined ? 'Default' : type}
 🔗 *Link Watch:* ${url}`
 
   conn.sendFile(m.chat, image_url, '', charaingfo, m)

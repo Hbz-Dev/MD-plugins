@@ -2,7 +2,7 @@ let handler = async (m, { text, usedPrefix, command }) => {
     if (!text) throw `uhm.. cari apa?\n\ncontoh:\n${usedPrefix + command} iphone`
     let res = await ringtone(text)
     let teks = res[Math.floor(Math.random() * res.length)]
-    conn.sendFile(m.chat, teks.audio, `${teks.title}.mp3`, null, m)
+    conn.sendFile(m.chat, teks.audio, `${teks.title}.mp3`, null, m, true)
 }
 handler.help = ['ringtone <pencarian>']
 handler.tags = ['tools']

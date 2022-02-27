@@ -5,7 +5,7 @@ let handler = async(m, { text, command, groupMetadata, conn }) => {
     let user = global.db.data.users[m.sender]
     user.afk = +new Date
     user.afkReason = text
-    let a = await (await fetch(fla + `${user.name} AFK!`)).buffer()
+    let a = await (await fetch(fla + `${user.name} AFK`)).buffer()
     let b = a
     try {
         a = await conn.profilePictureUrl(m.sender, 'image')    

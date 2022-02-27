@@ -1,9 +1,10 @@
 let handler = async (m, { conn, text }) => {
   try {
+    if (!text) return m.reply('Link nya mana?')
     let anu = await zippyDownloader(text)
     conn.sendFile(m.chat, anu.link, `${anu.title}.${anu.extension}`, '', m)
   } catch {
-   m.reply('Link salah!')
+   m.reply('Error mungkin Video dihapus/link kadaluarsa')
   }
 }
 handler.help = ['zippyshare']

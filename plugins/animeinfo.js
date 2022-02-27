@@ -12,14 +12,16 @@ let animeingfo = `✨️ *Title:* ${title}
 🥀️ *Score:* ${score}
 🥀 *URL:* ${url}
 🥀 *Synopsis:* ${synopsis}`
-  conn.sendFile(m.chat, image_url, '', animeingfo, m)
+  //conn.sendFile(m.chat, image_url, '', animeingfo, m)
+  let img = await (await fetch(image_url)).buffer()
+  conn.sendButtonLoc(m.chat, img, animeingfo, `Anime Info`, 'Click Here for Link Watch!', '.animelink')
   } catch (e) {
    m.reply('Tidak ditemukan... :(')
   }
 }
-handler.help = ['animeinfo <judul>']
+handler.help = ['animeinfo <judul>', 'anime <search>']
 handler.tags = ['anime']
 handler.limit = true
-handler.command = /^(animeinfo)$/i
+handler.command = /^(animeinfo|anime)$/i
 //maapin fatur :<
 module.exports = handler

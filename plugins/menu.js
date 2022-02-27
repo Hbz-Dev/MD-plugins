@@ -138,6 +138,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     let ob = ['1', '2', 'su', '1', '4', 'su', '4', '2', '1', '2']
+    let sy = ['Oni-chan Baka! >//<', 'Oni-chan Dame yo! ><', 'Damare Bakaa!', 'Urusai Bakaa!', '><']
+    let ys = sy[Math.floor(Math.random() * sy.length)]
     let gb = ob[Math.floor(Math.random() * ob.length)]
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
      templateMessage: {
@@ -163,7 +165,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
                {
              quickReplyButton: {
                displayText: 'ろ翁価',
-               id: '.owner',
+               id: `.say ${ys}`,
              }
            }]
          }

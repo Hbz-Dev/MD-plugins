@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 // const { servers, ytv } = require('../lib/y2mate')
 const { youtubedl, youtubedlv2, youtubedlv3 } = require('@bochilteam/scraper')
 let handler = async (m, { conn, args, isPrems, isOwner }) => {
-  if (!args || !args[0]) throw 'Uhm... urlnya mana?'
+  if (!args || !args[0]) throw 'Uhm... urlnya mana?\nContoh:\n!ytv https://www.youtube.com/watch?v=UZHZbkCCt2M'
   let chat = global.db.data.chats[m.chat]
   let isY = /y(es)/gi.test(args[1])
   const { thumbnail, video: _video, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
@@ -39,7 +39,7 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
 }
 handler.help = ['ytmp4 <url>']
 handler.tags = ['downloader']
-handler.command = /^(ytv|ytmp4|mp4)?$/i
+handler.command = /^(ytv|ytmp4|mp4)$/i
 
 handler.exp = 0
 

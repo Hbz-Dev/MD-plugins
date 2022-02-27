@@ -1,15 +1,11 @@
-const { sticker1, sticker5 } = require('../lib/sticker')
+const { sticker5 } = require('../lib/sticker')
 
 let handler = async (m, { conn }) => {
     let stiker = false
     try {
         let q = m.quoted ? m.quoted : m
         let mime = (q.msg || q).mimetype || ''
-        if (m.quoted.isAnimated) {
-          let img = await q.download()
-          let rd = await sticker5(img, false, packname, author)
-          conn.sendFile(m.chat, rd, 'stiker.webp', '', m)
-        } else if (/webp/.test(mime)) {
+        if (/webp/.test(mime)) {
             let img = await q.download()
             if (!img) throw `reply sticker with command s`
             stiker = await sticker5(img, false, packname, author)
@@ -23,7 +19,7 @@ let handler = async (m, { conn }) => {
             if (!img) throw `reply video with command s`
             stiker = await sticker5(img, false, packname, author)
         } else if (m.quoted.text) {
-            if (isUrl(m.quoted.text)) stiker = await sticker(false, m.quoted.text, packname, author)
+            if (isUrl(m.quoted.text)) stiker = await sticker5(false, m.quoted.text, packname, author)
             else throw 'URL is not valid! end with jpg/gif/png'
         }
     } catch (e) {
@@ -31,6 +27,7 @@ let handler = async (m, { conn }) => {
     }
     finally {
         if (stiker) {
+          //m.reply(stiker_wait)
             await conn.sendFile(m.chat, stiker, 'stiker.webp', '', m)
         }
         else {

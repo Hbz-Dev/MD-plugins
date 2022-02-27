@@ -28,9 +28,8 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
     let _type = (args[1] || '').toLowerCase()
     let jualbeli = (args[0] || '').toLowerCase()
     const Kchat = `
-${usedPrefix}shop <Buy|sell> <item> <jumlah>\n
 Contoh penggunaan: *${usedPrefix}shop buy potion 1*\n\n
-List Barang:\n\n
+List Barang:\n${readMore}\n
 *Barang   |  Harga beli*\n
 Potion:       ${potion}
 Limit:.        ${limit}
@@ -469,7 +468,9 @@ Sampah:     ${Ssampah}\n\n
 handler.help = ['shop <sell|buy> <args>', 'toko <sell|buy> <args>']
 handler.tags = ['rpg']
 handler.register = true
-handler.level = 2
     
 handler.command = /^(shop|toko|buy|beli|sell|jual)$/i
 module.exports = handler
+
+const more = String.fromCharCode(8206)
+const readMore = more.repeat(4001)
