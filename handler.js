@@ -489,7 +489,7 @@ module.exports = {
                             }
                         }
                         if (m.limit) m.reply(+ m.limit + ' Limit terpakai')
-                        if (m.game) m.reply(+ m.game + ' Limit game terpakai')
+                        //if (m.game) m.reply(+ m.game + ' Limit game terpakai')
                     }
                     break
                 }
@@ -596,8 +596,9 @@ Untuk mematikan fitur ini, ketik
 
 global.dfail = async(type, m, conn) => {
     let user = global.db.data.users[m.sender]
-    let username = await conn.getName(m.sender)
-    let foot = user.registered ? global.wm : 'Kamu belum Terdaftar kak!\nDaftar dengan mengklick tombol dibawah!'
+    let nme = await conn.getName(m.sender)
+    let secs = [{ title: "Menu cepat bot", rows: [ { title: "All menu", rowId: "#menu", description: "Menampilkan Semua Menu Bot" }, { title: "Rules", rowId: "#rules", description: "Baca peraturan Bot Sebelum Memakai!" }, { title: "Pemilik Bot", rowId: "#owner", description: "Untuk bertanya/melaporkan segala tentang bot" } ] }]
+    if (!user.registered) secs = [{ title: "Daftar Sebagai User bot", rows: [ { title: "Umur 10", rowId: `.daftar ${nme}.10` }, { title: "Umur 11", rowId: `.daftar ${nme}.11` }, { title: "Umur 12", rowId: `.daftar ${nme}.12` }, { title: "Umur 13", rowId: `.daftar ${nme}.13` }, { title: "Umur 14", rowId: `.daftar ${nme}.14` }, { title: "Umur 15", rowId: `.daftar ${nme}.15` }, { title: "Umur 16", rowId: `.daftar ${nme}.16` }, { title: "Umur 17", rowId: `.daftar ${nme}.17` }, { title: "Umur 18", rowId: `.daftar ${nme}.18` }, { title: "Umur 19", rowId: `.daftar ${nme}.19` }, { title: "Umur 20", rowId: `.daftar ${nme}.20` }, { title: "Umur 21", rowId: `.daftar ${nme}.21`, } ] }]
     let msg = {
         rowner: 'Perintah ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
         owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
@@ -608,10 +609,10 @@ global.dfail = async(type, m, conn) => {
         admin: 'Perintah ini hanya untuk *Admin* grup!',
         nsfw: 'Perintah ini Mengandung *18+* Harap hidupkan mode nsfw!',
         botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
-        unreg: '*「 BELUM TERDAFTAR 」*\n\nHalo kaka, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar Shinoa.15',
+        unreg: `*「 BELUM TERDAFTAR 」*\n\nHalo ${nme}, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar ${nme}.15`,
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendButton(m.chat, msg, foot, user.registered ? 'Rules' : 'Daftar', user.registered ? '.rules' : `.daftar ${username}.15`, m)
+    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "Akses Ditolak!!", buttonText: "Click Here", sections: secs })
    }
 
 let fs = require('fs')
