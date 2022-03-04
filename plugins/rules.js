@@ -1,4 +1,3 @@
-let fetch = require('node-fetch')
 let handler = async (m, { conn }) => await conn.send2Button(m.chat, `
 *── 「 RULES AND FAQ 」 ──*
 
@@ -18,7 +17,7 @@ Sanksi: *PERMANENT BLOCK*
 ➡️ Script ini masih private dan tidak pernah diperjual belikan ,bijaklah dalam mengetahui penipu.
 
 🗯️ Boleh saya menambah ke grup?
-➡️ Untuk sementara bot dalam status free to add.
+➡️ Tidak boleh Sembarangan! harap chat owner terlebih dahulu
 
 🗯️ Prefixnya apa ya?
 ➡️ Bot ini menggunakan multi prefix. Berarti anda bisa menggunakan prefix #, . , Dan prefix wajar lainnya.
@@ -27,11 +26,11 @@ Sanksi: *PERMANENT BLOCK*
 ➡️ Owner hanya merespon pertanyaan seputar bot Dan kendala eror, tidak untuk kenalan ataupun mengemis script.
 
 
-Jika sudah dipahami rules-nya, silakan ketik *${prefix}allmenu* untuk memulai!
+Jika sudah dipahami rules-nya, silakan ketik *#menu* untuk memulai!
 
-⚠️ Segala kebijakan dan ketentuan Alphabot di pegang oleh owner dan segala perubahan kebijakan, sewaktu waktu owner berhak mencabut, memblokir user(*﹏*) 
+⚠️ Segala kebijakan dan ketentuan bot ini di pegang oleh owner dan segala perubahan kebijakan, sewaktu waktu owner berhak mencabut, memblokir user(*﹏*) 
 
-Arigatou Gozaimasu! Untuk kalian user ramah dan Beberapa orang yg ikut membantu juga dalam project pembuatan Alphabot
+Arigatou Gozaimasu! Untuk kalian user ramah!
 😖🙏
 ${wm}
 `.trim(), 'Harap patuhin peraturan tersebut', '⋮☰ Menu', '.menu', 'Owner', '.owner', m)
@@ -42,5 +41,3 @@ handler.tags = ['info']
 handler.command = /^(rules|peraturan)$/i
 
 module.exports = handler
-
-let wm = global.botwm

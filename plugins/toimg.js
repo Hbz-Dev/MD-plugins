@@ -16,7 +16,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
  } catch {
   let a = ['Buffer', 'Image', 'Encoding', 'Respond']
   let b = a[Math.floor(Math.random() * a.length)]
-  conn.reply(`*Erorr Invalid ${b}!!*`)
+  conn.reply(m.chat, `*Erorr Invalid ${b}!!*`, m)
   }
 }
 handler.help = ['toimg']

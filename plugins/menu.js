@@ -35,8 +35,8 @@ const defaultMenu = {
 
 ⍟ WhatsApp Bot Multi-Device
 %readmore`.trimStart(),
-  header: '⏍ 「 *%category* 」 ⏍',
-  body: '⎇ %cmd %islimit %isPremium',
+  header: '「 *%category* 」',
+  body: '• %cmd %islimit %isPremium',
   footer: '\n',
   after: 'WhatsApp Bot Multi-Device\nDont spam bot!',
 }
@@ -138,7 +138,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     let ob = ['1', '2', 'su', '1', '4', 'su', '4', '2', '1', '2']
-    let sy = ['Oni-chan Baka! >//<', 'Oni-chan Dame yo! ><', 'Damare Bakaa!', 'Urusai Bakaa!', '><']
+    let sy = ['>//<', '><', 'undefined', 'null', ' ']
     let ys = sy[Math.floor(Math.random() * sy.length)]
     let gb = ob[Math.floor(Math.random() * ob.length)]
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
@@ -151,7 +151,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            hydratedButtons: [{
              urlButton: {
                displayText: '𝙶𝚒𝚝𝚑𝚞𝚋',
-               url: `Github`
+               url: `http://github.com/WhatsAppCode-Official/HelloWorld`
              }
 
            },

@@ -45,7 +45,7 @@ let handler = async (m, { conn, usedPrefix, DevMode }) => {
 Berkurang -${dmg} Durability
 Tersisa ${player.pickaxedurability}/100
 `.trim()
-            await conn.reply(m.chat, str, m)
+            await conn.sendButton(m.chat, str, 'Mining RPG', 'inventory', '.inv', m)
             if (diamond > 0) {
                  player.diamond += diamond * 1
                  conn.reply(m.chat, '*Selamat kamu menemukan*\n' + diamond + ' Diamond! 💎', m)

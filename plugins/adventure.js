@@ -43,7 +43,7 @@ Nyawa mu berkurang -${healt * 1} Dan stamina mu berkurang -${healt * 1} karena K
 *uang:* ${uang}
 *sampah:* ${sampah}${potion == 0 ? '' : '\n*Potion:* ' + potion + ''}${diamond == 0 ? '' : '\n*diamond:* ' + diamond + ''}${common == 0 ? '' : '\n*common crate:* ' + common + ''}${uncommon == 0 ? '' : '\n*uncommon crate:* ' + uncommon + ''}
 `.trim()
-            await conn.reply(m.chat, str, m)
+            await conn.sendButton(m.chat, str, 'Adventure RPG', 'Inventory', '.inv', m)
             if (rod > 0 && global.db.data.users[m.sender].fishingrod !== 1) {
                global.db.data.users[m.sender].fishingrod += rod
                global.db.data.users[m.sender].fishingroddurability = 100

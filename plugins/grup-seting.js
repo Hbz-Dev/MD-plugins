@@ -1,9 +1,9 @@
 let handler = async (m, { conn, args }) => {
 
 	if (!args[0]) {
-		await conn.send3Button(m.chat, `*───────[ GROUP SETTING ]───────*
-	`.trim(),`                     ${wm}\n`, 'Open', ',grup open', 'Close', ',grup close', 'Locked', ',grup locked', m)
-		throw false
+     let secs = [{ title: "Group Setting", rows: [ { title: "Tutup Grup", rowId: "#grup close", description: "Menutup Group" }, { title: "Buka Grup", rowId: "#grup open", description: "Membuka Grup" }, { title: "Everyone", rowId: "#grup unlocked", description: "Membuat grup dapat diubah Oleh semua member grup!" }, { title: "Admin only", rowId: "#group locked", description: "Mengunci agar hanya admin yg bisa merubah grup" } ] }] 
+     await conn.sendMessage(m.chat, { text: "Silahkan Pilih Melalui Tombol Dibawah.", footer: global.wm, title: "*───────[ GROUP SETTING ]───────*", buttonText: "Set Group", sections: secs })
+     throw false
 	}
 	if (args[0].toLowerCase() === 'close') {
 	await conn.groupSettingUpdate(m.chat, 'announcement')

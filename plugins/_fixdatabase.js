@@ -23,6 +23,7 @@ handler.after = async (m) => {
     if (users[jid].exp < 0){
       users[jid].exp = 0
     }
+   return !0
 }
 
 module.exports = handler
