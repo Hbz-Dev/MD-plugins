@@ -65,7 +65,7 @@ loadDatabase()
 // }
 let authFile = `session.data.json`
 global.isInit = !fs.existsSync(authFile)
-const { state, saveState } = useSingleFileAuthState(global.authFile)
+const { state, saveState } = useSingleFileAuthState(authFile)
 
 const connectionOptions = {
   printQRInTerminal: true,
