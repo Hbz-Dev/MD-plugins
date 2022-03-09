@@ -50,7 +50,7 @@ Bot ini Menggunakan Script Dari
          template.message,
          { messageId: template.key.id }
      )
-  } else return conn.sendButton(m.chat, 'Script Bot ShinoaBot Tidak di public kan!', global.wm, 'Ok', 'iyaa', m)
+  } else return conn.sendButton(m.chat, 'Script Bot N350-Z Bot Tidak di public kan!', global.wm, 'Ok', 'iyaa', m)
 }
 handler.help = ['sc', 'sourcecode']
 handler.tags = ['info']

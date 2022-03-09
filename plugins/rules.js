@@ -1,6 +1,6 @@
 let handler = async (m, { conn }) => await conn.send2Button(m.chat, `
 *── 「 RULES AND FAQ 」 ──*
-
+${readMore}
 1. Jangan spam bot. 🙅
 Sanksi: *❎ WARN/SOFT BLOCK*
 
@@ -41,3 +41,6 @@ handler.tags = ['info']
 handler.command = /^(rules|peraturan)$/i
 
 module.exports = handler
+
+const more = String.fromCharCode(8206)
+const readMore = more.repeat(4001)

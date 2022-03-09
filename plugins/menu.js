@@ -33,12 +33,12 @@ const defaultMenu = {
 Ⓟ = Premium
 Ⓛ = Limit
 
-⍟ WhatsApp Bot Multi-Device
+*Here My Command List*
 %readmore`.trimStart(),
   header: '「 *%category* 」',
   body: '• %cmd %islimit %isPremium',
   footer: '\n',
-  after: 'WhatsApp Bot Multi-Device\nDont spam bot!',
+  after: 'N350-Z Bot || Dont spam bot!',
 }
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
@@ -150,7 +150,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            hydratedFooterText: wm,
            hydratedButtons: [{
              urlButton: {
-               displayText: 'Github Team,
+               displayText: 'Github Team',
                url: `http://github.com/WhatsAppCode-Official/HelloWorld`
              }
 

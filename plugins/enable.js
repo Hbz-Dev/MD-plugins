@@ -48,6 +48,23 @@ case 'simi':
       }
       setting.autoread = isEnable
       break
+    case 'antispam':
+    case 'spam':
+    isAll = true
+    if (!isOwner) {
+        global.dfail('owner', m, conn)
+        throw false
+      }
+      setting.antispam = isEnable
+     break
+    case 'queque':
+    isAll = true
+    if (!isOwner) {
+        global.dfail('owner', m, conn)
+        throw false
+      }
+      setting.queque = isEnable
+     break
    case 'auto':
    case 'autolink':
     isAll = true
@@ -133,7 +150,7 @@ case 'simi':
       break
     default:
       if (!/[01]/.test(command)) throw `
-┌〔 Daftar Opsi 〕${isOwner ? '\n├ stiker\n├ delete\n├ autoread\n├ autolink\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
+┌〔 Daftar Opsi 〕${isOwner ? '\n├ antispam\n├ queque\n├ stiker\n├ delete\n├ autoread\n├ autolink\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
 ├ autolevelup
 ├ antilink
 ├ antidelete
