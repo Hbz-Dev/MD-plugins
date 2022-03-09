@@ -64,7 +64,7 @@ loadDatabase()
 //   require('./lib/cluster').Cluster()
 // }
 let authFile = `session.data.json`
-let isInit = !fs.existsSync(authFile)
+global.isInit = !fs.existsSync(authFile)
 const { state, saveState } = useSingleFileAuthState(global.authFile)
 
 const connectionOptions = {
@@ -86,7 +86,7 @@ if (!opts['test']) {
 
 async function connectionUpdate(update) {
   const { connection, lastDisconnect, isNewLogin } = update
-  if (isNewLogin) isInit = true
+  if (isNewLogin) global.isInit = true
   global.timestamp.connect = new Date
   if (lastDisconnect && lastDisconnect.error && lastDisconnect.error.output && lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut && conn.ws.readyState !== WebSocket.CONNECTING) {
     console.log(global.reloadHandler(true))
