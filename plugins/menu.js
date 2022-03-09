@@ -150,14 +150,21 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            hydratedFooterText: wm,
            hydratedButtons: [{
              urlButton: {
-               displayText: '𝙶𝚒𝚝𝚑𝚞𝚋',
+               displayText: 'Github Team,
                url: `http://github.com/WhatsAppCode-Official/HelloWorld`
              }
 
            },
              {
              urlButton: {
-               displayText: `𝚆𝚎𝚋𝚜𝚒𝚝𝚎`,
+               displayText: 'Official group',
+               url: `https://chat.whatsapp.com/LG1e7OFZMg1JfQmJsM8use`
+             }
+             
+           },
+             {
+             urlButton: {
+               displayText: `Source code`,
                url: 'https://wibusoft.com'
              }
 
@@ -165,7 +172,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
                {
              quickReplyButton: {
                displayText: 'ろ翁価',
-               id: `.say ${ys}`,
+               id: `.sms ${ys}`,
              }
            }]
          }

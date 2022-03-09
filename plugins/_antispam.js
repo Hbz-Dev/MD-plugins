@@ -1,8 +1,8 @@
 let handler = m => m
 
 handler.all = async function (m) {
-    if (db.data.settings.antispam) {
-            if (m.fromMe || !m.message) return
+    if (global.db.data.settings.antispam) {
+            if (!m.message) return
             this.spam = this.spam ? this.spam : {}
             if (!(m.sender in this.spam)) {
                 let spamming = {
@@ -14,7 +14,7 @@ handler.all = async function (m) {
             } else try {
                 this.spam[m.sender].spam++
                 if (new Date - this.spam[m.sender].lastspam > 4000) {
-                    if (this.spam[m.sender].spam > 10) {
+                    if (this.spam[m.sender].spam > 5) {
                         this.spam[m.sender].spam = 0
                         this.spam[m.sender].lastspam = new Date * 1
                         db.data.users[m.sender].banned = true
@@ -26,7 +26,7 @@ handler.all = async function (m) {
                     }
                 }
             } catch (err) {
-                console.log(err)
+                m.reply(`${err.message}`)
             }
         }
    }

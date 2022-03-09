@@ -1,12 +1,12 @@
 //made by https://github.com/Paquito1923
-const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
+const { default: proto, generateWAMessageContent } = require('@adiwajshing/baileys-md')
 let fs = require('fs')
 let { youtubeSearch } = require('@bochilteam/scraper')
 let fetch = require('node-fetch') 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) throw `Use example ${usedPrefix}${command} Alan walker faded`
   let vid = (await youtubeSearch(text)).video[0]
-  if (!vid) throw 'Video/Audio Tidak ditemukan'
+  if (!vid) throw 'Video/Audio Tidak ditemukan\nCoba kata kunci lain....'
   let { title, authorName, description, thumbnail, videoId, durationH, viewH, publishedTime } = vid
   const url = 'https://www.youtube.com/watch?v=' + videoId
   /*await conn.sendButton(m.chat, `
@@ -72,7 +72,5 @@ handler.help = ['play'].map(v => v + ' <judul>')
 handler.tags = ['downloader']
 handler.limit = 1
 handler.command = /^(play)$/i
-
-handler.exp = 0
 
 module.exports = handler

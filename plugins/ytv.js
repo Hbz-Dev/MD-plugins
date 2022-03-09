@@ -41,8 +41,5 @@ handler.help = ['ytmp4 <url>']
 handler.tags = ['downloader']
 handler.command = /^(ytv|ytmp4|mp4)$/i
 
-handler.exp = 0
-
-
 module.exports = handler
 

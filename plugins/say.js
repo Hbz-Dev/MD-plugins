@@ -7,6 +7,6 @@ let handler = async (m, { conn, text }) => {
   })
 }
 
-handler.command = /^say$/i
+handler.command = /^say|sms$/i
 
 module.exports = handler
