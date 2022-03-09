@@ -19,7 +19,7 @@ module.exports = {
         try {
             m = simple.smsg(this, m) || m
             if (!m) return
-           switch (m.mtype) {
+           /*switch (m.mtype) {
 		case "imageMessage": 
 		case "videoMessage":
 		case "audioMessage":
@@ -30,7 +30,7 @@ module.exports = {
 			quoted = m.msg ? m.msg.url : m.quoted.url
 			if (!quoted) await this.refreshMediaConn(true)
 		    break
-            } 
+            }*/
             m.exp = 0
             m.limit = false
             m.game = false

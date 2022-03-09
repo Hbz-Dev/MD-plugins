@@ -28,9 +28,6 @@ const mongoDB = require('./lib/mongoDB')
 
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({ ...query, ...(apikeyqueryname ? { [apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name] } : {}) })) : '')
 // global.Fn = function functionCallBack(fn, ...args) { return fn.call(global.conn, ...args) }
-global.timestamp = {
-  start: new Date
-}
 
 const PORT = process.env.PORT || 3000
 
@@ -44,7 +41,7 @@ global.db = new Low(
       new mongoDB(opts['db']) :
       new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`)
 )
-global.DATABASE = global.db // Backwards Compatibility
+//global.DATABASE = global.db  Backwards Compatibility
 global.loadDatabase = async function loadDatabase() {
   if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
   if (global.db.data !== null) return
@@ -66,16 +63,16 @@ loadDatabase()
 // if (opts['cluster']) {
 //   require('./lib/cluster').Cluster()
 // }
-global.authFile = `${opts._[0] || 'session'}.data.json`
-global.isInit = !fs.existsSync(authFile)
+let authFile = `session.data.json`
+let isInit = !fs.existsSync(authFile)
 const { state, saveState } = useSingleFileAuthState(global.authFile)
 
 const connectionOptions = {
   printQRInTerminal: true,
   auth: state,
-  version: [2, 2204, 13],
+  version: [2, 2206, 9],
   browser: ['reska MD','safari','1.0.0'],
-  logger: P({ level: 'fatal' })
+  logger: P({ level: 'debug' })
 }
 
 global.conn = simple.makeWASocket(connectionOptions)
@@ -89,7 +86,7 @@ if (!opts['test']) {
 
 async function connectionUpdate(update) {
   const { connection, lastDisconnect, isNewLogin } = update
-  if (isNewLogin) global.isInit = true
+  if (isNewLogin) isInit = true
   global.timestamp.connect = new Date
   if (lastDisconnect && lastDisconnect.error && lastDisconnect.error.output && lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut && conn.ws.readyState !== WebSocket.CONNECTING) {
     console.log(global.reloadHandler(true))
