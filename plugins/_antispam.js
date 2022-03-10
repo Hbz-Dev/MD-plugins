@@ -14,12 +14,12 @@ handler.all = async function (m) {
             } else try {
                 this.spam[m.sender].spam++
                 if (new Date - this.spam[m.sender].lastspam > 4000) {
-                    if (this.spam[m.sender].spam > 8) {
+                    if (this.spam[m.sender].spam > 5) {
                         this.spam[m.sender].spam = 0
                         this.spam[m.sender].lastspam = new Date * 1
                         db.data.users[m.sender].banned = true
-                await this.sendButton(m.chat, `kamu dibanned karena spam!`, global.wm, 'pemilik bot', '.owner', m)
-                await this.sendButton(`${global.owner[1]}`, `*spam*\n\n@${this.spam[m.sender].jid.split("@")[0]}`, global.wm, 'unban', '.unban ' + this.spam[m.sender].jid.split("@")[0] )
+                await this.sendButton(m.chat, `kamu dibanned karena spam!`, global.wm, 'Pemilik Bot', '.owner', m)
+                await this.sendButton('6283844009539@s.whatsapp.net', `*spam*\n\n@${this.spam[m.sender].jid.split("@")[0]}`, global.wm, 'unban', '.unban ' + this.spam[m.sender].jid.split("@")[0] )
                     } else {
                         this.spam[m.sender].spam = 0
                         this.spam[m.sender].lastspam = new Date * 1

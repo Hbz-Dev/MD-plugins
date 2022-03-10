@@ -1,5 +1,5 @@
 //made by https://github.com/Paquito1923
-const { default: proto, generateWAMessageFromContent } = require('@adiwajshing/baileys-md')
+const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
 let fs = require('fs')
 let { youtubeSearch } = require('@bochilteam/scraper')
 let fetch = require('node-fetch') 
