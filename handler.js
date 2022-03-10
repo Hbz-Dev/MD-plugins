@@ -612,7 +612,7 @@ global.dfail = async(type, m, conn) => {
         unreg: `*「 BELUM TERDAFTAR 」*\n\nHalo ${nme}, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar ${nme}.15`,
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "Akses Ditolak!!", buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs })
+    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "Akses Ditolak!!", buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs }, { quoted: m })
    }
 
 let fs = require('fs')
