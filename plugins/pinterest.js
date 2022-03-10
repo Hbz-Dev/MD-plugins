@@ -3,7 +3,6 @@ if (!text) return m.reply("Umm... apa yg mau dicari?")
 let ru = await pinterest(text)
 let result = ru[Math.floor(Math.random() * ru.length)]
 conn.send2ButtonImg(m.chat, result, 'Hasil pencarian: '+text, `Pinterest 🌟\n${wm}`, 'Get again', `.pinterest ${text}`, '720P Version (Beta)', `.pinterest ${text} HD`, m)
- })
 }
 handler.help = ['pinterest', 'image'].map(v => v + ' <pencarian>')
 handler.tags = ['internet']
