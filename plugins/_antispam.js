@@ -1,7 +1,8 @@
 let handler = m => m
 
 handler.all = async function (m) {
-    if (global.db.data.settings.antispam) {
+    if (m.fromMe) return
+    if (global.db.data.settings.antispam && !global.db.data.users[m.sender].banned) {
             if (!m.message) return
             this.spam = this.spam ? this.spam : {}
             if (!(m.sender in this.spam)) {
