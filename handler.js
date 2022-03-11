@@ -324,7 +324,7 @@ module.exports = {
             let isOwner = isROwner || m.fromMe
             let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
             let groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat).catch(e => {}) : {}
-            let participants = m.isGroup ? await groupMetadata.participants.catch(e => {}) : {}
+            let participants = m.isGroup ? groupMetadata.participants : {}
             let user = m.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : {} // User Data
             let bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
             let isAdmin = m.isGroup ? user.includes(m.sender) : false // Is User Admin?
