@@ -37,7 +37,7 @@ const defaultMenu = {
 %readmore`.trimStart(),
   header: '───「 *%category* 」───',
   body: '🔖 %cmd %islimit %isPremium',
-  footer: '─────────\n',
+  footer: '\n',
   after: '*N350-Z Bot* || Dont spam bot!',
 }
 
