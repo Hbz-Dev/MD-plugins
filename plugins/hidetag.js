@@ -1,10 +1,16 @@
 let handler = async(m, { conn, text, participants }) => {
-  let teks = m.quoted ? m.quoted.text : text
   let mens = []
   for (let i of participants) {
     mens.push(i.id)
    }
+  let mime = (m.quoted.msg || m.quoted).mimetype || ''
+  if (/webp/.test(mime)) {
+  let stik = await m.quoted.download()
+  return conn.sendFile(m.chat, stik, 'tag.webp', '', null, false, { asSticker: true, mentions: mens })
+  } else {
+  let teks = m.quoted ? m.quoted.text : text
   conn.reply(m.chat, teks, null, { mentions: mens })
+ }
 }
 handler.help = ['hidetag <pesan>']
 handler.tags = ['group']

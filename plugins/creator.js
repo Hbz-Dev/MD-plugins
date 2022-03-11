@@ -4,7 +4,7 @@ async function handler(m) {
                     + 'VERSION:3.0\n' 
                     + 'N:;Ownerbot;;;'
                     + 'FN:~ ʙᴏᴛᴢ ~\n' // full name
-                    + 'ORG:Owner\nTEL;Chat yg Bener!;waid=6283844009549:6283844009539\n'
+                    + 'ORG:Owner\nTEL;Chat yg Bener!;waid=6283844009539:6283844009539\n'
                     + 'item1.TEL;Support Whatsapp;waid=15517868060:15517868060\n' // WhatsApp ID + phone number
                     + 'item1.X-ABLabel:👑 Creator bot Whatsapp \n'
                     + 'item2.EMAIL;type=INTERNET:botwa12@gmail.com\n'

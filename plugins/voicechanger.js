@@ -22,15 +22,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
             let media = await q.download()
             let ran = getRandom('.mp3')
             exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
-                fs.unlinkSync(media)
-                if (err) throw `_*Error!*_`
+                if (err) throw err
                 let buff = fs.readFileSync(ran)
                 conn.sendFile(m.chat, buff, ran, null, m, /vn/.test(args[0]), { quoted: m, mimetype: 'audio/mp4' })
                 fs.unlinkSync(ran)
             })
         } else throw `Balas vn/audio yang ingin diubah dengan caption *${usedPrefix + command}*`
     } catch (e) {
-        throw e
+        m.reply(`${e}`)
     }
 }
 handler.help = ['bass', 'blown', 'deep', 'earrape', 'fast', 'fat', 'nightcore', 'reverse', 'robot', 'slow', 'smooth', 'tupai'].map(v => v + ' <vn>')
@@ -39,6 +38,6 @@ handler.command = /^(bass|blown|deep|earrape|fas?t|nightcore|reverse|robot|slow|
 
 module.exports = handler
 
-const getRandom = (ext) => {
+const getRandom = (ext) => {:
     return `${Math.floor(Math.random() * 10000)}${ext}`
 }
