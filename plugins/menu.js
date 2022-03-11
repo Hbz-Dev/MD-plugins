@@ -14,7 +14,7 @@ let tags = {
   'absen': 'ᴀʙꜱᴇɴ',
   'vote': 'ᴠᴏᴛᴇ',
   'owner': 'ᴏᴡɴᴇʀ',
-  'fun': 'ꜰᴜɴ ᴍᴇɴᴜ',
+  'fun': 'ꜰᴜɴ',
   'sticker': 'ᴄᴏɴᴠᴇʀᴛ',
   'maker': 'ᴍᴀᴋᴇʀ',
   'github': 'ɢɪᴛʜᴜʙ',
@@ -35,10 +35,10 @@ const defaultMenu = {
 
 *Here My Command List*
 %readmore`.trimStart(),
-  header: '「 *%category* 」',
-  body: '• %cmd %islimit %isPremium',
-  footer: '\n',
-  after: 'N350-Z Bot || Dont spam bot!',
+  header: '───「 *%category* 」───',
+  body: '🔖 %cmd %islimit %isPremium',
+  footer: '─────────\n',
+  after: '*N350-Z Bot* || Dont spam bot!',
 }
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
