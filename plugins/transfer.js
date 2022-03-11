@@ -14,7 +14,7 @@ let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
                     try {
                         global.db.data.users[m.sender].money -= count * 1
                         global.db.data.users[who].money += count * 1
-                        conn.reply(m.chat, `Berhasil mentransfer money sebesar ${count}`.trim(), m)
+                        conn.reply(m.chat, `Berhasil mentransfer money sebesar ${count}\nKepada: @${who.split('@')[0]}`.trim(), m, { mentions: [who] })
                     } catch (e) {
                         global.db.data.users[m.sender].money += count * 1
                         m.reply('Gagal Menstransfer')
@@ -50,7 +50,7 @@ let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
                     try {
                         global.db.data.users[m.sender].limit -= count * 1
                         global.db.data.users[who].limit += count * 1
-                        conn.reply(m.chat, `Berhasil mentransfer limit sebesar ${count}`.trim(), m)
+                        conn.reply(m.chat, `Berhasil mentransfer limit sebesar ${count}\Kepada: @${who.split('@')[0]}`.trim(), m, { mentions: [who] })
                     } catch (e) {
                         global.db.data.users[m.sender].limit += count * 1
                         m.reply('Gagal Menstransfer')

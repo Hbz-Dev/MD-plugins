@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix, groupMetadata, command }) => {
             text += `Created: ${new Date(groupMetadata?.creation * 1000).toLocaleString()} \nWelcome: ${chat ? "ON" : "OFF"}\nPromote: ${chat ? "ON" : "OFF"}\n`
             text += `Desc:\n${groupMetadata?.desc ? groupMetadata?.desc?.toString() : 'Empty'}\`\`\``
 
-            await conn.sendMessage(from, { image: { url: ppGroup }, caption: text }, { quoted: msg });
+            await conn.sendMessage(from, { image: { url: ppGroup }, caption: text }, { quoted: m });
         } catch {
             await m.reply("Terjadi kesalahan\nHarap coba lagi nanti");
         }

@@ -1,5 +1,5 @@
 let handler = async (m, { conn }) => {
-  text = `@${m.sender.split('@')[0]} tagged!`
+  text = `@${m.sender.split('@')[0]}`
   m.reply(text, false, {
     contextInfo: {
       mentionedJid: conn.parseMention(text)
