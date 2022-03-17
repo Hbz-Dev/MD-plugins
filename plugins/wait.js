@@ -1,5 +1,6 @@
 const uploadImage = require('../lib/uploadImage')
 const fetch = require('node-fetch')
+let { toVideo } = require('../lib/converter.js')
 
 let handler = async (m, { conn, usedPrefix }) => {
   let q = m.quoted ? m.quoted : m
@@ -14,7 +15,9 @@ let handler = async (m, { conn, usedPrefix }) => {
   let json = await res.json()
   // m.reply(`${require('util').format(result)}`)
   let { anilist, filename, episode, from, to, similarity, video, image } = json.result[0]
-  conn.sendFile(m.chat, video, 'wait.mp4', `
+  let asu = await (await fetch(video)).buffer()
+  let vidnye = await toVideo(asu, 'mp4')
+  conn.sendFile(m.chat, vidnye.data, 'wait.mp4', `
   ${similarity < 0.89 ? 'Saya Memiliki Keyakinan Rendah Tentang Hal Ini' : ''}
 
 Anilist : *${anilist}*

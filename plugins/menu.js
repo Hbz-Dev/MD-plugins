@@ -30,14 +30,15 @@ let tags = {
 const defaultMenu = {
   before: `*HAI %name ☬*
 
-Ⓟ = Premium
-Ⓛ = Limit
+INFO MENU:
+ 🅟 : Khusus Premium
+ 🅛 : Memakai Limit
 
 *Here My Command List*
 %readmore`.trimStart(),
-  header: '───「 *%category* 」───',
-  body: '🔖 %cmd %islimit %isPremium',
-  footer: '\n',
+  header: '╭─ꕥ「 *%category* 」ꕥ',
+  body: '│☄︎ %cmd %islimit %isPremium',
+  footer: '╰❑',
   after: '*N350-Z Bot* || Dont spam bot!',
 }
 
@@ -171,7 +172,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            },
                {
              quickReplyButton: {
-               displayText: 'ろ翁価',
+               displayText: 'ろ',
                id: `.sms ${ys}`,
              }
            }]
