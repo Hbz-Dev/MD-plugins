@@ -3,7 +3,7 @@ let handler = async(m, { conn, text, participants }) => {
   for (let i of participants) {
     mens.push(i.id)
    }
-  let mime = (m.quoted.msg || m.quoted).mimetype || ''
+  let mime = m.quoted ? m.quoted.mimetype : ''
   if (/webp/.test(mime)) {
   let stik = await m.quoted.download()
   return conn.sendFile(m.chat, stik, 'tag.webp', '', null, false, { asSticker: true, mentions: mens })

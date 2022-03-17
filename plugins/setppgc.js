@@ -10,7 +10,7 @@ let handler = async (m, { conn }) => {
 }
 handler.help = ['setppgc <reply>']
 handler.tags = ['group']
-handler.command = /^(set(pp)?gc)$/i
+handler.command = /^(setppgc|setppgrup|setppgroup)$/i
 handler.group = true
 handler.admin = true
 handler.botAdmin = true
