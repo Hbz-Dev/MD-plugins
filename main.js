@@ -71,9 +71,9 @@ global.isInit = !fs.existsSync(authFile)
 const { state, saveState } = useSingleFileAuthState(authFile)
 
 const connectionOptions = {
-  printQRInTerminal: true,
+  printQRInTerminal: false,
   auth: state,
-  version: [2, 2206, 9],
+  version: [2, 2208, 7],
   browser: ['reska MD','safari','1.0.0'],
   logger: P({ level: 'debug' })
 }
@@ -161,7 +161,7 @@ for (let filename of fs.readdirSync(pluginFolder).filter(pluginFilter)) {
     delete global.plugins[filename]
   }
 }
-console.log(Object.keys(global.plugins))
+//console.log(Object.keys(global.plugins))
 global.reload = (_ev, filename) => {
   if (pluginFilter(filename)) {
     let dir = path.join(pluginFolder, filename)

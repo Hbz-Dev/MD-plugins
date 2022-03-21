@@ -44,7 +44,7 @@ module.exports = {
                     if (!isNumber(user.pc)) user.pc = 0
                     if (!('pasangan' in user)) user.pasangan = ''
                     if (!('code' in user)) user.code = false
-                    if (!('registered' in user)) user.registered = true
+                    if (!('registered' in user)) user.registered = false
                     if (!user.registered) {
                         if (!('name' in user)) user.name = m.name
                         if (!isNumber(user.age)) user.age = -1
@@ -146,7 +146,7 @@ module.exports = {
                     pc: 0,
                     pasangan: '',
                     code: false,
-                    registered: true,
+                    registered: false,
                     name: m.name,
                     age: -1,
                     regTime: -1,
@@ -557,7 +557,7 @@ module.exports = {
                             pp = await this.profilePictureUrl(user, 'image')
                         } catch (e) {
                         } finally {
-                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', groupMetadata.subject).replace('@desc', groupMetadata.desc.toString()) :
+                            text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', groupMetadata.subject).replace('@desc', groupMetadata?.desc?.toString() || 'No Deskripsi') :
                                 (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
                             this.sendFile(id, pp, 'pp.jpg', text, null, false, {
                                 contextInfo: {
@@ -572,8 +572,8 @@ module.exports = {
                 text = (chat.sPromote || this.spromote || conn.spromote || '@user ```Sekarang adalah admin```')
             case 'demote':
                 if (!text) text = (chat.sDemote || this.sdemote || conn.sdemote || '@user ```Sekarang bukan admin```')
-                text = text.replace('@user', '@' + participants[0].split('@')[0])
-                if (chat.welcome) return this.reply(id, text, null, { mentions: [participants[0]] })
+                text = text.replace('@user', participants[0].split('@')[0])
+                if (chat.welcome) return this.reply(id, text, null, { mentions: await this.parseMention(text) })
                 break
         }
     },
@@ -612,7 +612,7 @@ global.dfail = async(type, m, conn) => {
         unreg: `*「 BELUM TERDAFTAR 」*\n\nHalo ${nme}, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar ${nme}.15`,
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "─────ꕥ WARNING ꕥ────", buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs }, { quoted: m })
+    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "– Not Authorized –", buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs }, { quoted: m })
    }
 
 let fs = require('fs')
