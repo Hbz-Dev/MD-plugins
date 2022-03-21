@@ -46,7 +46,7 @@ module.exports = {
                             plugin.command === command :
                             false
                 if (!isId) continue
-                console.log({ name, command: plugin.command, text: id })
+                //console.log({ name, command: plugin.command, text: id })
                 isIdMessage = true
             }
 
