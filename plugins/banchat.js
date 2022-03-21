@@ -12,7 +12,7 @@ let handler = async (m, { conn, isOwner, text, isAdmin }) => {
       global.dfail('owner', m, conn)
       throw false
     }
-    who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
+    //who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
   }
 
   try {

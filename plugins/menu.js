@@ -28,17 +28,21 @@ let tags = {
   'info': 'ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ',
 }
 const defaultMenu = {
-  before: `*HAI %name ☬*
+  before: `Hi, %name ☬
+
+• Date      : %date
+• Runtime   : %muptime
+• Time      : %time
+• Ramadhan : 02 April 2022
 
 INFO MENU:
  🅟 : Khusus Premium
  🅛 : Memakai Limit
-
-*Here My Command List*
+ 
 %readmore`.trimStart(),
-  header: '╭─ꕥ「 *%category* 」ꕥ',
+  header: '╭─ꕥ「 *%category* 」',
   body: '│☄︎ %cmd %islimit %isPremium',
-  footer: '╰❑',
+  footer: '╰❑\n',
   after: '*N350-Z Bot* || Dont spam bot!',
 }
 
@@ -114,8 +118,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
           ...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
             return menu.help.map(help => {
               return body.replace(/%cmd/g, menu.prefix ? help : '%p' + help)
-                .replace(/%islimit/g, menu.limit ? '(Ⓛ)' : '')
-                .replace(/%isPremium/g, menu.premium ? '(Ⓟ)' : '')
+                .replace(/%islimit/g, menu.limit ? '(🅛)' : '')
+                .replace(/%isPremium/g, menu.premium ? '(🅟)' : '')
                 .trim()
             }).join('\n')
           }),
@@ -127,7 +131,9 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
     let replace = {
       '%': '%',
-      p: _p, uptime, muptime,
+      p: _p, 
+      uptime, 
+      muptime,
       me: conn.user.name,
       exp: exp - min,
       maxexp: xp,
@@ -139,7 +145,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     let ob = ['1', '2', 'su', '1', '4', 'su', '4', '2', '1', '2']
-    let sy = ['>//<', '><', 'undefined', 'null', ' ']
+    let sy = ['>//<', '><', 'undefined :v', 'null :c', ' ']
     let ys = sy[Math.floor(Math.random() * sy.length)]
     let gb = ob[Math.floor(Math.random() * ob.length)]
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
@@ -148,11 +154,11 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            hydratedContentText: text.trim(),
            locationMessage: { 
            jpegThumbnail: fs.readFileSync(`./media/${gb}.jpg`) },
-           hydratedFooterText: wm,
+           hydratedFooterText: `WhatsApp Bot\n${wm}`,
            hydratedButtons: [{
              urlButton: {
                displayText: 'Github Team',
-               url: `http://github.com/WhatsAppCode-Official/HelloWorld`
+               url: `https://github.com/WhatsAppCode-Official`
              }
 
            },
@@ -172,7 +178,21 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
            },
                {
              quickReplyButton: {
-               displayText: 'ろ',
+               displayText: 'Rules',
+               id: `.rules`,
+             }
+             
+           },
+               {
+             quickReplyButton: {
+               displayText: 'Info Mu',
+               id: `.my`,
+             }
+            
+           },
+               {
+             quickReplyButton: {
+               displayText: 'ランダムな単語',
                id: `.sms ${ys}`,
              }
            }]

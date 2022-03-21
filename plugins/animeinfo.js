@@ -3,7 +3,7 @@ let handler = async(m, { conn, text }) => {
   if (!text) throw `Masukkan query!`
   try {
   let res = await fetch(global.API('https://api.jikan.moe', '/v3/search/anime', { q: text }))
-  if (!res.ok) throw await res.text()
+  //if (!res.ok) throw await res.text()
   let json = await res.json()
   let { title, synopsis, episodes, url, rated, score, image_url } = json.results[0]
 let animeingfo = `✨️ *Title:* ${title}
@@ -16,7 +16,7 @@ let animeingfo = `✨️ *Title:* ${title}
   let img = await (await fetch(image_url)).buffer()
   conn.sendButtonLoc(m.chat, img, animeingfo, `Anime Info`, 'Click Here for Link Watch!', '.animelink')
   } catch (e) {
-   m.reply('Tidak ditemukan... :(')
+   m.reply('Tidak ditemukan... :(\nMungkin coba kata kunci lain?')
   }
 }
 handler.help = ['animeinfo <judul>', 'anime <search>']

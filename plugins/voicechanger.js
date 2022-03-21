@@ -22,7 +22,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
             let media = await q.download()
             let ran = getRandom('.mp3')
             exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
-                if (err) throw err
+                if (err) throw `Ada yg error :(`
                 let buff = fs.readFileSync(ran)
                 conn.sendFile(m.chat, buff, ran, null, m, /vn/.test(args[0]), { quoted: m, mimetype: 'audio/mp4' })
                 fs.unlinkSync(ran)

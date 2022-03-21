@@ -6,7 +6,7 @@ let handler = async (m, { conn }) => {
  if (!who) throw 'Tag Orang yang mau diblock!'
  let user = `${who.split("@s.whatsapp.net")[0]}` + '@c.us'
     await conn.updateBlockStatus(user, 'unblock')
-  conn.reply(m.chat, `Done!`, m)
+  conn.reply(m.chat, `Done unblock!`, m)
 }
 handler.help = ['unblock <@user>']
 handler.tags = ['owner']

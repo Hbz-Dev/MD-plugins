@@ -7,7 +7,7 @@ let handler  = async (m, { conn, args, text }) => {
   let results = await gis(text) || []
   let { url, width, height } = pickRandom(results) || {}
   if (!url) return m.reply('404 Not Found')
-  conn.sendFile(m.chat, url, 'gimage', `
+  conn.sendFile(m.chat, url, 'gimage.jpg', `
 *── 「 GOOGLE IMAGE 」 ──*
 
 ${text}

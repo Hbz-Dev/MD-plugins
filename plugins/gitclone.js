@@ -12,7 +12,8 @@ let handler = async (m, { args, usedPrefix, command }) => {
     let filename = (await fetch(url, {method: 'HEAD'})).headers.get('content-disposition').match(/attachment; filename=(.*)/)[1]
     // 'attachment; filename=ilmanhdyt/ShiraoriBOT-Mdv2.5.1-251-g836cccd.zip'
     m.reply(`*Mohon tunggu, sedang mengirim repository..*`)
-    conn.sendFile(m.chat, url, filename, '', m)
+    //conn.sendFile(m.chat, url, filename, '', m)
+    conn.sendMessage(m.chat, { document: { url: url }, fileName: filename, mimetype: 'application/zip' }, { quoted: m })
 
 }
 handler.help = ['gitclone <url>']

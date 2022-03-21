@@ -16,7 +16,7 @@ ${upvote.map(u => '@' + u.split('@')[0]).join('\n')}
 
 *DEVOTE*
 _Total: ${devote.length}_
-${devote.map(u => '@' + u.split('@')[0]).join('\n')}}
+${devote.map(u => '@' + u.split('@')[0]).join('\n')}
 
 *${usedPrefix}hapusvote* - untuk menghapus vote
 

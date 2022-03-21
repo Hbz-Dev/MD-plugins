@@ -12,12 +12,12 @@ let handler = async (m, { isOwner, text, isAdmin }) => {
       global.dfail('owner', m, conn)
       throw false
     }
-    who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
+    //who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
   }
   try {
     if (who.endsWith('g.us')) global.db.data.chats[who].isBanned = false
     else global.db.data.users[who].banned = false
-    m.reply(`Done Unban! Bot aktif dichat ${await conn.getName(who) == undefined ? 'ini' : await conn.getName(who)}.`)
+    m.reply(`Done Unban!\nBot aktif dichat ${await conn.getName(who) == undefined ? 'ini' : await conn.getName(who)}.`)
   } catch (e) {
     throw `nomor tidak ada didatabase!`
   }

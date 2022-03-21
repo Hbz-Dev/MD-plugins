@@ -1,8 +1,8 @@
 let handler = m => m
 let debugMode = !1
 
-let winScore = 500
-let playScore = 50
+let winScore = 20000
+let playScore = 5000
 
 handler.before = function (m) {
     let ok
@@ -53,15 +53,15 @@ handler.before = function (m) {
             isWin = true
         }
         let winner = isSurrender ? room.game.currentTurn : room.game.winner
-        let str = `
+        let str = `[ TICTACTOE GAME ]\n
 ${arr.slice(0, 3).join('')}
 ${arr.slice(3, 6).join('')}
 ${arr.slice(6).join('')}
-${isWin ? `@${winner.split('@')[0]} Menang! (+${winScore} XP)` : isTie ? `Game berakhir (+${playScore} XP)` : `Giliran ${['❌', '⭕'][1 * room.game._currentTurn]} (@${room.game.currentTurn.split('@')[0]})`}
+${isWin ? `@${winner.split('@')[0]} Menang! (+${winScore} MONEY)` : isTie ? `Game berakhir seri masing² dapat (+${playScore} MONEY)` : `Giliran ${['❌', '⭕'][1 * room.game._currentTurn]} (@${room.game.currentTurn.split('@')[0]})`}
 
 ❌: @${room.game.playerX.split('@')[0]}
 ⭕: @${room.game.playerO.split('@')[0]}
-Ketik *nyerah* untuk nyerah
+Ketik *nyerah* untuk menyerah 🙃
 Room ID: ${room.id}
 `.trim()
         let users = global.db.data.users
@@ -78,9 +78,11 @@ Room ID: ${room.id}
             }
         })
         if (isTie || isWin) {
-            users[room.game.playerX].exp += playScore
-            users[room.game.playerO].exp += playScore
-            if (isWin) users[winner].exp += winScore - playScore
+            users[room.game.playerX].exp += 100
+            users[room.game.playerX].money += playScore
+            users[room.game.playerO].money += playScore
+            users[room.game.playerO].exp += 100
+            if (isWin) users[winner].money += winScore - playScore
             if (debugMode) m.reply('[DEBUG]\n' + require('util').format(room))
             delete this.game[room.id]
         }

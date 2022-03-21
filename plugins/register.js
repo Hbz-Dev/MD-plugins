@@ -2,7 +2,7 @@ const { createHash } = require('crypto')
 let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i
 let handler = async function (m, { text, usedPrefix, command, conn }) {
   let user = global.db.data.users[m.sender]
-  if (user.registered === true) throw `Kamu sudah terdaftar\nMau daftar ulang? ${usedPrefix}unreg <SERIAL NUMBER>`
+  if (user.registered === true) return m.reply(`Kamu sudah terdaftar\nMau daftar ulang? ${usedPrefix}unreg <SERIAL NUMBER>`)
   if (!Reg.test(text)) throw `contoh:\n*${usedPrefix + command} nama.umur*`
   let [_, name, splitter, age] = text.match(Reg)
   if (!name) throw 'Nama tidak boleh kosong (Alphanumeric)'

@@ -7,7 +7,8 @@ try {
 let url = `https://github.com/${args[0]}/${args[1]}/archive/refs/heads/${args[2]}.zip`
 //ByRizkyAdi
 await m.reply(`waiting for compress to zip`)
-conn.sendFile(m.chat, url, 'repo.zip', '', m)
+//conn.sendFile(m.chat, url, 'repo.zip', '', m)
+conn.sendMessage(m.chat, { document: { url: url }, fileName: `${args[1]}/${args[2]}`, mimetype: 'application/zip' }, { quoted: m })
 } catch (e) {
  m.reply('404 Tidak ditemukan\nAtau mungkin Di private')
  }

@@ -1,7 +1,7 @@
 let handler = async (m, { usedPrefix }) => {
     let id = m.chat
     conn.absen = conn.absen ? conn.absen : {}
-    if (!(id in conn.absen)) throw `_*Tidak ada absen berlangsung digrup ini!*_\n\n*${usedPrefix}mulaiabsen* - untuk memulai absen`
+    if (!(id in conn.absen)) return conn.sendButton(m.chat, `_*Tidak ada absen berlangsung digrup ini!*_\n\n*${usedPrefix}mulaiabsen* - untuk memulai absen`, `Absen Belum Dimulai!\n${wm}`, 'Mulai Absen!', '.mulaiabsen', m)
 
     let absen = conn.absen[id][1]
     const wasVote = absen.includes(m.sender)
@@ -20,7 +20,7 @@ let handler = async (m, { usedPrefix }) => {
 Tanggal: ${date}
 ${conn.absen[id][2]}
 
-┌ *Yang sudah absen:*
+┌ *Yang Sudah Absen:*
 │ 
 │ Total: ${absen.length}
 ${list}
