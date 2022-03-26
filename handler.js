@@ -144,6 +144,7 @@ module.exports = {
                     limit: 20,
                     game: 30,
                     pc: 0,
+                    role: 'Beginner',
                     pasangan: '',
                     code: false,
                     registered: false,
@@ -278,6 +279,7 @@ module.exports = {
           if (!'groupOnly' in settings) settings.groupOnly = false
           if (!'nsfw' in settings) settings.nsfw = false
           if (!'self' in settings) settings.self = false
+          if (!'setmenu' in settings) settings.setmenu = 'all'
           if (!'queque' in settings) settings.queque = false
           if (!'auto' in settings) settings.auto = false
           if (!'autoread' in settings) settings.autoread = false
@@ -287,6 +289,7 @@ module.exports = {
           groupOnly: false,
           nsfw: false,
           self: false,
+          setmenu: 'all',
           queque: false,
           auto: false,
           autoread: false,
@@ -324,7 +327,7 @@ module.exports = {
             let isOwner = isROwner || m.fromMe
             let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
             let groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat).catch(e => {}) : {}
-            let participants = (m.isGroup ? groupMetadata.participants : []) || []
+            let participants = (m.isGroup ? groupMetadata?.participants : []) || []
             let user = m.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : {} // User Data
             let bot = (m.isGroup ? participants.find(u => conn.decodeJid(u.id) == this.user.jid) : {}) || {} // Your Data
             let isAdmin = m.isGroup ? user.includes(m.sender) : false // Is User Admin?
@@ -535,7 +538,7 @@ module.exports = {
             // } catch (e) {
             //     console.log(m, m.quoted, e)
             // }
-            if (global.db.data.settings.autoread) await this.sendReadReceipt(m.chat, m.sender, [m.id])
+            if (global.db.data.settings.autoread) await this.sendReadReceipt(m.chat, m.isGroup ? m.sender : undefined, [m.id])
             let quequeIndex = this.msgqueque.indexOf(m.id || m.key.id)
             if (global.db.data.settings.queque && m.text && quequeIndex !== -1) this.msgqueque.splice(quequeIndex, 1)
         }
@@ -573,7 +576,7 @@ module.exports = {
             case 'demote':
                 if (!text) text = (chat.sDemote || this.sdemote || conn.sdemote || '@user ```Sekarang bukan admin```')
                 text = text.replace('@user', participants[0].split('@')[0])
-                if (chat.welcome) return this.reply(id, text, null, { mentions: await this.parseMention(text) })
+                if (chat.welcome) return this.reply(id, text, null, { mentions: [participants[0]] })
                 break
         }
     },

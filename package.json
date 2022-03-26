@@ -1,6 +1,6 @@
 {
     "name": "Bot-md",
-    "version": "0.6.0",
+    "version": "0.7.0",
     "description": "Simple Bot WhatsApp with Baileys Multi Device",
     "depecrated": false,
     "main": "index.js",
@@ -38,7 +38,7 @@
     "dependencies": {
         "@adiwajshing/baileys-md": "github:adiwajshing/baileys",
         "awesome-phonenumber": "^2.64.0",
-        "axios": "^0.24.0",
+        "axios": "^0.26.1",
         "@bochilteam/scraper": "^0.0.81",
         "translate-google-api": "^1.0.4",
         "colors": "1.4.0",
@@ -52,13 +52,14 @@
         "jsdom": "^18.1.1",
         "lodash": "^4.17.21",
         "lowdb": "^2.1.0",
-        "pino": "^7.0.0",
+        "pino": "^7.6.5",
         "mongoose": "^6.2.1",
         "moment-timezone": "^0.5.34",
         "node-fetch": "^2.6.6",
         "node-webpmux": "^3.1.0",
         "nodemon": "^2.0.15",
         "os": "^0.1.2",
+        "express": "^4.17.2",
         "perf_hooks": "^0.0.1",
         "qrcode": "^1.5.0",
         "qrcode-terminal": "^0.12.0",
@@ -69,6 +70,6 @@
         "url-regex-safe": "^2.1.0",
         "wa-sticker-formatter": "^4.0.14",
         "yargs": "^17.2.1",
-        "yt-search": "^2.10.2"
+        "yt-search": "^2.10.3"
     }
 }

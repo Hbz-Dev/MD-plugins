@@ -32,7 +32,7 @@ global.timestamp = {
   start: new Date
 }
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 // console.log({ opts })
@@ -73,14 +73,14 @@ const { state, saveState } = useSingleFileAuthState(authFile)
 const connectionOptions = {
   printQRInTerminal: false,
   auth: state,
-  version: [2, 2208, 7],
-  browser: ['reska MD','safari','1.0.0'],
-  logger: P({ level: 'debug' })
+  version: [2, 2208, 14],
+  logger: P({ level: 'fatal' })
 }
 
 global.conn = simple.makeWASocket(connectionOptions)
 
 if (!opts['test']) {
+  require('./server.js')(PORT)
   if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
     if (opts['autocleartmp'] && (global.support || {}).find) (tmp = [os.tmpdir(), 'tmp'], tmp.forEach(filename => cp.spawn('find', [filename, '-amin', '3', '-type', 'f', '-delete'])))
