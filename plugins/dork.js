@@ -28,14 +28,14 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 		else if (random_length == 3) rndm = dom1 + dom2 + dom3
 		else if (random_length == 4) rndm = dom1 + dom2 + dom3 + dom4
 		
-		let anu = await conn.OnWhatsApp(nomer[0] + i + '@s.whatsapp.net')
+		let anu = await conn.onWhatsApp(nomer[0] + i + '@s.whatsapp.net')
 		
 		try {
-			let anu1 = await conn.fetchStatus(anu.jid)
+			let anu1 = await conn.fetchStatus(anu[0].jid)
 			if (!anu1.status || anu1.status == 'Hey there! I am using WhatsApp.') {
-				no_bio += 'wa.me/' + anu.jid.split`@`[0] + '\n'
+				no_bio += 'wa.me/' + anu[0].jid.split`@`[0] + '\n'
 			} else {
-				nomerny += 'wa.me/' + anu.jid.split`@`[0] + '\n'
+				nomerny += 'wa.me/' + anu[0].jid.split`@`[0] + '\n'
 			}
 		} catch {
 			no_watsap += 'wa.me/' + nomer[0] + i + '\n'

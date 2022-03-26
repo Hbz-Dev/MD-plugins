@@ -8,7 +8,7 @@ let handler = async(m, { conn, text, usedPrefix }) => {
           let hasil = `*• Chord Lagu ${text} :*\n${res.data.result}`
             conn.reply(m.chat, hasil, m)
         })
-        .catch(_ => m.reply('Chord Lagu Tidak Ditemukan!')
+        .catch(_ => m.reply('Chord Lagu Tidak Ditemukan!'))
 }
 handler.help = ['chord <judul lagu>']
 handler.tags = ['tools']

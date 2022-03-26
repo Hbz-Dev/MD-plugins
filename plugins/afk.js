@@ -14,7 +14,7 @@ let handler = async(m, { text, command, groupMetadata, conn }) => {
 return conn.sendButton(m.chat, str, 'Jangan di nganggu yah🔖', 'Iyaaa', 'iydh', m)
 } else if (command == "pesan") {
  if (!text) return
- await conn.reply(text, `*@${m.sender.split('@')[0]}* Mencarimu ketika kamu sedang afk!\n\n*Group:* ${m.isGroup ? groupMetadata.subject : 'Tidak Diketahui'}`, null, { mentions: [m.sender] })
+ await conn.reply(text, `*@${m.sender.split('@')[0]}* Mencarimu ketika kamu sedang afk!\n\n*Group:* ${m.isGroup ? groupMetadata.subject : 'Tidak Diketahui'}`, null, { mentions: [m.sender] }).catch(_ => m.reply('Mau make fitur tersembunyi yah? Tidak semudah itu 😏'))
  m.reply('_Sukses meninggalkan pesan kepada user_')
  }
 }

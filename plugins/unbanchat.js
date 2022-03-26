@@ -12,7 +12,7 @@ let handler = async (m, { isOwner, text, isAdmin }) => {
       global.dfail('owner', m, conn)
       throw false
     }
-    //who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
+    who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
   }
   try {
     if (who.endsWith('g.us')) global.db.data.chats[who].isBanned = false
