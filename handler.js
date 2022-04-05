@@ -555,18 +555,29 @@ module.exports = {
                 if (chat.welcome) {
                     let groupMetadata = await this.groupMetadata(id) || (conn.chats[id] || {}).metadata
                     for (let user of participants) {
-                        let pp = './src/avatar_contact.png'
+                        let pp = 'https://telegra.ph/file/118a75cb0c8396bdd7975.jpg'             
                         try {
                             pp = await this.profilePictureUrl(user, 'image')
                         } catch (e) {
                         } finally {
                             text = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', groupMetadata.subject).replace('@desc', groupMetadata?.desc?.toString() || 'No Deskripsi') :
                                 (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
-                            this.sendFile(id, pp, 'pp.jpg', text, null, false, {
-                                contextInfo: {
-                                    mentionedJid: [user]
-                                }
-                            })
+                            let but = [{ buttonId: '??', buttonText: { displayText: 'MENU' }, type: 1 }, { buttonId: global.wm, buttonText: { displayText: action === 'add' ? 'Welcome 🙏' : 'Goodbye👋'}, type: 1 }]
+                            let _mim = ['application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf', 'text/rtf']
+                            let mim = _mim[Math.floor(Math.random() * _mim.length)]
+                            this.sendMessage(id, { document: { url: pp }, caption: text, headerType: 4, footer: global.wm, buttons: but, jpegThumbnail: await (await fetch("https://telegra.ph/file/27e90a619b30082694bde.jpg")).buffer(), fileName: action === 'add' ? `Welcome ${this.getName(user)} 🥰` : `Goodbye ${this.getName(user)} ☺`, mimetype: mim, fileLength: 9999999999999, pageCount: 9999999999999,
+                               mentions: [user],
+                               contextInfo: {
+                               externalAdReply :{
+                                  mediaUrl: 'https://www.instagram.com/p/CH1A1c9J5pY/?utm_medium=copy_link',
+                                  mediaType: 2,
+                                  description: '', 
+                                  title: 'Semoga Betah ツ',
+                                  body: '@' + global.wm,
+                                  thumbnail: await(await fetch(pp)).buffer(),
+                                  sourceUrl: ''
+                              }}}, { quoted: { key: { fromMe: false, participant: `0@s.whatsapp.net`, remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: `${await this.getName(user)}`, vcard: `BEGIN: VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${user}\nitem1.TEL;waid=${user.split('@')[0]}:${user.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}
+                           })
                         }
                     }
                 }
@@ -576,7 +587,7 @@ module.exports = {
             case 'demote':
                 if (!text) text = (chat.sDemote || this.sdemote || conn.sdemote || '@user ```Sekarang bukan admin```')
                 text = text.replace('@user', participants[0].split('@')[0])
-                if (chat.welcome) return this.reply(id, text, null, { mentions: [participants[0]] })
+                if (chat.welcome) this.reply(id, text, null, { mentions: [participants[0]] })
                 break
         }
     },

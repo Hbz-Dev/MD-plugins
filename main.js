@@ -80,7 +80,6 @@ const connectionOptions = {
 global.conn = simple.makeWASocket(connectionOptions)
 
 if (!opts['test']) {
-  require('./server.js')(PORT)
   if (global.db) setInterval(async () => {
     if (global.db.data) await global.db.write()
     if (opts['autocleartmp'] && (global.support || {}).find) (tmp = [os.tmpdir(), 'tmp'], tmp.forEach(filename => cp.spawn('find', [filename, '-amin', '3', '-type', 'f', '-delete'])))
