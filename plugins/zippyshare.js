@@ -9,7 +9,7 @@ let handler = async (m, { conn, text }) => {
 }
 handler.help = ['zippyshare']
 handler.tags = ['downloader']
-handler.command = /^(zippyshare|zippy)$/i
+handler.command = /^(zippyshare|zippy|zs)$/i
 handler.limit = true
 
 module.exports = handler

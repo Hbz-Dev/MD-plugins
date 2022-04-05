@@ -1,8 +1,34 @@
-const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
+let { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys')
+let levelling = require('../lib/levelling')
 let fs = require('fs')
 let path = require('path')
-let levelling = require('../lib/levelling')
-let tags = {
+let moment = require('moment-timezone')
+const defaultMenu = {
+  before: `Hi, %name ☬
+
+• Date      : %date
+• Runtime   : %muptime
+• Time      : %time
+• TotalUser  : %totalreg
+
+INFO MENU:
+ 🅟 : Khusus Premium
+ 🅛 : Memakai Limit
+ 
+%readmore`.trimStart(),
+  header: '╭─ꕥ「 *%category* 」',
+  body: '│☄︎ %cmd %islimit %isPremium',
+  footer: '╰❑\n',
+  after: '*N350-Z Bot* || Dont spam bot!',
+}
+
+let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
+  if (global.db.data.settings.setmenu == 'all') return handler.disabled = true
+  let tags
+  let teks = `${args[0]}`.toLowerCase()
+  let arrayMenu = ['all', 'main', 'anonymous', 'game', 'rpg', 'jodoh', 'xp', 'premium', 'group', 'vote', 'fun', 'sticker', 'maker', 'github', 'anime', 'internet', 'tools', 'downloader', 'nsfw', 'info', 'owner']
+  if (!arrayMenu.includes(teks)) teks = '404'
+  if (teks == 'all') tags = {
   'main': 'ᴍᴀɪɴ',
   'anonymous': 'ᴀɴᴏɴʏᴍᴏᴜꜱ',
   'game': 'ɢᴀᴍᴇ',
@@ -26,44 +52,83 @@ let tags = {
   'advanced': 'ᴀᴅᴠᴀɴᴄᴇᴅ',
   'quotes': 'Qᴜᴏᴛᴇꜱ',
   'info': 'ɪɴꜰᴏʀᴍᴀᴛɪᴏɴ',
-}
-const defaultMenu = {
-  before: `Hi, %name ☬
-
-• Date      : %date
-• Runtime   : %muptime
-• Time      : %time
-• TotalUser  : %totalreg
-
-INFO MENU:
- 🅟 : Khusus Premium
- 🅛 : Memakai Limit
+ }
+  if (teks == 'jodoh') tags = {
+    'jodoh': 'ᴊᴀᴅɪᴀɴ'
+  }
+  if (teks == 'game') tags = {
+    'game': 'ɢᴀᴍᴇ'
+  }
+  if (teks == 'anime') tags = {
+    'anime': 'Anime'
+  }
+  if (teks == 'nsfw') tags = {
+    'nsfw': 'Nsfw'
+  }
+  if (teks == 'rpg') tags = {
+    'rpg': 'Rpg'
+  }
+  if (teks == 'xp') tags = {
+    'xp': 'Exp & Limit'
+  }
+  if (teks == 'sticker') tags = {
+    'sticker': 'Convert'
+  }
+  if (teks == 'github') tags = {
+    'github': 'ɢɪᴛʜᴜʙ'
+  }
+  if (teks == 'quotes') tags = {
+    'quotes': 'Quotes'
+  }
+  if (teks == 'group') tags = {
+    'group': 'Group'
+  }
+  if (teks == 'premium') tags = {
+    'premium': 'Premium'
+  }
+  if (teks == 'internet') tags = {
+    'internet': 'Internet'
+  }
+  if (teks == 'anonymous') tags = {
+    'anonymous': 'Anonymous Chat'
+  }
+  if (teks == 'maker') tags = {
+    'maker': 'Foto & Video Maker'
+  }
+  if (teks == 'downloader') tags = {
+    'downloader': 'Downloader'
+  }
+  if (teks == 'tools') tags = {
+    'tools': 'Tools'
+  }
+  if (teks == 'fun') tags = {
+    'fun': 'Fun'
+  }
+  if (teks == 'vote') tags = {
+    'vote': 'Voting',
+    'absen': 'Absen'
+  }
+  if (teks == 'info') tags = {
+    'info': 'Info'
+  }
+  if (teks == 'owner') tags = {
+    'owner': 'Owner',
+    'advanced': 'Advanced'
+  }
+ if (teks == 'nsfw') tags = {
+    'nsfw': 'Nsfw'
+  }
  
-%readmore`.trimStart(),
-  header: '╭─ꕥ「 *%category* 」',
-  body: '│☄︎ %cmd %islimit %isPremium',
-  footer: '╰❑\n',
-  after: '*N350-Z Bot* || Dont spam bot!',
-}
 
-let handler = async (m, { conn, usedPrefix: _p }) => {
-  if (global.db.data.settings.setmenu !== 'all') return handler.disabled = true
   try {
-    let who
-    if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
-    else who = m.sender 
-    let user = global.db.data.users[who]
-    let { exp, limit, level, money, role, game } = global.db.data.users[m.sender]
+    //let package = JSON.parse(await fs.promises.readFile(path.join(__dirname, '../package.json')).catch(_ => '{}'))
+    let { exp, limit, level, role, registered } = global.db.data.users[m.sender]
     let { min, xp, max } = levelling.xpRange(level, global.multiplier)
-    let name = conn.getName(m.sender)
+    let name = await registered ? global.db.data.users[m.sender].name : conn.getName(m.sender)
     let d = new Date(new Date + 3600000)
     let locale = 'id'
-    // d.getTimeZoneOffset()
-    // Offset -420 is 18.00
-    // Offset    0 is  0.00
-    // Offset  420 is  7.00
-    let weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5]
     let week = d.toLocaleDateString(locale, { weekday: 'long' })
+    let weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5]
     let date = d.toLocaleDateString(locale, {
       day: 'numeric',
       month: 'long',
@@ -96,108 +161,28 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     let ramadhan = msToDate(_ramadhan - dann)
     let lebaran = msToDate(_lebaran - dann)
     let totalreg = Object.keys(global.db.data.users).length
-    let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
-    let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
-      return {
-        help: Array.isArray(plugin.tags) ? plugin.help : [plugin.help],
-        tags: Array.isArray(plugin.tags) ? plugin.tags : [plugin.tags],
-        prefix: 'customPrefix' in plugin,
-        limit: plugin.limit,
-        premium: plugin.premium,
-        enabled: !plugin.disabled,
-      }
-    })
-    for (let plugin of help)
-      if (plugin && 'tags' in plugin)
-        for (let tag of plugin.tags)
-          if (!(tag in tags) && tag) tags[tag] = tag
-    conn.menu = conn.menu ? conn.menu : {}
-    let before = conn.menu.before || defaultMenu.before
-    let header = conn.menu.header || defaultMenu.header
-    let body = conn.menu.body || defaultMenu.body
-    let footer = conn.menu.footer || defaultMenu.footer
-    let after = conn.menu.after || (conn.user.jid == global.conn.user.jid ? '' : `Powered by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + defaultMenu.after
-    let _text = [
-      before,
-      ...Object.keys(tags).map(tag => {
-        return header.replace(/%category/g, tags[tag]) + '\n' + [
-          ...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
-            return menu.help.map(help => {
-              return body.replace(/%cmd/g, menu.prefix ? help : '%p' + help)
-                .replace(/%islimit/g, menu.limit ? '(🅛)' : '')
-                .replace(/%isPremium/g, menu.premium ? '(🅟)' : '')
-                .trim()
-            }).join('\n')
-          }),
-          footer
-        ].join('\n')
-      }),
-      after
-    ].join('\n')
-    text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
-    let replace = {
-      '%': '%',
-      p: _p, uptime, muptime, ramadhan,
-      me: conn.user.name,
-      exp: exp - min,
-      maxexp: xp,
-      totalexp: exp,
-      sender: m.sender,
-      xp4levelup: max - exp,
-      level, game, limit, money, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
-      readmore: readMore
+    
+let aoa = `${ucapan()} ${name}.`.trim()
+let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
+    return {
+      help: Array.isArray(plugin.tags) ? plugin.help : [plugin.help],
+      tags: Array.isArray(plugin.tags) ? plugin.tags : [plugin.tags],
+      prefix: 'customPrefix' in plugin,
+      limit: plugin.limit,
+      premium: plugin.premium,
+      enabled: !plugin.disabled,
     }
-    text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
-    if (global.db.data.settings.setmenu == 'all') {
-    let ob = ['1', '2', 'su', '1', '4', 'su', '4', '2', '1', '2']
-    let sy = ['>//<', '><', 'undefined :v', 'null :c', ' ']
-    let ys = sy[Math.floor(Math.random() * sy.length)]
-    let gb = ob[Math.floor(Math.random() * ob.length)]
-     const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-     templateMessage: {
-         hydratedTemplate: {
-           hydratedContentText: text.trim(),
-           locationMessage: { 
-           jpegThumbnail: fs.readFileSync(`./media/${gb}.jpg`) },
-           hydratedFooterText: `Hitung Mundur Ramadhan:\n${ramadhan}\n\nHitung Mundur Lebaran:\n${lebaran}\n\n${wm}`,
-           hydratedButtons: [{
-             urlButton: {
-               displayText: 'Github',
-               url: `https://github.com/WhatsAppCode-Official`
-             }
-
-           },
-             {
-             urlButton: {
-               displayText: 'Group Whatsapp',
-               url: `https://chat.whatsapp.com/LG1e7OFZMg1JfQmJsM8use`
-             }
-             
-           },
-             {
-             urlButton: {
-               displayText: `Source Code`,
-               url: 'https://wibusoft.com'
-             }
-
-           },
-               {
-             quickReplyButton: {
-               displayText: 'ランダムな',
-               id: `.sms ${ys}`,
-             }
-           }]
-         }
-       }
-     }), { userJid: m.sender, quoted: m });
-    //conn.reply(m.chat, text.trim(), m)
-    return await conn.relayMessage(
-         m.chat,
-         template.message,
-         { messageId: template.key.id }
-     )
-   } else {
-   let secs = [
+  })
+    if (teks == '404') {
+        const template = generateWAMessageFromContent(m.key.remoteJid, proto.Message.fromObject({
+        listMessage: {
+            title: aoa,
+            description: 'Silahkan Pilih Menu Dibawah!',
+            buttonText: 'Pilih Disini',
+            listType: 1,
+            footerText: wm,
+            mtype: 'listMessage',
+            sections: [
               {
                 "rows": [{
                   "title": `Semua Perintah`,
@@ -356,7 +341,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
                 "rows": [{
                   "title":  `Menu Stiker`,
                   "description": "Menu membuat stiker dan mencari stiker",
-                  "rowId": `${_p}? stiker`
+                  "rowId": `${_p}? sticker`
                 }],
                 "title": "─────「 22 」"
               }, {
@@ -391,31 +376,76 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
                 "rows": [{
                   "title":  `Menu Owner`,
                   "description": `Menu khusus untuk owner ${conn.user.name}`,
-                  "rowId": `${_p}? update`
+                  "rowId": `${_p}? owner`
                 }],
                 "title": "─────「 27 」"
-                }, {
-                "rows": [{
-                  "title":  `Shop`,
-                  "description": "Jual rdp murah dll",
-                  "rowId": `${_p}shop`
-                }],
-                "title": "WTS RDP MURAH"
               }
-            ];
-      
-      let menunye = '' 
-     return await conn.sendMessage(m.chat, { text: 'Ini menu', footer: global.wm, title: "✧────────···[ Dashboard ]···─────────✧", buttonText: 'Click Here', sections: secs }, { quoted: m })
-   }
-  } catch (e) {
+            ], "contextInfo": {
+              "stanzaId": m.key.id,
+              "participant": m.sender,
+              "quotedMessage": m.message
+            }
+    }}), { userJid: m.participant || m.key.remoteJid, quoted: m });
+    return await conn.relayMessage(
+        m.key.remoteJid,
+        template.message,
+        { messageId: template.key.id }
+    )
+    }
+    let groups = {}
+    for (let tag in tags) {
+      groups[tag] = []
+      for (let plugin of help)
+        if (plugin.tags && plugin.tags.includes(tag))
+          if (plugin.help) groups[tag].push(plugin)
+      // for (let tag of plugin.tags)
+      //   if (!(tag in tags)) tags[tag] = tag
+    }
+    conn.menu = conn.menu ? conn.menu : {}
+    let before = conn.menu.before || defaultMenu.before
+    let header = conn.menu.header || defaultMenu.header
+    let body = conn.menu.body || defaultMenu.body
+    let footer = conn.menu.footer || defaultMenu.footer
+    let after = conn.menu.after || (conn.user.jid == global.conn.user.jid ? '' : `Dipersembahkan oleh https://wa.me/${global.conn.user.jid.split`@`[0]}`) + defaultMenu.after
+    let _text = [
+        before,
+        ...Object.keys(tags).map(tag => {
+          return header.replace(/%category/g, tags[tag]) + '\n' + [
+            ...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
+              return menu.help.map(help => {
+                return body.replace(/%cmd/g, menu.prefix ? help : '%p' + help)
+                  .replace(/%islimit/g, menu.limit ? `(🅛)` : '')
+                  .replace(/%isPremium/g, menu.premium ? `(🅟)` : '')
+                  .trim()
+              }).join('\n')
+            }),
+            footer
+          ].join('\n')
+        }),
+        after
+      ].join('\n')
+      text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
+    let replace = {
+      '%': '%',
+      p: _p, uptime, muptime, ramadhan,
+      me: conn.user.name,
+      name,
+      ucapan: ucapan(),
+      name, weton, week, date, dateIslamic, time, totalreg,
+      readmore: readMore
+    }
+    text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
+    //let pp = await conn.profilePictureUrl(conn.user.jid, 'image').catch(_ => path.join(__dirname, '../src/avatar_contact.png'))
+    //await conn.sendTBL(m.chat, text.trim(), wm, fla + teks, dtu, urlnya, dtc, nmbrnya, `🏅Owner`, `${_p}owner`, `🎖ThanksTo`, `${_p}tqto`, `🎗  Info Bot  🎗`, `${_p}infobot`, m)
+    await conn.sendTBD(m.chat, text, wm, thumbd, dtu, urlnya, dtc, nmbrnya, `🏅Owner`, `${_p}owner`, `🎖ThanksTo`, `${_p}tqto`, `🎗  Info Bot  🎗`, `${_p}infobot`)
+    } catch (e) {
     conn.reply(m.chat, 'Maaf, menu sedang error', m)
     throw e
   }
 }
-handler.help = ['menu', 'help']
+handler.help = ['menu']
 handler.tags = ['main']
 handler.command = /^(menu|help|\?)$/i
-handler.register = true
 handler.exp = 45
 
 module.exports = handler
@@ -429,7 +459,23 @@ function clockString(ms) {
   let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
-
+function ucapan() {
+  const time = moment.tz('Asia/Jakarta').format('HH')
+  res = "jangan lupa tidur yaah, lop yu<3"
+  if (time >= 4) {
+    res = "Selamat Pagi ☀"
+  }
+  if (time > 10) {
+    res = "Selamat Siang 🌞"
+  }
+  if (time >= 15) {
+    res = "Selamat Sore 🌝"
+  }
+  if (time >= 18) {
+    res = "Selamat Malam 🌚"
+  }
+  return res
+}
 function msToDate(ms) {
     temp = ms
     days = Math.floor(ms / (24 * 60 * 60 * 1000));

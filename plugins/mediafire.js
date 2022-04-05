@@ -2,6 +2,7 @@ let util = require('util')
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
     if (!text) throw `uhm.. urlnya mana?\n\npenggunaan:\n${usedPrefix + command} url\ncontoh:\n${usedPrefix + command} http://www.mediafire.com/file/js0gr2nozcmk9yg/example.txt/file`
+    await m.reply('_Wait a minute, Request in progress...._')
     let anu = await mediafireDownloader(text)
                 if (anu.filesize.split("MB")[0] >= 50.00) return m.reply('File Melebihi Batas '+util.format(anu))
                 //else if (Number(anu.filesize.includes("GB"))) return m.reply('File Melebihi Batas '+util.format(result))

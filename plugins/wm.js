@@ -7,7 +7,7 @@ let text2 = text.split('|')[1]
 let stiker = false
 try {
    let q = m.quoted ? m.quoted : m
-   let mime = m.quoted.mimetype || ''
+   let mime = (q.msg || q).mimetype || ''
       if (/webp/.test(mime)) {
       let img = await q.download()
       stiker = await sticker5(img, false, text1 ? text1 : '', text2 ? text2 : '')
@@ -23,7 +23,6 @@ try {
      }
    } finally {
      if (stiker) conn.sendFile(m.chat, stiker, 'stiker.webp', '', m)
-     else throw 'Maaf ada yg error'
   }
 }
 handler.help = ['wm', 'take', 'swm'].map(v => v + ' <packname|author>')

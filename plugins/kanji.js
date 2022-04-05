@@ -6,6 +6,7 @@ let handler = async (m, { conn, text }) => {
   let json = await res.json()
   if (!json) throw await res.text()
   let { kanji, grade, stroke_count, meanings, kun_readings, on_readings, name_readings, jlpt, unicode, heisig_en } = json
+  if (!kanji || !grade || !meanings) return m.reply('Pastikan Yg anda masukan adalah Huruf Kanji!')
   let pesan = `
   「Kanji Information」
   Kanji: ${kanji}

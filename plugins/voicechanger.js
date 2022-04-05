@@ -2,6 +2,7 @@ const fs = require('fs')
 const { exec } = require('child_process')
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
+    await m.reply('_Wait a minute, Request in progress...._')
     try {
         let q = m.quoted ? m.quoted : m
         let mime = (q.msg || q).mimetype || ''
@@ -38,6 +39,6 @@ handler.command = /^(bass|blown|deep|earrape|fas?t|nightcore|reverse|robot|slow|
 
 module.exports = handler
 
-const getRandom = (ext) => {:
+const getRandom = (ext) => {
     return `${Math.floor(Math.random() * 10000)}${ext}`
 }

@@ -3,6 +3,7 @@ let handler = async (m, { args, usedPrefix, command }) => {
 if (!args[0]) throw 'usernamenya mana? Contoh:\n.githubdl test testt main'
 if (!args[1]) throw 'repo nya mana? Contoh:\n.githubdl test testt main'
 if (!args[2]) throw 'branch nya mana? Contoh:\n.githubdl test testt main'
+await m.reply('_Wait a minute, Request in progress...._')
 try {
 let url = `https://github.com/${args[0]}/${args[1]}/archive/refs/heads/${args[2]}.zip`
 //ByRizkyAdi

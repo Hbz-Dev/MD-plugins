@@ -4,8 +4,8 @@ let handler = async (m, { conn, isOwner }) => {
     let caption = `
 ┌〔 Daftar Chat Terbanned 〕
 ├ Total : ${chats.length} Chat${chats ? '\n' + chats.map(([jid], i) => `
-├ ${i + 1}. ${conn.getName(jid) == undefined ? 'Unknown' : conn.getName(jid)}
-├ ${isOwner ? `@${jid.split(`@`)[0]}` : `${jid1}`}
+├ ${i + 1}. ${getgc(jid)}
+├ ${jid}
 `.trim()).join('\n') : ''}
 └────
 
@@ -22,3 +22,9 @@ handler.help = ['bannedlist']
 handler.tags = ['info']
 handler.command = /^listban(ned)?|ban(ned)?list|daftarban(ned)?$/i
 module.exports = handler
+
+async function getgc (jid) {
+let a = (await conn.groupMetadata(jid) || {}).subject
+if (a == undefined) return 'Unknown'
+return Promise.resolve(a)
+}

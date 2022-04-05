@@ -1,76 +1,89 @@
-//made by https://github.com/Paquito1923
-const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
-let fs = require('fs')
-let { youtubeSearch } = require('@bochilteam/scraper')
-let fetch = require('node-fetch') 
-let handler = async (m, { conn, command, text, usedPrefix }) => {
-  if (!text) throw `Use example ${usedPrefix}${command} Alan walker faded`
-  let vid = (await youtubeSearch(text)).video[0]
-  if (!vid) throw 'Video/Audio Tidak ditemukan\nCoba kata kunci lain....'
-  let { title, authorName, description, thumbnail, videoId, durationH, viewH, publishedTime } = vid
-  const url = 'https://www.youtube.com/watch?v=' + videoId
-  /*await conn.sendButton(m.chat, `
+const { youtubeSearch, youtubedl, youtubedlv2, youtubedlv3 } = require('@bochilteam/scraper')
+const { servers, yta } = require('../lib/y2mate')
+let handler = async (m, { conn, isOwner, isPrems, command, text, usedPrefix }) => {
+    if(!text) throw `Contoh: ${usedPrefix}${command} i see your monster`
+    m.reply2(wait)
+    let anu = await youtubeSearch(text)
+    let vid = anu.video
+    let vide 
+    if (/playrand(om)?$/i.test(command)) vide = conn.rand(vid)
+    else vide = vid[0]
+    if(!vide) return conn.sendButton(m.chat, 'Video/Audio Tidak ditemukan', wm, 'Coba Lagi', `.play ${text} lainnya`, m) 
+    let { authorName, authorAvatar, title, description, url, thumbnail, videoId, durationH, viewH, publishedTime } = await vide
+    let capt = `🎬 *YouTube Play*
+  
 📌 *Title:* ${title}
-🔗 *Url:* ${url}
-🖹 *Description:* ${description}
-⏲️ *Published:* ${publishedTime}
+📮 *ID:* ${videoId}
 ⌚ *Duration:* ${durationH}
-👁️ *Views:* ${viewH}
-  `.trim(), author, thumbnail, [
-    ['Audio 🎧', `${usedPrefix}yta ${url} yes`], ['Video 🎥', `${usedPrefix}ytv ${url} yes`]
-  ], m)*/
-let anu =  `
-📚 *Title:* ${title}
-📹 *Duration:* ${durationH}
-📌 *Upload:* ${publishedTime}
-👺 *Author:* ${authorName}
-👁 *Views:* ${viewH}
-
-Choose *Audio* or *Video* in button below
-Dont see it? Type:\n- *!yta yt_url <Audio>*\n- *!ytv yt_url <Video>*
-`
-
-     const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-     templateMessage: {
-         hydratedTemplate: {
-           hydratedContentText: anu,
-           locationMessage: { 
-           jpegThumbnail: await (await fetch(thumbnail)).buffer() }, 
-           hydratedFooterText: `DESKRIPSI:\n${description}`,
-           hydratedButtons: [{
-             urlButton: {
-               displayText: '🌟 Link YouTube',
-               url: `${url}`,
-             }
-
-           },
-               {
-             quickReplyButton: {
-               displayText: '🎬 Video',
-               id: `.ytmp4 ${url} yes`,
-             }
-
-            },
-               {
-             quickReplyButton: {
-               displayText: '🎵 Audio',
-               id: `.ytmp3 ${url} yes`,
-             }
-
-           }]
-         }
-       }
-     }), { userJid: m.sender, quoted: m });
-    //conn.reply(m.chat, text.trim(), m)
-    return await conn.relayMessage(
-         m.chat,
-         template.message,
-         { messageId: template.key.id }
-     )
+👁️ *Viewers:* ${viewH}
+⏲️ *Uploaded:* ${publishedTime}
+👑 *Author Name:* ${authorName}
+🚀 *Source:* ${url}
+📝 *Description:* ${description}`
+    await conn.sendBD(m.chat, capt, wm, img, [['🎧 Audio 🎧', `${usedPrefix}yta ${url}`], ['📽 Video 📽', `${usedPrefix}ytv ${url}`], [`🔎 Play Acak 🔍`, `${usedPrefix}playrand ${text}`]], m, {
+     fileName: `Selamat menonton ${m.name} 🤩`, mimetype: td, fileLength: 9999999999, pageCount: 10000,
+     mentions: [m.sender],
+     contextInfo: {
+     jpegThumbnail: await(await fetch(thumbnail)).buffer(),
+     externalAdReply :{
+     mediaUrl: `${url}`,
+     mediaType: 2,
+     description: '', 
+     title: 'Play Youtube Music ツ', 
+     body: 'Klik Disini Untuk Membuka link',
+     thumbnail: await(await fetch(thumbnail)).buffer()
+     }} 
+    })
+  let user = db.data.users[m.sender]
+  if (user.limit < 1 ) return  
+  let limit
+  if((isOwner || isPrems)) limit = 200
+  else limit = 70
+  try {
+  let audi = await youtubedl(url)
+  let { thumbnail, audio, title } = audi
+  let det = audi.audio['128kbps']
+  let { quality, fileSizeH, fileSize } = det
+  let audiox = await det.download()
+  let isLimit = (isPrems || isOwner ? limit : limit) * 1024 < fileSize
+  if (!isLimit) await conn.sendMessage(m.chat, { document: { url: audiox }, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, {quoted: m})
+  } catch {
+  try {
+  let audi = await youtubedlv2(url)
+  let { thumbnail, audio, title } = audi
+  let det = audi.audio['128kbps']
+  let { quality, fileSizeH, fileSize } = det
+  let audiox = await det.download()
+  let isLimit = (isPrems || isOwner ? limit : limit) * 1024 < fileSize
+  if (!isLimit) await conn.sendMessage(m.chat, { document: { url: audiox }, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, {quoted: m})
+  } catch {
+  try {
+  let audi = await youtubedlv3(url)
+  let { thumbnail, audio, title } = audi
+  let det = audi.audio['128kbps']
+  let { quality, fileSizeH, fileSize } = det
+  let audiox = await det.download()
+  let isLimit = (isPrems || isOwner ? limit : limit) * 1024 < fileSize
+  if (!isLimit) await conn.sendMessage(m.chat, { document: { url: audiox }, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, {quoted: m})
+  }  catch {
+  try {
+  let server = (args[1] || servers[0]).toLowerCase()
+  let { dl_link, thumb: thumbnail, title, filesize, filesizeF } = await yta(url, servers.includes(server) ? server : servers[0])
+  let isLimit = (isPrems || isOwner ? limit : limit) * 1024 < filesize
+  if (!isLimit) await conn.sendMessage(m.chat, { document: { url: dl_link }, mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, {quoted: m})
+  } catch {
+    throw false 
+        }
+      }
+    }
+  }
 }
-handler.help = ['play'].map(v => v + ' <judul>')
+handler.help = ['play'].map(v => v + ' <query>')
 handler.tags = ['downloader']
-handler.limit = 1
-handler.command = /^(play)$/i
+handler.command = /^play(rand(om)?)?$/i
 
 module.exports = handler
+
+let _mim = ['application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf', 'text/rtf']
+let td = _mim[Math.floor(Math.random() * _mim.length)]
+

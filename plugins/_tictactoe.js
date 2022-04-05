@@ -4,7 +4,7 @@ let debugMode = !1
 let winScore = 20000
 let playScore = 5000
 
-handler.before = function (m) {
+handler.before = async function (m) {
     let ok
     let isWin = !1
     let isTie = !1
@@ -50,9 +50,10 @@ handler.before = function (m) {
         })
         if (isSurrender) {
             room.game._currentTurn = m.sender === room.game.playerX
-            isWin = true
+            isWin = true   
         }
         let winner = isSurrender ? room.game.currentTurn : room.game.winner
+        if (isSurrender) await this.reply(winner, `Lawanmu menyerah, Selamat Kmu menang!\n(+${winScore} MONEY)`, m)
         let str = `[ TICTACTOE GAME ]\n
 ${arr.slice(0, 3).join('')}
 ${arr.slice(3, 6).join('')}
@@ -61,8 +62,7 @@ ${isWin ? `@${winner.split('@')[0]} Menang! (+${winScore} MONEY)` : isTie ? `Gam
 
 ❌: @${room.game.playerX.split('@')[0]}
 ⭕: @${room.game.playerO.split('@')[0]}
-Ketik *nyerah* untuk menyerah 🙃
-Room ID: ${room.id}
+${isWin || isTie ? '' : `Ketik *nyerah* untuk menyerah\nRoom ID: ${room.id}`}
 `.trim()
         let users = global.db.data.users
         if ((room.game._currentTurn ^ isSurrender ? room.x : room.o) !== m.chat)

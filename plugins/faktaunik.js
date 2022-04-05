@@ -12,7 +12,7 @@ let handler  = async (m, { conn }) => {
             .then(body => {
                 let splitnix = body.split('\n')
                 let randomnix = splitnix[Math.floor(Math.random() * splitnix.length)]
-                conn.reply(m.chat, randomnix, m)
+                conn.sendButton(m.chat, randomnix, 'Fakta Unik!', 'Fakta lainnya', '.fakta', m)
   })
 } 
 handler.help = ['fakta']

@@ -1,6 +1,6 @@
 const { sticker5 } = require('../lib/sticker')
 
-let handler = async (m, { conn }) => {
+let handler = async (m, { conn, usedPrefix, command, args }) => {
     let stiker = false
     try {
         let q = m.quoted ? m.quoted : m
@@ -18,22 +18,17 @@ let handler = async (m, { conn }) => {
             let img = await q.download()
             if (!img) throw `reply video with command s`
             stiker = await sticker5(img, false, packname, author)
-        } else if (m.quoted.text) {
-            if (isUrl(m.quoted.text)) stiker = await sticker5(false, m.quoted.text, packname, author)
+        } else if (args[0]) {
+            if (isUrl(args[0])) stiker = await sticker5(false, args[0], packname, author)
             else throw 'URL is not valid! end with jpg/gif/png'
-        }
+        } else {
+        m.reply(`Balas gambar/video/sticker dengan caption ${usedPrefix + command}`)
+      }
     } catch (e) {
         throw e
     }
     finally {
-        if (stiker) {
-          //m.reply(stiker_wait)
-            await conn.sendFile(m.chat, stiker, 'stiker.webp', '', m)
-        }
-        else {
-
-            throw 0
-        }
+        if (stiker) await conn.sendFile(m.chat, stiker, 'stiker.webp', '', m)
     }
 }
 handler.help = ['sticker']

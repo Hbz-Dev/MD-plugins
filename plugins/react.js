@@ -3,10 +3,9 @@ let { proto } = require("@adiwajshing/baileys-md")
 let handler = async (m, { conn, text }) => {
 if (!m.quoted) return m.reply('Reply Pesannya!!')
 if (!text) return m.reply('Masukkan emotnya!!\nContoh:\n.react 🗿')
-if (m.quoted.fromMe) return m.reply('Tidak bisa Men-react Pesan dari bot!')
 let huhu = {
 remoteJid: `${m.quoted.chat}`,
-fromMe: false,
+fromMe: m.quoted.fromMe ? true : false,
 id: `${m.quoted.id}`,
 participant: `${m.quoted.sender}`
 }

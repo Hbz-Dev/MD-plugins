@@ -2,7 +2,7 @@ const { instagramdl, instagramdlv2, instagramdlv3, instagramdlv4 } = require('@b
 let handler = async (m, { conn, args, usedPrefix, command }) => {
   if (!args[0]) throw `*Perintah ini untuk mengunduh postingan ig/reel/tv, bukan untuk highlight/story!*\n\ncontoh:\n${usedPrefix + command} https://www.instagram.com/p/BmjK1KOD_UG/?utm_medium=copy_link`
   if (!args[0].match(/https:\/\/www.instagram.com\/(p|reel|tv)/gi)) throw `*Link salah! Perintah ini untuk mengunduh postingan ig/reel/tv, bukan untuk highlight/story!*\n\ncontoh:\n${usedPrefix + command} https://www.instagram.com/p/CQU21b0JKwq/`
-
+  await m.reply('_Wait a minute, Request in progress...._')
     instagramdl(args[0]).then(async res => {
     let instagramdl = JSON.stringify(res)
     let json = JSON.parse(instagramdl)
