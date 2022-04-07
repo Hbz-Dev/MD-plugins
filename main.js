@@ -73,7 +73,7 @@ const { state, saveState } = useSingleFileAuthState(authFile)
 const connectionOptions = {
   printQRInTerminal: false,
   auth: state,
-  version: [2, 2208, 14],
+  version: [2, 2210, 9],
   logger: P({ level: 'fatal' })
 }
 
