@@ -1,9 +1,11 @@
 let handler = async (m, { text, usedPrefix, command, conn }) => {
     if (!text) throw `uhm.. cari apa?\n\ncontoh:\n${usedPrefix + command} Pou`
     let res = await hwhw(text)
-    if (!res.result.link) throw 'Aplikasi tidak ditemukan ツ'
-    let teks = `[ *HAPPYMOD SEARCH* ]\n\nTitle: ${res.result.title}\nLink: ${res.result.link}`
-    conn.sendFile(m.chat, res.result.thumb, 'hppy.jpg', teks, m)
+    if (!res.result.length) throw 'Aplikasi tidak ditemukan ツ'
+    let teks = '[ *HAPPYMOD SEARCH* ]\n\n'
+    teks += res.result.map((v) => `*Title:* ${v.title}\n*Link:* ${v.link}\n`).join`\n\n`
+    //conn.sendFile(m.chat, res.result.thumb, 'hppy.jpg', teks, m)
+    m.reply(teks)
 }
 handler.help = ['happymod <pencarian>']
 handler.tags = ['internet']

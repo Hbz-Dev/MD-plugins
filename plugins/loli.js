@@ -1,8 +1,6 @@
 let handler = async (m, { conn }) => {
-    let yh = global.loli
-    let url = yh[Math.floor(Math.random() * yh.length)]
-    let buffer = (await conn.getFile(url)).data
-    conn.sendButtonImg(m.chat, buffer, 'Kawaiii 🌟', wm, 'Get Again', '.loli', m)
+    let url = global.loli[Math.floor(Math.random() * global.loli.length)]
+    conn.sendButtonImg(m.chat, url, 'Kawaiii 🌟', wm, 'Get Again', '.loli', m)
 }
 handler.command = /^(loli)$/i
 handler.tags = ['anime']

@@ -5,7 +5,7 @@ let handler = async (m) => {
     if (!m.quoted) return m.reply('Tag stikernya!')
     if (/sticker/.test(m.quoted.mtype)) {
         let img = new webp.Image()
-        await img.loadBuffer(await m.quoted.download())
+        await img.load(await m.quoted.download())
         m.reply(util.format(JSON.parse(img.exif.slice(22).toString())))
     }
 }

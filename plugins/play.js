@@ -1,14 +1,15 @@
 const { youtubeSearch, youtubedl, youtubedlv2, youtubedlv3 } = require('@bochilteam/scraper')
 const { servers, yta } = require('../lib/y2mate')
+let fetch = require('node-fetch')
 let handler = async (m, { conn, isOwner, isPrems, command, text, usedPrefix }) => {
     if(!text) throw `Contoh: ${usedPrefix}${command} i see your monster`
-    m.reply2(wait)
+    m.reply('_Wait a minute, Request in progress...._')
     let anu = await youtubeSearch(text)
     let vid = anu.video
     let vide 
-    if (/playrand(om)?$/i.test(command)) vide = conn.rand(vid)
+    if (/playrand(om)?$/i.test(command)) vide = pickRandom(vid)
     else vide = vid[0]
-    if(!vide) return conn.sendButton(m.chat, 'Video/Audio Tidak ditemukan', wm, 'Coba Lagi', `.play ${text} lainnya`, m) 
+    if(!vide) return conn.sendButton(m.chat, 'Video/Audio Tidak ditemukan', wm, 'Coba Lagi', `.playramdom ${text}`, m) 
     let { authorName, authorAvatar, title, description, url, thumbnail, videoId, durationH, viewH, publishedTime } = await vide
     let capt = `🎬 *YouTube Play*
   
@@ -20,11 +21,10 @@ let handler = async (m, { conn, isOwner, isPrems, command, text, usedPrefix }) =
 👑 *Author Name:* ${authorName}
 🚀 *Source:* ${url}
 📝 *Description:* ${description}`
-    await conn.sendBD(m.chat, capt, wm, img, [['🎧 Audio 🎧', `${usedPrefix}yta ${url}`], ['📽 Video 📽', `${usedPrefix}ytv ${url}`], [`🔎 Play Acak 🔍`, `${usedPrefix}playrand ${text}`]], m, {
-     fileName: `Selamat menonton ${m.name} 🤩`, mimetype: td, fileLength: 9999999999, pageCount: 10000,
+    await conn.sendBD(m.chat, capt, global.wm, 'https://telegra.ph/file/27e90a619b30082694bde.jpg', [['🎧 Audio 🎧', `${usedPrefix}yta ${url}`], ['📽 Video 📽', `${usedPrefix}ytv ${url}`], [`🔎 Play Acak 🔍`, `${usedPrefix}playrand ${text}`]], m, {
+     fileName: `Enjoy ${m.name} 🤩`, mimetype: td, fileLength: 9999999999, pageCount: 10000,
      mentions: [m.sender],
      contextInfo: {
-     jpegThumbnail: await(await fetch(thumbnail)).buffer(),
      externalAdReply :{
      mediaUrl: `${url}`,
      mediaType: 2,
@@ -38,7 +38,7 @@ let handler = async (m, { conn, isOwner, isPrems, command, text, usedPrefix }) =
   if (user.limit < 1 ) return  
   let limit
   if((isOwner || isPrems)) limit = 200
-  else limit = 70
+  else limit = 90
   try {
   let audi = await youtubedl(url)
   let { thumbnail, audio, title } = audi
@@ -86,4 +86,8 @@ module.exports = handler
 
 let _mim = ['application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf', 'text/rtf']
 let td = _mim[Math.floor(Math.random() * _mim.length)]
+
+function pickRandom(list) {
+  return list[Math.floor(list.length * Math.random())]
+}
 
