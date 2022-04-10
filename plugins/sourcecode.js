@@ -8,10 +8,7 @@ let fs = require('fs')
 let handler = async (m) => {
 if (!m.isGroup) {
 let esce = `
-Bot ini Menggunakan Script Dari
-
-1.) https://github.com/ilmanhdyt/ShiraoriBOT-Md
-2.) https://github.com/adualhy/Nana-Md
+Bot ini Menggunakan Script Dari:
 `
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
      templateMessage: {
@@ -22,14 +19,14 @@ Bot ini Menggunakan Script Dari
            hydratedFooterText: wm,
            hydratedButtons: [{
              urlButton: {
-               displayText: 'Link 1',
+               displayText: 'Shiraori Bot',
                url: 'https://github.com/ilmanhdyt/ShiraoriBOT-Md'
              }
 
            },
                {
                urlButton: {
-               displayText: 'Link 2',
+               displayText: 'Nana-Md',
                url: 'https://github.com/adualhy/Nana-Md'
               }
                
@@ -37,7 +34,7 @@ Bot ini Menggunakan Script Dari
                {
              quickReplyButton: {
                displayText: 'Ok Bang',
-               id: '.say Ok Kalo mau download Silakan!',
+               id: 'cum',
              }
 
            }]
@@ -50,7 +47,7 @@ Bot ini Menggunakan Script Dari
          template.message,
          { messageId: template.key.id }
      )
-  } else return conn.sendButton(m.chat, 'Script Bot N350-Z Bot Tidak di public kan!', global.wm, 'Ok', 'iyaa', m)
+  } else return conn.sendButton(m.chat, `Script Bot ${global.wm} Tidak di public kan!`, 'Maaf kak :)', 'Ok', 'iyaa', m)
 }
 handler.help = ['sc', 'sourcecode']
 handler.tags = ['info']

@@ -1,8 +1,12 @@
+let { lookup } = require('mime-types')
 let handler = async (m, { conn, text }) => {
   try {
     if (!text) return m.reply('Link nya mana?')
     let anu = await zippyDownloader(text)
-    conn.sendFile(m.chat, anu.link, `${anu.title}.${anu.extension}`, '', m)
+    let mimetype = await lookup(anu.link)
+    //conn.sendFile(m.chat, anu.link, `${anu.title}.${anu.extension}`, '', m)
+    await m.reply(require('util').format(anu))
+    conn.sendMessage(m.chat, { document: { url: anu.link }, fileName: anu.title, mimetype }, { quoted: m })
   } catch {
    m.reply('Error mungkin Video dihapus/link kadaluarsa')
   }

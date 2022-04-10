@@ -9,7 +9,7 @@ handler.after = async function (m, { text }) {
                 m.reply(`Mengirim Broadcast Ke ${anu.length} Chat, Waktu Selesai ${anu.length * 1.5} detik`)
                 for (let i of anu) {
                     await sleep(1500)
-                    await conn.sendButton(id, teks + '\n' + readMore + '\n「 All Groups Broadcast 」\n', global.wm, 'MENU', '.menu', ftroli)
+                    await conn.sendButton(i, teks + '\n' + readMore + '\n「 All Groups Broadcast 」\n', global.wm, 'MENU', '.menu', ftroli)
                 }
                 m.reply(`Sukses Mengirim Broadcast Ke ${anu.length} Group`)
 }

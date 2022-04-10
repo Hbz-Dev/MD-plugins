@@ -3,6 +3,7 @@ let { promisify } = require('util')
 let exec = promisify(cp.exec).bind(cp)
 let handler = async (m, { conn, isOwner, command, text }) => {
   if (!isOwner) return
+  await m.reply('Executing....')
   let o
   try {
     o = await exec(command.trimStart()  + ' ' + text.trimEnd())

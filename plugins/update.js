@@ -9,6 +9,6 @@ let handler = async (m, { conn, text, isROwner }) => {
 handler.help = ['update']
 handler.tags = ['owner']
 handler.command = /^update$/i
-handler.disable = true
+handler.disabled = true
 
 module.exports = handler

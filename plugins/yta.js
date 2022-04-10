@@ -30,7 +30,7 @@ ${isLimit ? '_Ukuran File Terlalu Besar!!_\n' : ''}
 *Filesize:* ${audio.fileSizeH}
 *${isLimit ? 'Pakai ' : ''}Link:* ${lunk}
 `.trim(), m)
-  if (!isLimit) conn.sendFile(m.chat, link, title + '.mp3', null, m, false)
+  if (!isLimit) conn.sendFile(m.chat, link, title + '.mp3', null, m, false, { mimetype: 'audio/mpeg' })
 }
 handler.help = ['mp3', 'a'].map(v => 'yt' + v + ` <url>`)
 handler.tags = ['downloader']

@@ -20,7 +20,7 @@ handler.all = async function (m) {
                         this.spam[m.sender].spam = 0
                         this.spam[m.sender].lastspam = new Date * 1
                         //db.data.users[m.sender].banned = true
-                await this.reply(m.chat, `*Jangan Spam!!`, m)
+                await this.reply(m.chat, `*Jangan Spam!!*`, m)
                 await this.sendButton('6283844009539@s.whatsapp.net', `*spam*\n\n@${this.spam[m.sender].jid.split("@")[0]}`, global.wm, 'Ban Pelaku Spam?', '.ban ' + this.spam[m.sender].jid.split("@")[0] )
                     } else {
                         this.spam[m.sender].spam = 0

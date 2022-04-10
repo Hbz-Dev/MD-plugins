@@ -30,7 +30,7 @@ async function wikipedia(querry) {
   } catch (err) {
     var notFond = {
       status: link.status,
-      Pesan: eror
+      Pesan: err.message
     }
     return notFond
   }
@@ -39,8 +39,8 @@ let handler = async (m, { conn, text }) => {
   if (!text) throw `uhm.. cari apa?\n\ncontoh:\n.wiki nodejs`
   wikipedia(`${text}`).then(res => {
     //m.reply(res.result.isi)
-    conn.but(m.chat, `*${res.result.judul}*\n\n${res.result.isi}`, 'Wikipedia\nMade By '+wm, m.sender, 'Wah Ilmu Baru', '.say Yap', `${res.result.thumb}`, m)
-  }).catch(() => { m.reply('Query Tidak Ditemukan :(') })
+    conn.reply(m.chat, `*${res.result.judul}*\n\n${res.result.isi}`, m)
+  }).catch(() => { m.reply('Yahh...\nQuery Tidak Ditemukan :(\nMungkin coba kata kunci lain?') })
 }
 handler.help = ['wikipedia <pencarian>']
 handler.tags = ['internet']

@@ -15,7 +15,7 @@ let handler = async (m, { isOwner, text, isAdmin }) => {
     who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
   }
   try {
-    if (who.endsWith('g.us')) global.db.data.chats[who].isBanned = false
+    if (who.endsWith('g.us') && !m.mentionedJid) global.db.data.chats[who].isBanned = false
     else global.db.data.users[who].banned = false
     m.reply(`Done Unban!\nBot aktif dichat ${await conn.getName(who) == undefined ? 'ini' : await conn.getName(who)}.`)
   } catch (e) {

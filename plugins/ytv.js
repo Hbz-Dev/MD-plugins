@@ -22,8 +22,8 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
   if (!link) throw lastError
   let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < video.fileSize
   let lunk = await shortUrl(link)
-  link = link.split('https')[1]
-  link = 'http' + link
+  //link = link.split('https')[1]
+  //link = 'http' + link
   if (!isY) conn.sendFile(m.chat, thumbnail, 'thumbnail.jpg', `
 ${isLimit ? '_Ukuran File Terlalu Besar!!_\n' : ''}
 *Title:* ${title}
@@ -33,12 +33,15 @@ ${isLimit ? '_Ukuran File Terlalu Besar!!_\n' : ''}
   let _thumb = require('fs').readFileSync('./media/1.jpg')
   try { _thumb = await (await fetch(thumbnail)).buffer() }
   catch (e) { }
-  if (!isLimit) conn.sendFile(m.chat, link, title + '.mp4', `
+  if (!isLimit && !args[2]) conn.send2Button(m.chat, 'Silahkan pilih versi video atau document', 'Pilih dibawah', 'VIDEO', `.ytv ${link} yes vid`, 'DOCUMENT', `.ytv ${link} yes vid`, m)
+  if (args[2] == 'vid' && !isLimit) conn.sendMessage(m.chat, { video: { url: link }, jpegThumbnail: _thumb, caption: `*Title:* ${title}\n*Filesize:* ${video.fileSizeH}` }, { quoted: m })
+  if (args[2] == 'doc' && !isLimit) conn.sendMessage(m.chat, { document: { url: link }, fileName: title, mimetype: 'video/mp4' }, { quoted: m })
+  /*conn.sendFile(m.chat, link, title + '.mp4', `
 *Title:* ${title}
 *Filesize:* ${video.fileSizeH}
 `.trim(), m, false, {
     jpegThumbnail: _thumb
- })
+ })*/
 }
 handler.help = ['ytmp4 <url>']
 handler.tags = ['downloader']

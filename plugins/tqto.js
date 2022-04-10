@@ -36,7 +36,7 @@ https://github.com/adulhy
            hydratedButtons: [{
              urlButton: {
                displayText: '🌟 BIG THANK 🌟',
-               url: `Made By ${wm}`,
+               url: `Isekai`,
              }
 
            },

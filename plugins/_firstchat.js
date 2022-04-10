@@ -1,12 +1,9 @@
 let moment = require('moment-timezone')
 let fetch = require('node-fetch')
 let fs = require('fs')
-let logo = fs.readFileSync('./media/ku.jpg')
 let handler = m => m
 
 handler.all = async function (m) {
-let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-let username = conn.getName(who)
 
     if (m.chat.endsWith('broadcast')) return
     if (m.fromMe) return
@@ -14,29 +11,43 @@ let username = conn.getName(who)
     if (db.data.settings.groupOnly) return
     let user = global.db.data.users[m.sender]
     if (new Date - user.pc < 86400000) return // setiap 24 jam sekali
-    await this.send3ButtonLoc(m.chat, logo, `
-*Hai, ${ucapan()}*
-
-${user.banned ? 'Kamu Dibanned!' : 'Saya adalah salah satu bot Whatsapp. harap tidak spam/telpon/minta save kemonor ini. Ada yang bisa saya bantu?\n(ㆁωㆁ)'}
-`.trim(), global.wm, user.registered ? '⋮☰ Menu' : 'Verify', user.registered ? '.menu' : `.daftar ${username}.15`, 'Rules', '.rules', 'Owner', '.owner', m)
+    let username = await conn.getName(m.sender)
+    let res = await ucapan()
+    await this.sendButton(m.chat, `
+*Hai, ${res.ucapan}*\n\n
+_${res.ingat}_
+\n
+${user.banned ? 'Kamu Dibanned!' : 'Saya adalah salah satu bot Whatsapp. harap tidak spam/telpon/minta save kemonor ini. Ada yang bisa saya bantu? :3'}
+`.trim(), 'Ketik #menu untuk melihat daftar perintah!', user.registered ? 'Start Anonymous Chat': 'Verify', user.registered ? '.start' : `.daftar ${username}.15`, m)
     user.pc = new Date * 1
 }
 
 module.exports = handler
 function ucapan() {
     const time = moment.tz('Asia/Jakarta').format('HH')
-    res = "Selamat dinihari ☀️"
+    res = "Selamat Dinihari ☀️"
+    rus = "Jangan Lupa salat tahajud kak 🌛"
+    if (time > 2) {
+        rus = "Jangan lupa Sahur kak ♨️"
+    }
     if (time >= 4) {
-        res = "Good Morning 🌄"
+        res = "Selamat Pagi 🌄"
+        rus = " "
+      if (time == 4) {
+        rus = "Jangan lupa salat subuh kak 🌚"
+      }
     }
     if (time > 10) {
-        res = "Good Afternoon ☀️"
+        res = "Selamat Siang ☀️"
+        rus = "Selamat Beraktivitas kak‍ 😉"
     }
     if (time >= 15) {
-        res = "Good Afternoon 🌇"
+        res = "Selamat Sore 🌇"
+        rus = "Ayo ngabuburit kak 💖"
     }
     if (time >= 18) {
         res = "Good Night 🌙"
+        rus = "
     }
-    return res
+    return { ucapan: res, ingat: rus }
 }
