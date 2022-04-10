@@ -614,7 +614,7 @@ global.dfail = async(type, m, conn) => {
     let user = global.db.data.users[m.sender]
     let nme = await conn.getName(m.sender)
     let secs = [{ title: "Menu cepat bot", rows: [ { title: "All menu", rowId: "#menu", description: "Menampilkan Semua Menu Bot" }, { title: "Rules", rowId: "#rules", description: "Baca peraturan Bot Sebelum Memakai!" }, { title: "Pemilik Bot", rowId: "#owner", description: "Untuk bertanya/melaporkan segala tentang bot" } ] }]
-    if (!user.registered) secs = [{ title: "Daftar Sebagai User bot", rows: [ { title: "Umur 10", rowId: `.daftar ${nme}.10` }, { title: "Umur 11", rowId: `.daftar ${nme}.11` }, { title: "Umur 12", rowId: `.daftar ${nme}.12` }, { title: "Umur 13", rowId: `.daftar ${nme}.13` }, { title: "Umur 14", rowId: `.daftar ${nme}.14` }, { title: "Umur 15", rowId: `.daftar ${nme}.15` }, { title: "Umur 16", rowId: `.daftar ${nme}.16` }, { title: "Umur 17", rowId: `.daftar ${nme}.17` }, { title: "Umur 18", rowId: `.daftar ${nme}.18` }, { title: "Umur 19", rowId: `.daftar ${nme}.19` }, { title: "Umur 20", rowId: `.daftar ${nme}.20` }, { title: "Umur 21", rowId: `.daftar ${nme}.21`, } ] }]
+    if (!user.registered) secs = [{ title: "Daftar Sebagai User bot", rows: [ { title: "Umur 10", rowId: `.daftar ${nme}.10` }, { title: "Umur 11", rowId: `.daftar ${nme}.11` }, { title: "Umur 12", rowId: `.daftar ${nme}.12` }, { title: "Umur 13", rowId: `.daftar ${nme}.13` }, { title: "Umur 14", rowId: `.daftar ${nme}.14` }, { title: "Umur 15", rowId: `.daftar ${nme}.15` }, { title: "Umur 16", rowId: `.daftar ${nme}.16` }, { title: "Umur 17", rowId: `.daftar ${nme}.17` }, { title: "Umur 18", rowId: `.daftar ${nme}.18` }, { title: "Umur 19", rowId: `.daftar ${nme}.19` }, { title: "Umur 20", rowId: `.daftar ${nme}.20` }, { title: "Umur 21", rowId: `.daftar ${nme}.21` }, { title: "Umur 22", rowId: `.daftar ${nme}.22` }, { title: "Umur 23", rowId: `.daftar ${nme}.23`, } ] }]
     let msg = {
         rowner: 'Perintah ini hanya dapat digunakan oleh _*OWWNER!1!1!*_',
         owner: 'Perintah ini hanya dapat digunakan oleh _*Owner Bot*_!',
@@ -625,10 +625,10 @@ global.dfail = async(type, m, conn) => {
         admin: 'Perintah ini hanya untuk *Admin* grup!',
         nsfw: 'Perintah ini Mengandung *18+* Harap hidupkan mode nsfw!',
         botAdmin: 'Jadikan bot sebagai *Admin* untuk menggunakan perintah ini!',
-        unreg: `*「 BELUM TERDAFTAR 」*\n\nHalo ${nme}, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot Nih\n\nKetik : #daftar nama.umur\nContoh : #daftar ${nme}.15`,
+        unreg: `*「 BELUM TERDAFTAR 」*\n\nHalo ${nme}, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot\n\nSilahkan Daftar Dengan Memilih Umur Dibawah Ini`,
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "– Not Authorized –", buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs }, { quoted: m })
+    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "[ Warning ]", buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs }, { quoted: m })
    }
 
 let fs = require('fs')

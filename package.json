@@ -41,6 +41,7 @@
         "axios": "^0.26.1",
         "@bochilteam/scraper": "^0.0.81",
         "translate-google-api": "^1.0.4",
+        "mime-types": "^2.1.34",
         "colors": "1.4.0",
         "cfonts": "^2.10.0",
         "chalk": "^4.1.2",
