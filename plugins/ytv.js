@@ -2,8 +2,8 @@ let limit = 100
 const fetch = require('node-fetch')
 // const { servers, ytv } = require('../lib/y2mate')
 const { youtubedl, youtubedlv2, youtubedlv3 } = require('@bochilteam/scraper')
-let handler = async (m, { conn, args, isPrems, isOwner }) => {
-  if (!args || !args[0]) throw 'Uhm... urlnya mana?\nContoh:\n!ytv https://www.youtube.com/watch?v=UZHZbkCCt2M'
+let handler = async (m, { conn, args, isPrems, isOwner, command, usedPrefix }) => {
+  if (!args || !args[0]) throw `Uhm... urlnya mana?\nContoh:\n${usedPrefix + command} https://www.youtube.com/watch?v=UZHZbkCCt2M`
   if (!args[2]) await m.reply('_Wait a minute, Request in progress...._')
   let chat = global.db.data.chats[m.chat]
   let isY = /y(es)/gi.test(args[1])

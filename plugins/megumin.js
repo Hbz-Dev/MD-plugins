@@ -15,12 +15,13 @@ let handler = async (m, { conn }) => {
                     headerType: 4
                 }
                 conn.sendMessage(m.chat, buttonMessage, { quoted: m })*/
-  conn.but(m.chat, 'Nih kak ^^', 'Megumin Wangyy\nMade By '+wm, m.sender, 'NEXT', '.megumin', `${json.url}`, m)
+  //conn.but(m.chat, 'Nih kak ^^', 'Megumin Wangyy\nMade By '+wm, m.sender, 'NEXT', '.megumin', `${json.url}`, m)
+  conn.sendButtonImg(m.chat, json.url, 'Megumin Wangyy', json.url, 'Get Again', '.megumin', m)
 }
 handler.help = ['megumin']
 handler.tags = ['anime']
 handler.command = /^(megumin)$/i
 
-handler.limit = 5
+handler.limit = 1
 
 module.exports = handler

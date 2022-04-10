@@ -45,5 +45,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 }
 
 handler.command = /^(nowa|dork)$/i
+handler.help = ['dork <nowa>']
+handler.tags = ['tools']
 
 module.exports = handler

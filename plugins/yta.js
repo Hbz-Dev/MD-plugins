@@ -1,8 +1,8 @@
 let limit = 100
 // const { servers, yta } = require('../lib/y2mate')
 const { youtubedl, youtubedlv2, youtubedlv3 } = require('@bochilteam/scraper')
-let handler = async (m, { conn, args, isPrems, isOwner }) => {
-  if (!args || !args[0]) throw 'Uhm... urlnya mana?\nContoh:\n!yta https://www.youtube.com/watch?v=UZHZbkCCt2M'
+let handler = async (m, { conn, args, isPrems, isOwner, usedPrefix, command }) => {
+  if (!args || !args[0]) throw `Uhm... urlnya mana?\nContoh:\n${usedPrefix + command} https://www.youtube.com/watch?v=UZHZbkCCt2M`
   await m.reply('_Wait a minute, Request in progress...._')
   // let server = (args[1] || servers[0]).toLowerCase()
   const isY = /y(es)/gi.test(args[1])

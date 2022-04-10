@@ -149,7 +149,8 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     let gb = global.loli[Math.floor(Math.random() * 352)]
-    conn.send2ButtonImg(m.chat, gb, text.trim(), `Hitung Mundur Lebaran:\n${lebaran}\n\n${wm}`, 'Rules', '.rules', 'Owner', '.owner', m)
+    let dul = await conn.send2ButtonImg(m.chat, gb, text.trim(), `Hitung Mundur Lebaran:\n${lebaran}\n\n${wm}`, 'Rules', '.rules', 'Owner', '.owner', m)
+    conn.sendMessage(m.chat, { react: { text: '👑', key: dul.key, }})
      /*const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
      templateMessage: {
          hydratedTemplate: {
