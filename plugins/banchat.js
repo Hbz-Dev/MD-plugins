@@ -16,7 +16,7 @@ let handler = async (m, { conn, isOwner, text, isAdmin }) => {
   }
 
   try {
-    if (who.endsWith('g.us') && !m.mentionedJid) global.db.data.chats[who].isBanned = true
+    if (who.endsWith('g.us') && !(m.mentionedJid || m.quoted?.sender)) global.db.data.chats[who].isBanned = true
     else global.db.data.users[who].banned = true
     m.reply(`Berhasil Ban! ${await conn.user.name} tidak aktif dichat ${await conn.getName(who) == undefined ? 'ini' : await conn.getName(who)}.`)
   } catch (e) {

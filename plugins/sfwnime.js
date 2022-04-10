@@ -4,8 +4,8 @@ let handler = async (m, { conn, command }) => {
   if (!res.ok) throw 'Error Website sedang down'
   let json = await res.json()
   if (!json.url) throw 'Error!'
-  //conn.but(m.chat, 'Nih Kak!🥀', 'Anime sfw\nMade By '+wm, m.sender, 'Get Again', `.${command}`, `${json.url}`, m)
-  conn.sendButtonImg(m.chat, json.url, `© ${command.slice(1).toUpperCase()}${command.slice(2)}`, global.wm, `${command}`, `.${command}`, m)
+  //conn.but(m.chat, 'Nih Kak!', 'Anime sfw\nMade By '+wm, m.sender, 'Get Again', `.${command}`, `${json.url}`, m)
+  conn.sendButtonImg(m.chat, json.url, `© Sfw ${command}`, global.wm, `${command}`, `.${command}`, m)
 }
 handler.help = ['neko', 'cry', 'hug', 'shinobu', 'bully', 'kiss', 'lick', 'pat', 'bonk', 'yeet', 'awoo', 'smile', 'blush', 'wave', 'nom', 'bite', 'glomp', 'slap', 'kill', 'happy', 'wink', 'poke', 'dance', 'cringe']
 handler.tags = ['anime']

@@ -1,6 +1,4 @@
 let moment = require('moment-timezone')
-let fetch = require('node-fetch')
-let fs = require('fs')
 let handler = m => m
 
 handler.all = async function (m) {
@@ -13,7 +11,7 @@ handler.all = async function (m) {
     if (new Date - user.pc < 86400000) return // setiap 24 jam sekali
     let username = await conn.getName(m.sender)
     let res = await ucapan()
-    await this.sendButton(m.chat, `
+    await conn.sendButton(m.chat, `
 *Hai, ${res.ucapan}*\n\n
 _${res.ingat}_
 \n

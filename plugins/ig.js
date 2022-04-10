@@ -28,6 +28,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       await delay(1500)
       conn.sendFile(m.chat, url, 'ig.bin', 'Instagram Downloader\n'+wm, m, { jpegThumbnail: await(await fetch(thumbnail)).buffer() })
      }
+    })
    }).catch(async _ => {
    instagramdlv4(args[0]).then(async res => {
     let instagramdl = JSON.stringify(res)

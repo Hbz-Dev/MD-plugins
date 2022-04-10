@@ -4,7 +4,7 @@ const fetch = require('node-fetch')
 const { youtubedl, youtubedlv2, youtubedlv3 } = require('@bochilteam/scraper')
 let handler = async (m, { conn, args, isPrems, isOwner }) => {
   if (!args || !args[0]) throw 'Uhm... urlnya mana?\nContoh:\n!ytv https://www.youtube.com/watch?v=UZHZbkCCt2M'
-  await m.reply('_Wait a minute, Request in progress...._')
+  if (!args[2]) await m.reply('_Wait a minute, Request in progress...._')
   let chat = global.db.data.chats[m.chat]
   let isY = /y(es)/gi.test(args[1])
   const { thumbnail, video: _video, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
@@ -22,9 +22,9 @@ let handler = async (m, { conn, args, isPrems, isOwner }) => {
   if (!link) throw lastError
   let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < video.fileSize
   let lunk = await shortUrl(link)
-  //link = link.split('https')[1]
-  //link = 'http' + link
-  if (!isY) conn.sendFile(m.chat, thumbnail, 'thumbnail.jpg', `
+  link = link.split('https')[1]
+  link = 'http' + link
+  if (!isY) await conn.sendFile(m.chat, thumbnail, 'thumbnail.jpg', `
 ${isLimit ? '_Ukuran File Terlalu Besar!!_\n' : ''}
 *Title:* ${title}
 *Filesize:* ${video.fileSizeH}
