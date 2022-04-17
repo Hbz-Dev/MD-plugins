@@ -71,7 +71,7 @@ global.isInit = !fs.existsSync(authFile)
 const { state, saveState } = useSingleFileAuthState(authFile)
 
 const connectionOptions = {
-  printQRInTerminal: false,
+  printQRInTerminal: true,
   auth: state,
   version: [2, 2210, 9],
   logger: P({ level: 'fatal' })
