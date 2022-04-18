@@ -1,7 +1,7 @@
 const PhoneNumber = require('awesome-phonenumber')
 async function handler(m) {
 let a = [{
-    displayName: 'Danck',
+    displayName: 'Owner',
     vcard: 'BEGIN:VCARD\n'
     + 'VERSION:3.0\n'
     + 'N:;Ownerbot;;;FN:~ ʙᴏᴛᴢ ~\n'
@@ -16,7 +16,7 @@ let a = [{
     + 'item4.ADR:;;🇲🇨 Indonesia 🇲🇨;;;;\n'
     + 'item4.X-ABADR:ac\n'
     + 'item4.X-ABLabel:🌎 𝙍𝙚𝙜𝙞𝙤𝙣\n'
-    + 'item5.X-ABLabel:🌟 MULTI-DEVICE 🌟\n'
+    + 'item5.X-ABLabel:Chat yg benar!\n'
     + 'END:VCARD'
   },
   {

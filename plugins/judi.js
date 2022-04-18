@@ -5,7 +5,7 @@ let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
     if (m.chat in conn.judi) return m.reply ('Masih ada yang melakukan judi disini, tunggu sampai selesai!!')
     else conn.judi[m.chat] = true
     try {
-        let randomaku = `${Math.floor(Math.random() * 101)}`.trim()
+        let randomaku = `${Math.floor(Math.random() * 90)}`.trim()
         let randomkamu = `${Math.floor(Math.random() * 81)}`.trim() //hehe Biar Susah Menang :v
         let Aku = (randomaku * 1)
         let Kamu = (randomkamu * 1)

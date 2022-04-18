@@ -74,7 +74,7 @@ Nyawa mu berkurang -${healt * 1} Dan stamina mu berkurang -${healt * 1} karena K
             global.db.data.users[m.sender].lastadventure = new Date * 1
 
             } else conn.reply(m.chat, `Anda sudah berpetualang dan kelelahan, silahkan coba\n🕛 *${timers}* lagi`, m)
-        } else conn.reply(m.chat, 'Minimal 80 health dan 80 stamina untuk bisa berpetualang, pulihkan nyawa dulu dengan ketik *' + usedPrefix + 'heal*\natau ketik *' + usedPrefix + 'use potion <jumlah>*\nPulihkan Stamina dengan memakan makanan!\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*', m)
+        } else conn.reply(m.chat, 'Minimal 80 health dan 80 stamina untuk bisa berpetualang, pulihkan nyawa dulu dengan ketik *' + usedPrefix + 'heal*\natau ketik *' + usedPrefix + 'use potion <jumlah>*\nPulihkan Stamina dengan memakan makanan!\n\n_Untuk mendapat money dan potion gratis ketik_ *' + usedPrefix + 'claim*\n_Untuk mengambil gaji harian ketik_ *' + usedPrefix + 'gajian*\n_Untuk mengambil Jatah mingguan ketik_ *' + usedPrefix + 'weekly*\n_Untuk Mengambil Jatah bulanan ketik_ *' + usedPrefix + 'monthly*\n_Untuk Memasak makanan ketik_ *' + usedPrefix + 'masak*\n_Untuk Berburu Hewan ketik_ *' + usedPrefix + 'berburu*', m)
     } catch (e) {
         console.log(e)
         conn.reply(m.chat, 'Error', m)

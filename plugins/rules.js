@@ -1,4 +1,4 @@
-let handler = async (m, { conn }) => await conn.send2Button(m.chat, `
+let handler = async (m, { conn }) => await conn.sendButton(m.chat, `
 *── 「 RULES AND FAQ 」 ──*
 ${readMore}
 1. Jangan spam bot. 🙅
@@ -11,7 +11,7 @@ Sanksi: *❎ SOFT BLOCK*
 Sanksi: *PERMANENT BLOCK*
 
 🗯️ Bot tidak atau lambat merespon ?
-➡️ Mungkin dipengaruhi oleh jaringan, signal, banned oleh Whatsapp dan beberapa asalan. Tetap patuhi rules‼️
+➡️ Mungkin dipengaruhi oleh jaringan, signal, banned oleh Whatsapp dan beberapa alasan lain. Tetap patuhi rules‼️
 
 🗯️ Dimana saya bisa mendapatkan Script dari bot ini ?
 ➡️ Script ini masih private dan tidak pernah diperjual belikan ,bijaklah dalam mengetahui penipu.
@@ -33,7 +33,7 @@ Jika sudah dipahami rules-nya, silakan ketik *#menu* untuk memulai!
 Arigatou Gozaimasu! Untuk kalian user ramah!
 😖🙏
 ${wm}
-`.trim(), 'Harap patuhin peraturan tersebut', '⋮☰ Menu', '.menu', 'Owner', '.owner', m)
+`.trim(), 'Harap patuhin peraturan tersebut', 'Owner', '.owner', m)
 
 handler.help = ['rules']
 handler.tags = ['info']

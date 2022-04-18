@@ -5,8 +5,8 @@ let handler = async (m, { isOwner, text, isAdmin }) => {
       global.dfail('admin', m, conn)
       throw false
     }
-    if (isOwner) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
-    who = m.mentionedJid[0] ? m.mentionedJid[0] : text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
+    if (isOwner) who = m.mentionedJid ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
+    who = m.chat
   } else {
     if (!isOwner) {
       global.dfail('owner', m, conn)
@@ -15,9 +15,9 @@ let handler = async (m, { isOwner, text, isAdmin }) => {
     who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
   }
   try {
-    if (who.endsWith('g.us') && !(m.mentionedJid || m.quoted?.sender)) global.db.data.chats[who].isBanned = false
+    if (who.endsWith('g.us')) global.db.data.chats[who].isBanned = false
     else global.db.data.users[who].banned = false
-    m.reply(`Done Unban!\nBot aktif dichat ${await conn.getName(who) == undefined ? 'ini' : await conn.getName(who)}.`)
+    m.reply(`Done Unban!\n${await conn.user.name} aktif dichat ${await conn.getName(who) == undefined ? 'ini' : await conn.getName(who)}.`)
   } catch (e) {
     throw `nomor tidak ada didatabase!`
   }

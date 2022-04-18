@@ -16,7 +16,7 @@ handler.all = async function (m) {
 _${res.ingat}_
 \n
 ${user.banned ? 'Kamu Dibanned!' : 'Saya adalah salah satu bot Whatsapp. harap tidak spam/telpon/minta save kemonor ini. Ada yang bisa saya bantu? :3'}
-`.trim(), 'Ketik #menu untuk melihat daftar perintah!', user.registered ? 'Start Anonymous Chat': 'Verify', user.registered ? '.start' : `.daftar ${username}.15`, m)
+`.trim(), 'Ketik #menu untuk melihat daftar perintah!', user.registered ? 'Start Anonymous Chat' : 'Verify', user.registered ? '.start' : `.daftar ${username}.15`, m)
     user.pc = new Date * 1
 }
 
@@ -44,8 +44,8 @@ function ucapan() {
         rus = "Ayo ngabuburit kak 💖"
     }
     if (time >= 18) {
-        res = "Good Night 🌙"
-        rus = "
+        res = "Selamat Malam 🌙"
+        rus = "Jangan Begadang Yah kak🙃"
     }
     return { ucapan: res, ingat: rus }
 }

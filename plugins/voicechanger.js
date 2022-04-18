@@ -25,7 +25,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
             exec(`ffmpeg -i ${media} ${set} ${ran}`, (err, stderr, stdout) => {
                 if (err) throw `Ada yg error :(`
                 let buff = fs.readFileSync(ran)
-                await conn.sendFile(m.chat, buff, ran, null, m, /vn/.test(args[0]), { quoted: m, mimetype: 'audio/mpeg' })
+                conn.sendFile(m.chat, buff, ran, null, m, /vn/.test(args[0]), { quoted: m, mimetype: 'audio/mpeg' })
                 fs.unlinkSync(ran)
             })
         } else throw `Balas vn/audio yang ingin diubah dengan caption *${usedPrefix + command}*`

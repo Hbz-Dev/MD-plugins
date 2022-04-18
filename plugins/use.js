@@ -38,6 +38,7 @@ let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) =>  {
                     if (global.db.data.users[m.sender].potion >= count * 1) {
                         global.db.data.users[m.sender].potion -= count * 1
                         global.db.data.users[m.sender].healt += usepotion * count
+                        global.db.data.users[m.sender].stamina += 20
                         conn.reply(m.chat, msgsucces, m)
                     } else conn.reply(m.chat, msgkurang, m)
                 } else conn.reply(m.chat, msgpenuh, m)

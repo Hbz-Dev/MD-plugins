@@ -1,6 +1,6 @@
 let handler = async (m, { args, usedPrefix, command }) => {
     if (!args[0]) throw `uhm.. link nya mana?\n\ncontoh:\n${usedPrefix + command} https://drive.google.com/file/d/13zpT0qU8ltML-QzMTOu0ZlOnFlC8dVSM/view?usp=drivesdk`
-    let res = await GDriveDl(text)
+    let res = await GDriveDl(args[0])
     if (!res) throw res
     //conn.sendFile(m.chat, res.download, `GDrive.${res.mimetype.split('/')[1]}`, `Filename: ${res.fileName}\nMimetype: ${res.mimetype}`, m)
     await m.reply(`${require('util').format(res)}`)

@@ -38,7 +38,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       conn.sendFile(m.chat, url, 'ig.bin', 'Instagram Downloader\n'+wm, m, { jpegThumbnail: await(await fetch(thumbnail)).buffer() })
      }
    })
- })
+ }).catch(_ => m.reply('Gagal...\nSemua server sedang sibuk!'))
 }
 handler.help = ['ig'].map(v => v + ' <url>')
 handler.tags = ['downloader']

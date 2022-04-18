@@ -21,7 +21,7 @@ let handler = async (m, { conn, isOwner, isPrems, command, text, usedPrefix }) =
 👑 *Author Name:* ${authorName}
 🚀 *Source:* ${url}
 📝 *Description:* ${description}`
-    await conn.sendBD(m.chat, capt, global.wm, 'https://telegra.ph/file/27e90a619b30082694bde.jpg', [['🎧 Audio 🎧', `${usedPrefix}yta ${url}`], ['📽 Video 📽', `${usedPrefix}ytv ${url}`], [`🔎 Play Acak 🔍`, `${usedPrefix}playrand ${text}`]], m, {
+    await conn.sendBD(m.chat, capt, `Jika Ingin Dalam bentuk audio reply dokumen dengan perintah #tomp3\n\n${global.wm}`, 'https://telegra.ph/file/27e90a619b30082694bde.jpg', [['🎧 Audio 🎧', `${usedPrefix}yta ${url}`], ['📽 Video 📽', `${usedPrefix}ytv ${url} yes vid`], [`🔎 Play Acak 🔍`, `${usedPrefix}playrand ${text}`]], m, {
      fileName: `Enjoy ${m.name} 🤩`, mimetype: td, fileLength: 9999999999, pageCount: 10000,
      mentions: [m.sender],
      contextInfo: {

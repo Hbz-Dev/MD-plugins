@@ -6,9 +6,8 @@ let handler = async (m, { conn, args }) => {
     else who = args[0]
     
     let gc = await conn.groupMetadata(who)
-    let jdl = gc.subject
     if (global.db.data.chats[who].expired != 0) {
-    m.reply(`Tersisa waktu: ${msToDate(global.db.data.chats[who].expired - now)}\n*Group: _${jdl}_*`)
+    m.reply(`Tersisa waktu: ${msToDate(global.db.data.chats[who].expired - now)}\n*Group: _${gc.subject}_*`)
     } else {
      m.reply(`Tidak Ada Waktu Expired Di Group ${jdl}!`)
    }
@@ -16,7 +15,6 @@ let handler = async (m, { conn, args }) => {
 handler.help = ['ceksewa']
 handler.tags = ['group']
 handler.command = /^(ceksewa|cekexpired)$/i
-handler.owner = true
 module.exports = handler
 
 function msToDate(ms) {
