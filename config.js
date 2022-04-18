@@ -1,7 +1,6 @@
 let fs = require('fs')
 
 global.owner = ['994407430641', '6283844009539'] // Put your number here
-global.prems = JSON.parse(fs.readFileSync('./src/premium.json'))
 global.APIs = { // API Prefix
   // name: 'https://website'
   nrtm: 'https://nurutomo.herokuapp.com',

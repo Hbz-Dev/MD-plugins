@@ -42,8 +42,10 @@ module.exports = {
                     if (!isNumber(user.limit)) user.limit = 20
                     if (!isNumber(user.game)) user.game = 30
                     if (!isNumber(user.pc)) user.pc = 0
+                    if (!isNumber(user.premiumTime)) user.premiumTime = 0
                     if (!('pasangan' in user)) user.pasangan = ''
                     if (!('code' in user)) user.code = false
+                    if (!('premium' in user)) user.premium = false
                     if (!('registered' in user)) user.registered = false
                     if (!user.registered) {
                         if (!('name' in user)) user.name = m.name
@@ -144,9 +146,11 @@ module.exports = {
                     limit: 20,
                     game: 30,
                     pc: 0,
+                    premiumTime: 0,
                     role: 'Beginner',
                     pasangan: '',
                     code: false,
+                    premium: false,
                     registered: false,
                     name: m.name,
                     age: -1,
@@ -298,7 +302,7 @@ module.exports = {
                 console.error(e)
             }
             let isROwner = [global.conn.user.jid, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-            if (!isROwner && global.db.data.settings.self) return
+            if (!isROwner && global.db.data.settings.auto) return
             if (global.db.data.settings.groupOnly && !m.chat.endsWith('g.us')) return
             if (typeof m.text !== 'string') m.text = ''
             if (global.db.data.settings.queque && m.text) {
@@ -325,7 +329,8 @@ module.exports = {
             let _user = global.db.data && global.db.data.users && global.db.data.users[m.sender]
           
             let isOwner = isROwner || m.fromMe
-            let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
+            let isPrems = isROwner || db.data.users[m.sender].premium || false
+            //let isPrems = isROwner || global.prems.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
             let groupMetadata = m.isGroup ? await conn.groupMetadata(m.chat).catch(e => {}) : {}
             let participants = (m.isGroup ? groupMetadata?.participants : []) || []
             let user = m.isGroup ? await participants.filter(v => v.admin !== null).map(v => v.id) : {} // User Data
@@ -562,8 +567,8 @@ module.exports = {
                         } finally {
                             textt = (action === 'add' ? (chat.sWelcome || this.welcome || conn.welcome || 'Welcome, @user!').replace('@subject', groupMetadata.subject).replace('@desc', groupMetadata?.desc?.toString() || 'No Deskripsi') :
                                 (chat.sBye || this.bye || conn.bye || 'Bye, @user!')).replace('@user', '@' + user.split('@')[0])
-                            let _mim = ['application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf', 'text/rtf']
-                            let mim = _mim[Math.floor(Math.random() * _mim.length)]
+                            let mim = this.random(['application/vnd.openxmlformats-officedocument.presentationml.presentation', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/pdf', 'text/rtf'])
+                            //let mim = _mim[Math.floor(Math.random() * _mim.length)]
                             this.sendBD(id, textt, global.wm, pp, [[`Menu`, `.menu`], [action === 'add' ? 'Welcome 🙏' : 'Goodbye 👋', 'iyjf']], {                      
                               key: { fromMe: false, participant: `0@s.whatsapp.net`, remoteJid: 'status@broadcast' }, message: { contactMessage: { displayName: `${await this.getName(user)}`, vcard: `BEGIN: VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${user}\nitem1.TEL;waid=${user.split('@')[0]}:${user.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}},
                               { 
