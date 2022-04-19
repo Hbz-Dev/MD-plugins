@@ -16,5 +16,5 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["nodemon", "index.js"]
+CMD ["node", "index.js"]
 
