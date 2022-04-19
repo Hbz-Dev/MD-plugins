@@ -16,5 +16,5 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["node", `index.js --db 'mongodb+srv://ryubot:lunoxlance@cluster0.qupcb.mongodb.net/Cluster0?retryWrites=true&w=majority'`]
+CMD ["node", "index.js"]
 
