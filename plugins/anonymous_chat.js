@@ -1,4 +1,4 @@
-async function handler(m, { command }) {
+async function handler(m, { command, usedPrefix }) {
     if (!global.db.data.settings.anon) return m.reply('Fitur ini tidak diaktifkan Oleh owner!')
     command = command.toLowerCase()
     this.anonymous = this.anonymous ? this.anonymous : {}

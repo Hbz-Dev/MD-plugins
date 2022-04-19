@@ -18,7 +18,8 @@ Ketik ${usedPrefix}teka untuk bantuan
 Bonus: ${poin} XP
 `.trim()
     conn.tebakkabupaten[id] = [
-        await conn.sendMessage(m.chat, { image: await (await fetch(json.url)).buffer(), caption: caption, mens: [m.sender] }, { quoted: m }),
+        //await conn.sendMessage(m.chat, { image: await (await fetch(json.url)).buffer(), caption: caption, mens: [m.sender] }, { quoted: m }),
+        await conn.sendButtonImg(m.chat, json.url, caption, `Tebak Kabupaten\nMade By ${wm}`, 'Bantuan', '.teka', m),
         json, poin,
         setTimeout(async () => {
             if (conn.tebakkabupaten[id]) await conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.title}*`, 'Play Again? [limit]', 'Tebak Kabupaten', '.tebakkabupaten', conn.tebakkabupaten[id][0])

@@ -9,11 +9,12 @@ let handler = async (m, { conn, args }) => {
     if (global.db.data.chats[who].expired != 0) {
     m.reply(`Tersisa waktu: ${msToDate(global.db.data.chats[who].expired - now)}\n*Group: _${gc.subject}_*`)
     } else {
-     m.reply(`Tidak Ada Waktu Expired Di Group ${jdl}!`)
+     m.reply(`Tidak Ada Waktu Expired Di Group ${gc.subject}!`)
    }
 }
 handler.help = ['ceksewa']
 handler.tags = ['group']
+handler.group = true
 handler.command = /^(ceksewa|cekexpired)$/i
 module.exports = handler
 

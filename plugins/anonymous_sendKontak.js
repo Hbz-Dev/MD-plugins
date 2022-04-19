@@ -4,7 +4,7 @@ async function handler(m, { command, usedPrefix, text }) {
 	this.anonymous = this.anonymous ? this.anonymous : {}
 	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? this.user.jid : m.sender
 	let room = Object.values(this.anonymous).find(room => room.check(who))
-	if (!room) await this.sendButton(m.chat, 'kamu tidak berada di anonymous chat!', ' ', 'Mulai Anonymous', usedPrefix + 'start', m)
+	if (!room) return this.sendButton(m.chat, 'kamu tidak berada di anonymous chat!', ' ', 'Mulai Anonymous', usedPrefix + 'start', m)
 	let other = room.other(who)
 	var name
 	if (text) name = text
