@@ -428,10 +428,10 @@ module.exports = {
                         fail('private', m, this)
                         continue
                     }
-                    if (plugin.register == true && _user.registered == false) { // Butuh daftar?
+                    /*if (plugin.register == true && _user.registered == false) { // Butuh daftar?
                         fail('unreg', m, this)
                         continue
-                    }
+                    }*/
                     if (plugin.nsfw && !global.db.data.settings.nsfw) {
                        fail('nsfw', m, this)
                        continue
@@ -633,7 +633,7 @@ global.dfail = async(type, m, conn) => {
         unreg: `*「 BELUM TERDAFTAR 」*\n\nHalo ${nme}, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot\n\nSilahkan Daftar Dengan Memilih Umur Dibawah Ini`,
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "[ Warning ]", buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs }, { quoted: m })
+    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "[-----------------------']", buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs }, { quoted: m })
    }
 
 let fs = require('fs')
