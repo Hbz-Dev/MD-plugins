@@ -29,15 +29,18 @@ let premium = `
  └❌ Premium User 
  └✅ Add bot to Group
  └❌ Full Access Features
-   └  ▹  *Rp. 8.000*
+   └  ▹  *Rp. 6.000*
      └ Expired 7 Day
-   └  ▹  *Rp. 20.000*
-     └ Expired 30 Day 
+   └  ▹  *Rp. 17.000*
+     └ Expired 35 Day 
     
   Order Premium + add group
   ▹  *Rp. 25.000*
- └  Expired 30 Day
+ └  Expired 40 Day
  └ Order | hub : owner
+ 
+ 1k Add bot (1 day)
+ free premium user (1 day)
 `
      const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
      templateMessage: {

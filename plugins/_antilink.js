@@ -7,6 +7,7 @@ handler.before = async function (m, { isAdmin, isBotAdmin }) {
 
   if (chat.antiLink && isGroupLink && !isAdmin && m.isGroup) {
     let thisGroup;
+    if (/^.*(izin|min|admn)/i.test(m.text)) return m.reply('Izin share link diterima!')
     if (isBotAdmin) thisGroup = `https://chat.whatsapp.com/${await conn.groupInviteCode(m.chat)}`
     else thisGroup = 0
     if (m.text.includes(thisGroup) && thisGroup !== 0) throw !0 // jika link grup itu sendiri gak dikick

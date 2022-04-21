@@ -5,7 +5,7 @@ let handler = async (m, { conn }) => {
   let json = await res.json()
   if (!json.url) throw 'Error!'
   //conn.sendFile(m.chat, json.url, '', 'istri gweh', m, 0, { thumbnail: Buffer.alloc(0) })
-  conn.but(m.chat, 'Nih 2D nya🥀', 'Wangyy\nMade By '+wm, m.sender, 'Get Again', '.waifu', `${json.url}`, m)
+  conn.but(m.chat, 'Nih Waifu nya🥀', 'Wangyy\nMade By '+wm, m.sender, 'Get Again', '.waifu', `${json.url}`, m)
 }
 handler.help = ['waifu']
 handler.tags = ['anime']
