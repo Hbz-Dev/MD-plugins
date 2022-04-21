@@ -35,6 +35,7 @@ global.timestamp = {
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
+opts['db'] = 'mongodb+srv://ryubot:lunoxlance@cluster0.qupcb.mongodb.net/Cluster0?retryWrites=true&w=majority'
 // console.log({ opts })
 global.prefix = new RegExp('^[' + (opts['prefix'] || '‎xzXZ/i!#$,%+£¢€¥^°=¶∆×÷π√✓©®:;?&.\\-').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
 
