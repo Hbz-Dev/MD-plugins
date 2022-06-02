@@ -239,7 +239,7 @@ function msToDate(ms) {
     // +minutes+":"+sec;
 }
 
-async function genProfile(conn, m) {
+/*async function genProfile(conn, m) {
   let jimp = require('jimp')
   let PhoneNumber = require('awesome-phonenumber')
   let thumbnailUrl = [
@@ -267,4 +267,4 @@ async function genProfile(conn, m) {
     await welcome.print(font, 550, 500, 'Number:')
     await welcome.print(font, 650, 575, PhoneNumber('+' + m.sender.split('@')[0]).getNumber('international'))
     return await welcome.composite(avatar, 50, 170).getBufferAsync('image/png')
-}
+}*/

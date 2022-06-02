@@ -64,7 +64,7 @@ Tersisa ${player.pickaxedurability}/100
             player.iron += iron * 1
             player.exp += exp * 1
             player.string += jaring * 1
-          } else conn.reply(m.chat, `Please wait *${timers}* again`, m)
+          } else conn.reply(m.chat, `Silakan Tunggu *${timers}* lagi!`, m)
     } catch (e) {
         console.log(e)
         conn.reply(m.chat, 'Error', m)
