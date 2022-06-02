@@ -1,4 +1,4 @@
-let { MessageType } = require('@adiwajshing/baileys-md')
+let { MessageType } = require('@adiwajshing/baileys')
 const potion = 5000
 const Spotion = 2500
 const limit = 50000
@@ -7,7 +7,7 @@ const Bdiamond = 35000
 const Sdiamond = 20000
 const Bcommon = 4500
 const Scommon = 2000
-const Suncommon = 6000
+const Suncommon = 2000
 const Buncommon = 4500
 const Bmythic = 10000
 const Smythic = 5000
@@ -18,8 +18,9 @@ const Baxe = 85000
 const Semerald = 35000
 const Sgold = 30000
 const Bsampah = 50
-const Ssampah = 30
+const Ssampah = 25
 let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {
+    //if (db.data.settings.self) return m.reply('Sesi buy/sell telah berakhir...\nSilahkan coba lagi besok ^^')
     const _armor = global.db.data.users[m.sender].armor
     const _sword = global.db.data.users[m.sender].sword
     const armor = (_armor == 0 ? 20000 : '' || _armor == 1 ? 49999 : '' || _armor == 2 ? 99999 : '' || _armor == 3 ? 149999 : '' || _armor == 4 ? 299999 : '')

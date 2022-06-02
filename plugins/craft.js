@@ -5,7 +5,7 @@
 * RESTU
 * RIZXYU
 */
-let { MessageType } = require('@adiwajshing/baileys-md')
+let { MessageType } = require('@adiwajshing/baileys')
 
 /*Count price*/
 let sword = 9800

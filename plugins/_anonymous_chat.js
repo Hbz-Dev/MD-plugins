@@ -7,16 +7,14 @@ handler.before = async function (m, { match }) {
     let room = Object.values(this.anonymous).find(room => [room.a, room.b].includes(m.sender) && room.state === 'CHATTING')
     if (room) {
         if (/^.*(next|leave|start|sendkontak)/.test(m.text)) return
-        if (['.next', '.sendkontak', '.sendcontact', '.leave', '.start', 'Cari Partner', 'Keluar', 'Next'].includes(m.text)) return
+        if (['.next', '.sendkontak', '.sendcontact', '.leave', '.start', 'Cari Partner', 'Keluar', 'Next', 'Leave'].includes(m.text)) return
         let other = [room.a, room.b].find(user => user !== m.sender)
-        m.copyNForward(other, true, m.quoted && m.quoted.fromMe ? {
-            contextInfo: {
-                ...m.msg.contextInfo,
-                forwardingScore: 1,
-                isForwarded: true,
-                participant: other
-            }
-        } : {})
+        if (m.msg.mimetype) {
+         conn.sendFile(other, await conn.link(m), '', m.text, m.quoted ? { key: { fromMe: true, remoteJid: other }, message: { conversation: m.quoted.text }} : null)
+        } else {
+        conn.sendMessage(other, { text: m.text }, { quoted: m.quoted ? { key: { fromMe: true, remoteJid: other }, message: { conversation: m.quoted.text }} : null })
+        //m.copyNForward(other, true, {})
+      }
     }
     return !0
 }

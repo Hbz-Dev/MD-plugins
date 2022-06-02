@@ -1,4 +1,5 @@
 let handler = async (m, { conn, args }) => {
+    if (!args[0] && !m.isGroup) return m.reply('Harap Masukkan id grup!')
     var now = new Date() * 1
     
     let who
@@ -14,7 +15,6 @@ let handler = async (m, { conn, args }) => {
 }
 handler.help = ['ceksewa']
 handler.tags = ['group']
-handler.group = true
 handler.command = /^(ceksewa|cekexpired)$/i
 module.exports = handler
 

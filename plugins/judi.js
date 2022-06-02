@@ -1,11 +1,8 @@
 let buatall = 1
-let { MessageType } = require('@adiwajshing/baileys-md')
+let { MessageType } = require('@adiwajshing/baileys')
 let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
-    conn.judi = conn.judi ? conn.judi : {}
-    if (m.chat in conn.judi) return m.reply ('Masih ada yang melakukan judi disini, tunggu sampai selesai!!')
-    else conn.judi[m.chat] = true
     try {
-        let randomaku = `${Math.floor(Math.random() * 90)}`.trim()
+        let randomaku = `${Math.floor(Math.random() * 99)}`.trim()
         let randomkamu = `${Math.floor(Math.random() * 81)}`.trim() //hehe Biar Susah Menang :v
         let Aku = (randomaku * 1)
         let Kamu = (randomkamu * 1)
@@ -34,8 +31,6 @@ let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
                 conn.sendMessage(jid, 'Judi.js error\nNo: *' + m.sender.split`@`[0] + '*\nCommand: *' + m.text + '*\n\n*' + e + '*', MessageType.text)
             }
         }
-    } finally {
-        delete conn.judi[m.chat]
     }
 }
     

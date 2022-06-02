@@ -1,4 +1,4 @@
-let { MessageType } = require('@adiwajshing/baileys-md')
+let { MessageType } = require('@adiwajshing/baileys')
 let handler = async (m, { conn, usedPrefix, DevMode }) => {
     if (global.db.data.users[m.sender].pickaxe == 0) return m.reply('Kamu tidak memiliki pickaxes Untuk menambang!\nDapatkan dengan cara *#adventure* Atau beli di shop dengan cara *#shop buy pickaxes*')
     if (global.db.data.users[m.sender].stamina < 30) return m.reply('Membutuhkan minimal 30 stamina untuk menambang!\nMakan untuk menambah stamina!')

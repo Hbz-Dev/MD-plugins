@@ -1,4 +1,4 @@
-let { MessageType } = require('@adiwajshing/baileys-md')
+let { MessageType } = require('@adiwajshing/baileys')
 let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
     if (args.length < 3) {
         return conn.reply(m.chat, `Gunakan format .transfer <type> <jumlah> <@tag>\n📍contoh penggunaan: *.transfer money 100 @tag*\n\n*List yang bisa di transfer :*\n💹Money\n🥤Potion\n🗑️Sampah\n💎Diamond\n📦Common\n🛍️Uncommon\n🎁Mythic\n🧰Legendary\n🕸️string\n🪵kayu\n🪨batu\n⛓iron`.trim(), m)
@@ -14,7 +14,8 @@ let handler = async (m, { conn, args, usedPrefix, DevMode }) => {
                     try {
                         global.db.data.users[m.sender].money -= count * 1
                         global.db.data.users[who].money += count * 1
-                        conn.reply(m.chat, `Berhasil mentransfer money sebesar ${count}\nKepada: @${who.split('@')[0]}`.trim(), m, { mentions: [who] })
+                        if (count > 100000) global.db.data.users[m.sender] -= 30000 * 1
+                        conn.reply(m.chat, `Berhasil mentransfer money sebesar ${count}\nKepada: @${who.split('@')[0]}${count > 100000 ? '\n\n📤 Pajak Transfer: -30000 Money' : ''}`.trim(), m, { mentions: [who] })
                     } catch (e) {
                         global.db.data.users[m.sender].money += count * 1
                         m.reply('Gagal Menstransfer')

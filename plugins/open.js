@@ -1,5 +1,6 @@
-let { MessageType } = require('@adiwajshing/baileys-md')
+let { MessageType } = require('@adiwajshing/baileys')
 let handler = async (m, { conn, command, args, text, usedPrefix, DevMode }) => {
+  //if (db.data.settings.self) return m.reply('Sesi gacha/open telah berakhir!\nSilahkan Kembali lagi besok ^^')
   try {
     let bruh = `${usedPrefix}open <crate name> < 1 | 10 | 100 | 1000 >\n\nContoh penggunaan: *${usedPrefix}open common 10*\n\nlist crate:\n*common*\n*uncommon*\n*mythic*\n*legendary*\n*pet*`
     let _lmao = args[0]

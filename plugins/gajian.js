@@ -5,8 +5,8 @@ let cds = `${DeTik(new Date - LastClaim)}`
 let cd1 = Math.ceil(44 - cdm)
 let cd2 = Math.ceil(59 - cds)
   if (new Date - global.db.data.users[m.sender].lastclaim > 2700000) {
-    global.db.data.users[m.sender].money += 60000
-    m.reply('Nih gaji mu +Rp60000')
+    global.db.data.users[m.sender].money += 250000
+    m.reply('Nih gaji mu +25000 Money')
     global.db.data.users[m.sender].lastclaim = new Date * 1
   } else throw `Kamu udah ambil jatah hari ini.\n\nTunggu ${cd1} Menit ${cd2} Detik!`
 }

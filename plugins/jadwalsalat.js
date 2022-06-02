@@ -1,7 +1,7 @@
 const { jadwalsholat } = require('@bochilteam/scraper')
 let handler = async (m, { text, usedPrefix, command }) => {
     if (!text) throw `Use example ${usedPrefix}${command} semarang`
-    const res = await jadwalsholat(text)
+    const res = await jadwalsholat(text.toLowerCase())
     m.reply(`
 Jadwal Sholat *${text}*
 ${Object.entries(res.today).map(([name, data]) => `*Sholat ${name}:* ${data}`).join('\n').trim()}

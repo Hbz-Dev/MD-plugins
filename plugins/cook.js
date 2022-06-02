@@ -1,4 +1,4 @@
-let { MessageType } = require('@adiwajshing/baileys-md')
+let { MessageType } = require('@adiwajshing/baileys')
 //BY RIZKY ADI∅
 //DONT DELETE THIS CREDIT
 let handler  = async (m, { conn, command, args, usedPrefix, DevMode }) => {

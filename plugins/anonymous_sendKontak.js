@@ -1,6 +1,6 @@
-let { Presence } = require('@adiwajshing/baileys-md')
+let { Presence } = require('@adiwajshing/baileys')
 async function handler(m, { command, usedPrefix, text }) {
-	await this.sendPresenceUpdate('composing', m.chat)
+	//await this.sendPresenceUpdate('composing', m.chat)
 	this.anonymous = this.anonymous ? this.anonymous : {}
 	let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? this.user.jid : m.sender
 	let room = Object.values(this.anonymous).find(room => room.check(who))

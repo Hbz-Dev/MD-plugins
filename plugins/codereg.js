@@ -15,7 +15,7 @@ let handler = async(m, { conn, args, usedPrefix }) => {
     global.db.data.users[m.sender].gold += 1
     global.db.data.users[m.sender].emerald += 2
     global.db.data.users[m.sender].code = true
-    chatnye =`Selamat kamu mendapatkan :\n+4000 Exp ✨\n+8000 Money 💹\n+3 Limit 🎫\n+3 Pet Crate 📫\n+1 Legendary 🧰\n+1 Diamond 💎\n+1 Gold👑\n+2 Emerald🧬`
+    chatnye =`*Kode Benar!*\nSelamat kamu mendapatkan :\n+4000 Exp ✨\n+8000 Money 💹\n+3 Limit 🎫\n+3 Pet Crate 📫\n+1 Legendary 🧰\n+1 Diamond 💎\n+1 Gold👑\n+2 Emerald🧬`
    conn.reply(m.chat, chatnye, m)
 } else conn.reply(m.chat, 'Kode anda sudah kadaluarsa.... :(', m)
    } else {

@@ -1,8 +1,8 @@
 let handler = m => m
 let debugMode = !1
 
-let winScore = 20000
-let playScore = 5000
+let winScore = 9000
+let playScore = 5
 
 handler.before = async function (m) {
     let ok
@@ -53,12 +53,12 @@ handler.before = async function (m) {
             isWin = true   
         }
         let winner = isSurrender ? room.game.currentTurn : room.game.winner
-        if (isSurrender) await this.reply(winner, `Lawanmu menyerah, Selamat Kmu menang!\n(+${winScore} MONEY)`, m)
-        let str = `[ TICTACTOE GAME ]\n
+        if (isSurrender) await this.reply(winner.endsWith('g.us') ? winner : winner == room.game.playerX ? room.x : room.o, `Lawanmu menyerah, Selamat Kmu menang!\n(+${winScore} MONEY)`, m)
+        let str = `*[ TICTACTOE GAME ]*\n
 ${arr.slice(0, 3).join('')}
 ${arr.slice(3, 6).join('')}
 ${arr.slice(6).join('')}
-${isWin ? `@${winner.split('@')[0]} Menang! (+${winScore} MONEY)` : isTie ? `Game berakhir seri masing² dapat (+${playScore} MONEY)` : `Giliran ${['❌', '⭕'][1 * room.game._currentTurn]} (@${room.game.currentTurn.split('@')[0]})`}
+${isWin ? `@${winner.split('@')[0]} Menang! (+${winScore} EXP)` : isTie ? `Game berakhir seri masing² dapat (+${playScore} Common crate)` : `Giliran ${['❌', '⭕'][1 * room.game._currentTurn]} (@${room.game.currentTurn.split('@')[0]})`}
 
 ❌: @${room.game.playerX.split('@')[0]}
 ⭕: @${room.game.playerO.split('@')[0]}
@@ -78,11 +78,11 @@ ${isWin || isTie ? '' : `Ketik *nyerah* untuk menyerah\nRoom ID: ${room.id}`}
             }
         })
         if (isTie || isWin) {
-            users[room.game.playerX].exp += 100
-            users[room.game.playerX].money += playScore
-            users[room.game.playerO].money += playScore
-            users[room.game.playerO].exp += 100
-            if (isWin) users[winner].money += winScore - playScore
+            users[room.game.playerX].exp += 1000
+            users[room.game.playerX].common += playScore
+            users[room.game.playerO].common += playScore
+            users[room.game.playerO].exp += 1000
+            if (isWin) users[winner].exp += winScore - playScore
             if (debugMode) m.reply('[DEBUG]\n' + require('util').format(room))
             delete this.game[room.id]
         }

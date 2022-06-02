@@ -7,7 +7,8 @@ let handler = async (m, { conn, args, isPrems, isOwner, command, usedPrefix }) =
   if (!args[2]) await m.reply('_Wait a minute, Request in progress...._')
   let chat = global.db.data.chats[m.chat]
   let isY = /y(es)/gi.test(args[1])
-  const { thumbnail, video: _video, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
+  const { id, thumbnail, video: _video, title } = await youtubedl(args[0]).catch(async _ => await youtubedlv2(args[0])).catch(async _ => await youtubedlv3(args[0]))
+  if (!id) return m.reply('[❗] Tidak bisa mendownload video live!')
   let video, link = '', lastError
   for (let i in _video) {
     try {
@@ -21,14 +22,14 @@ let handler = async (m, { conn, args, isPrems, isOwner, command, usedPrefix }) =
   }
   if (!link) throw lastError
   let isLimit = (isPrems || isOwner ? 99 : limit) * 1024 < video.fileSize
-  let lunk = await shortUrl(link)
+  //let lunk = await shortUrl(link) || link
   link = link.split('https')[1]
   link = 'http' + link
   if (!isY) await conn.sendFile(m.chat, thumbnail, 'thumbnail.jpg', `
 ${isLimit ? '_Ukuran File Terlalu Besar!!_\n' : ''}
 *Title:* ${title}
 *Filesize:* ${video.fileSizeH}
-*${isLimit ? 'Pakai ' : ''}Link:* ${lunk}
+*${isLimit ? 'Pakai ' : ''}Link:* ${link}
 `.trim(), m)
   let _thumb = require('fs').readFileSync('./media/1.jpg')
   try { _thumb = await (await fetch(thumbnail)).buffer() }
@@ -49,10 +50,10 @@ handler.command = /^(ytv|ytmp4|mp4)$/i
 
 module.exports = handler
 
-async function shortUrl(url) {
+/*async function shortUrl(url) {
   url = encodeURIComponent(url)
   let res = await fetch(`https://is.gd/create.php?format=simple&url=${url}`)
   if (!res.ok) throw false
   return await res.text()
-}
+}*/
 

@@ -1,6 +1,6 @@
-let { MessageType } = require('@adiwajshing/baileys-md')
+let { MessageType } = require('@adiwajshing/baileys')
 let handler = async (m, { conn }) => {
-    if (global.db.data.users[m.sender].stamina < 40) return conn.sendButton(m.chat, 'Stamina mu tidak cukup untuk berburu!\nSilakan masak makanan dan Memakan makanannya agar stamina mu kembali!', `Tekan tombol dibawah untuk memeriksa inventory anda!\n${wm}`, 'Periksa Inv', '.inv', m)
+    if (global.db.data.users[m.sender].stamina < 1) return conn.sendButton(m.chat, 'Stamina mu tidak cukup untuk berburu!\nSilakan masak makanan dan Memakan makanannya agar stamina mu kembali!', `Tekan tombol dibawah untuk memeriksa inventory anda!\n${wm}`, 'Periksa Inv', '.inv', m)
     let __timers = (new Date - global.db.data.users[m.sender].lasthunt)
     let _timers = (60000 - __timers)
     let timers = clockString(_timers) 
@@ -9,7 +9,7 @@ let handler = async (m, { conn }) => {
 {buttonId: '.kandang', buttonText: {displayText: 'Kandang 🐾'}, type: 1}, 
 ]
 const buttonMessage = {
-    text: `📍 Sepertinya Kamu Sudah Kecapekan\nSilahkan Istirahat dulu Untuk melanjutkan berburu !\n🕖 *${timers}*`,
+    text: `📍 Sepertinya Kamu Sudah Kecapean\nSilahkan Istirahat dulu Untuk melanjutkan berburu !\n🕖 *${timers}*`,
     footer: `${wm}`, 
     buttons: buttons,
     headerType: 1
@@ -30,9 +30,10 @@ let zero12 = `${Math.floor(Math.random() * 7)}`
 let heal = `${Math.floor(Math.random() * 40)}`
 .trim()
 
-global.db.data.users[m.sender].stamina -= heal * 1
+global.db.data.users[m.sender].stamina -= 5
+global.db.data.users[m.sender].money -= 5000
 
-hsl = `*━━━━━━━━━[ Hasil Berburu]━━━━━━━━━*
+hsl = `*━━━[ Hasil Berburu]━━━*
 
  *🐂 = [ ${zero1} ]*			 *🐃 = [ ${zero7} ]*
  *🐅 = [ ${zero2} ]*			 *🐮 = [ ${zero8} ]*
@@ -41,8 +42,13 @@ hsl = `*━━━━━━━━━[ Hasil Berburu]━━━━━━━━━*
  *🐼 = [ ${zero5} ]*			 *🐠 = [ ${zero11} ]*
  *🐊 = [ ${zero6} ]*			 *🐓 = [ ${zero12} ]*
 
-Berkurang -${heal} Stamina
-Tersisa [${user.stamina} / 100]
+Beberapa Hewan bisa dimasak!
+
+-5 Stamina (Energi)
+Tersisa [${user.stamina} / 200]
+
+-5000 Money (Biaya Berburu)
+Tersisa [${global.db.data.users[m.sender].money}]
 `
 global.db.data.users[m.sender].banteng += zero1 * 1
 global.db.data.users[m.sender].harimau += zero2 * 1
@@ -58,7 +64,7 @@ global.db.data.users[m.sender].lele += zero11 * 1
 global.db.data.users[m.sender].ayam += zero12 * 1
 
 setTimeout(() => {
-                     conn.sendButton(m.chat, hsl, wm, 'Kandang', '#kandang', m)
+                     conn.sendButton(m.chat, hsl, wm, 'Cek Kandang', '#kandang', m)
                      }, 3000) 
   conn.reply(m.chat, '_Sedang Berburu..._', m)
   user.lasthunt = new Date * 1

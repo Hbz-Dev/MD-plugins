@@ -1,4 +1,4 @@
-let { proto } = require("@adiwajshing/baileys-md")
+let { proto } = require("@adiwajshing/baileys")
 
 let handler = async (m, { conn, text }) => {
 if (!m.quoted) return m.reply('Reply Pesannya!!')
