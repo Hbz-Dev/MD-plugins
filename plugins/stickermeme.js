@@ -14,7 +14,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
      conn.sendFile(m.chat, stiker, '','',m)
 
 }
-handler.help = ['stikermeme <teks atas>|<teks bawah>']
+handler.help = ['smeme <atas>|<bawah>']
 handler.tags = ['sticker']
 handler.command = /^(s(tic?ker)?meme)$/i
 

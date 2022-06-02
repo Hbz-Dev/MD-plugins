@@ -1,4 +1,4 @@
-let { MessageType } = require('@adiwajshing/baileys-md')
+let { MessageType } = require('@adiwajshing/baileys')
 
 async function handler(m, { conn, usedPrefix, command, text }) {
     let user = global.db.data.users[m.sender]
@@ -626,12 +626,32 @@ Sedang berperang di dungeon...
       delete global.dungeon[room.id]
     } 
     if (global.dungeon && room.state == 'PLAYING') delete global.dungeon[room.id] // Hapuss nek iseh ono neng dungeon
+    /*if (global.db.data.users[m.sender].sworddurability =< 0) {
+      global.db.data.users[m.sender].sword -= 1
+      if (global.db.data.users[m.sender].sword =< 0) {
+      global.db.data.users[m.sender].sword = 0
+      global.db.data.users[m.sender].sworddurability = 0
+      return m.reply('pedangmu telah hancur!')
+      }
+      global.db.data.users[m.sender].sworddurability = 100
+      return m.reply('pedangmu turun 1 tingkat karena hancur!')
+    }
+    if (global.db.data.users[m.sender].armordurability =< 0) {
+      global.db.data.users[m.sender].armor -= 1
+      if (global.db.data.users[m.sender].armor =< 0) {
+      global.db.data.users[m.sender].armor = 0
+      global.db.data.users[m.sender].armordurability = 0
+      return m.reply('armormu telah hancur!')
+      }
+      global.db.data.users[m.sender].armordurability = 100
+      return m.reply('armormu turun 1 tingkat karena hancur!')
+    }*/
   }
 
   return 
 }
 
-handler.help = ['dungeon'].map(v => v + ' [custom room name]')
+handler.help = ['dungeon'].map(v => v + ' [custom room]')
 handler.tags = ['rpg']
 handler.command = /^(dungeon)$/i
 

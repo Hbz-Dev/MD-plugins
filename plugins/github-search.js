@@ -22,7 +22,7 @@ ${repo.open_issues} Issue${repo.description ? `
     }).join('\n\n')
     m.reply(str)
 }
-handler.help = ['githubsearch'].map(v => v + ' <pencarian>')
+handler.help = ['githubsearch'].map(v => v + ' <query>')
 handler.tags = ['github']
 
 handler.command = /^g(ithub|h)search$/i

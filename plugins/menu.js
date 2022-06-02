@@ -1,4 +1,4 @@
-const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
+const { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys')
 let fs = require('fs')
 let path = require('path')
 let levelling = require('../lib/levelling')
@@ -43,11 +43,17 @@ INFO MENU:
   header: '╭─ꕥ「 *%category* 」',
   body: '│☄︎ %cmd %islimit %isPremium',
   footer: '╰❑\n',
-  after: '*N350-Z Bot* || Dont spam bot!',
+  after: `*${global.wm}* || Dont spam bot!`,
 }
 
 let handler = async (m, { conn, usedPrefix: _p }) => {
   if (global.db.data.settings.setmenu !== 'all') return handler.disabled = true
+  conn.menu = conn.menu ? conn.menu : {}
+  let gjk = m.chat
+  if (gjk in conn.menu) {
+   global.db.data.stats[m.plugin].total -= 1
+   return conn.reply(gjk, `Maaf @${m.sender.split('@')[0]},\nUntuk menghindari spam, menu hanya akan ditampilkan 1x setiap 3 menit\nKamu bisa scroll keatas untuk melihat menu sebelumnya!`, conn.menu[gjk])
+  }
   try {
     let who
     if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
@@ -55,7 +61,7 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     let user = global.db.data.users[who]
     let { exp, limit, level, money, role, game } = global.db.data.users[m.sender]
     let { min, xp, max } = levelling.xpRange(level, global.multiplier)
-    let name = conn.getName(m.sender)
+    let name = '@' + m.sender.split('@')[0]
     let d = new Date(new Date + 3600000)
     let locale = 'id'
     // d.getTimeZoneOffset()
@@ -149,14 +155,11 @@ let handler = async (m, { conn, usedPrefix: _p }) => {
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
     let gb = global.loli[Math.floor(Math.random() * 352)]
-    let hy = await conn.send2ButtonImg(m.chat, gb, text.trim(), `Hitung Mundur Lebaran:\n${lebaran}\n\n${wm}`, 'Rules', '.rules', 'Owner', '.owner', m)
-    conn.relayMessage(m.chat, { reactionMessage: {
-   key: {
-   id: hy.key.id,
-   remoteJid: m.chat,
-   fromMe: true
-   }, text: '👑' }}, { messageId: hy.key.id })
-    //conn.sendMessage(m.chat, { react: { text: '👑', key: dul.key, }})
+    conn.menu[gjk] = await conn.send2ButtonImg(m.chat, gb, text.trim(), global.wm, 'Rules', '.rules', 'Owner', '.owner', m, { mentions: [m.sender] })
+    conn.sendMessage(m.chat, { react: { text: '👑', key: conn.menu[gjk].key, }})
+    setTimeout(() => {
+                  delete conn.menu[gjk]
+               }, 180000)
      /*const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
      templateMessage: {
          hydratedTemplate: {
@@ -234,4 +237,34 @@ function msToDate(ms) {
     sec = Math.floor((minutesms) / (1000));
     return days + " Hari " + hours + " Jam " + minutes + " Menit";
     // +minutes+":"+sec;
+}
+
+async function genProfile(conn, m) {
+  let jimp = require('jimp')
+  let PhoneNumber = require('awesome-phonenumber')
+  let thumbnailUrl = [
+  'https://telegra.ph/file/81260a8b9e8cff26d2b48.jpg', 'https://telegra.ph/file/ac4928f0824a2a0492737.jpg',
+  'https://telegra.ph/file/6359b013bc7e52c3b346f.jpg', 'https://telegra.ph/file/d43c89a5d2da72875ec05.jpg',
+  'https://telegra.ph/file/7d6c0e35f9c8f52715541.jpg', 'https://telegra.ph/file/ef4b742d47e6a9115e2ff.jpg',
+  'https://telegra.ph/file/55e5af5f33fbd57104187.jpg', 'https://telegra.ph/file/af236598456b95884bd15.jpg',
+  'https://telegra.ph/file/de92ed4a729887ffc974c.jpg', 'https://telegra.ph/file/00ce42a193b1dbbf907d4.jpg'
+]
+  let font = await jimp.loadFont('./names.fnt'),
+    mask = await jimp.read('https://i.imgur.com/552kzaW.png'),
+    welcome = await jimp.read(thumbnailUrl[Math.floor(Math.random() * thumbnailUrl.length)]),
+    avatar = await jimp.read(await conn.profilePictureUrl(m.sender, 'image').catch(() => 'https://telegra.ph/file/24fa902ead26340f3df2c.png')),
+    status = (await conn.fetchStatus(m.sender).catch(console.log) || {}).status?.slice(0, 30) || 'Not Detected'
+
+    await avatar.resize(460, 460)
+    await mask.resize(460, 460)
+    await avatar.mask(mask)
+    await welcome.resize(welcome.getWidth(), welcome.getHeight())
+
+    await welcome.print(font, 550, 180, 'Name:')
+    await welcome.print(font, 650, 255, m.pushName.slice(0, 25))
+    await welcome.print(font, 550, 340, 'About:')
+    await welcome.print(font, 650, 415, status)
+    await welcome.print(font, 550, 500, 'Number:')
+    await welcome.print(font, 650, 575, PhoneNumber('+' + m.sender.split('@')[0]).getNumber('international'))
+    return await welcome.composite(avatar, 50, 170).getBufferAsync('image/png')
 }

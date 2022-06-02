@@ -25,7 +25,7 @@ try {
      if (stiker) conn.sendFile(m.chat, stiker, 'stiker.webp', '', m)
   }
 }
-handler.help = ['wm', 'take', 'swm'].map(v => v + ' <packname|author>')
+handler.help = ['wm', 'take'].map(v => v + ' <packname|author>')
 handler.tags = ['sticker']
 handler.command = /^(wm|take|swm|stickwm)$/i
 
