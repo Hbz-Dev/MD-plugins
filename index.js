@@ -4,6 +4,7 @@ let path = require('path')
 let fs = require('fs')
 let package = require('./package.json')
 const CFonts = require('cfonts')
+const { execSync } = require('child_process')
 const Readline = require('readline')
 const yargs = require('yargs/yargs')
 const rl = Readline.createInterface(process.stdin, process.stdout)
@@ -18,6 +19,8 @@ CFonts.say(`'${package.name}' By @${package.author.name || package.author}`, {
   align: 'center',
   gradient: ['red', 'magenta']
 })
+//execSync('cd node_modules && cd @adiwajshing && mv baileys baileys-md')
+//execSync('yarn add github:adiwajshing/baileys')
 
 var isRunning = false
 /**

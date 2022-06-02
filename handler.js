@@ -302,7 +302,8 @@ module.exports = {
                 console.error(e)
             }
             let isROwner = [global.conn.user.jid, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)
-            if (!isROwner && global.db.data.settings.queque) return
+            if (!isROwner && global.db.data.settings.self) return
+            if (m.fromMe && global.db.data.settings.auto) return
             if (global.db.data.settings.groupOnly && !m.chat.endsWith('g.us')) return
             if (typeof m.text !== 'string') m.text = ''
             if (global.db.data.settings.queque && m.text) {
@@ -397,6 +398,14 @@ module.exports = {
                         let user = global.db.data.users[m.sender]
                         if (name != 'unbanchat.js' && chat && chat.isBanned) return // Except this
                         if (name != 'unbanchat.js' && user && user.banned) return
+                    }
+                    if (global.db.data.error.includes(m.plugin)) {
+                       this.reply(m.chat, `*[ FITUR ERROR ]*\n\nMaaf @${m.sender.split('@')[0]}!\nFitur ini sedang error dan sedang diperiksa/diperbaiki oleh owner, Harap coba lagi nanti!`, m, { mentions: [m.sender] })
+                       continue
+                    }
+                    if (plugin.tags == 'rpg' && !global.db.data.settings.rpg) {
+                        m.reply(`Sesi ${m.plugin.split('.')[0]} telah berakhir!!\nSilahkan kembali lagi besok ^^`)
+                        continue
                     }
                     if (plugin.rowner && plugin.owner && !(isROwner || isOwner)) { // Both Owner
                         fail('owner', m, this)
@@ -543,6 +552,8 @@ module.exports = {
             // } catch (e) {
             //     console.log(m, m.quoted, e)
             // }
+             //console.log(chalk.blueBright(m.text))
+            //if (m) await this.chatModify({ clear: { message: { id: m.id, fromMe: m.fromMe } } }, m.chat, [])
             if (global.db.data.settings.autoread) await this.sendReadReceipt(m.chat, m.isGroup ? m.sender : undefined, [m.id])
             let quequeIndex = this.msgqueque.indexOf(m.id || m.key.id)
             if (global.db.data.settings.queque && m.text && quequeIndex !== -1) this.msgqueque.splice(quequeIndex, 1)
@@ -600,6 +611,7 @@ module.exports = {
     },
     async delete({ remoteJid, fromMe, id, participant }) {
         if (fromMe) return
+        if (!m.isGroup) return
         let chats = Object.entries(conn.chats).find(([user, data]) => data.messages && data.messages[id])
         if (!chats) return
         let msg = JSON.parse(chats[1].messages[id])
@@ -633,7 +645,7 @@ global.dfail = async(type, m, conn) => {
         unreg: `*「 BELUM TERDAFTAR 」*\n\nHalo ${nme}, Yuk Daftar Dulu Soalnya Anda Belum Terdaftar Di Database Bot\n\nSilahkan Daftar Dengan Memilih Umur Dibawah Ini`,
         restrict: 'Fitur ini di *disable*!'
     }[type]
-    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: "[------------------------]", buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs }, { quoted: m })
+    if (msg) return conn.sendMessage(m.chat, { text: msg, footer: global.wm, title: `Time: ${await require('moment-timezone').tz('Asia/Jakarta').format('HH:mm:ss')}`, buttonText: user.registered ? 'Click Here' : 'Daftar Disini', sections: secs }, { quoted: m })
    }
 
 let fs = require('fs')

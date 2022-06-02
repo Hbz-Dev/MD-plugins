@@ -5,7 +5,7 @@ const {
   MessageOptions, 
   Mimetype,
   DisconnectReason
-} = require('@adiwajshing/baileys-md')
+} = require('@adiwajshing/baileys')
 const WebSocket = require('ws')
 const path = require('path')
 const fs = require('fs')
@@ -16,13 +16,7 @@ const syntaxerror = require('syntax-error')
 const P = require('pino')
 const os = require('os')
 let simple = require('./lib/simple')
-var low
-try {
-  low = require('lowdb')
-} catch (e) {
-  low = require('./lib/lowdb')
-}
-const { Low, JSONFile } = low
+let { Low } = require('./lib/lowdb')
 const mongoDB = require('./lib/mongoDB')
 
 
@@ -72,9 +66,9 @@ global.isInit = !fs.existsSync(authFile)
 const { state, saveState } = useSingleFileAuthState(authFile)
 
 const connectionOptions = {
-  printQRInTerminal: false,
+  printQRInTerminal: true,
   auth: state,
-  version: [2, 2212, 8],
+  downloadHistory: false,
   logger: P({ level: 'fatal' })
 }
 
