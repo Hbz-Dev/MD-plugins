@@ -29,6 +29,22 @@ case 'simi':
       }
       chat.simi = isEnable
       break
+    case 'thumb':
+    isAll = true
+     if (!isOwner) {
+        global.dfail('owner', m, conn)
+        throw false
+      }
+      setting.thumb = isEnable
+      break
+     case 'rpg':
+     isAll = true
+     if (!isOwner) {
+        global.dfail('owner', m, conn)
+        throw false
+      }
+      setting.rpg = isEnable
+      break
      case 'stiker':
      case 'autostiker':
     if (m.isGroup) {
@@ -150,7 +166,7 @@ case 'simi':
       break
     default:
       if (!/[01]/.test(command)) throw `
-┌〔 Daftar Opsi 〕${isOwner ? '\n├ antispam\n├ queque\n├ stiker\n├ delete\n├ autoread\n├ autolink\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
+┌〔 Daftar Opsi 〕${isOwner ? '\n├ rpg\n├ thumb\n├ antispam\n├ queque\n├ stiker\n├ delete\n├ autoread\n├ autolink\n├ anon\n├ antispam\n├ autoread\n├ simi\n├ grouponly\n├ nsfw\n├ public\n├ antilink' : ''}
 ├ autolevelup
 ├ antilink
 ├ antidelete

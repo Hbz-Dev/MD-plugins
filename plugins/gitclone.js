@@ -7,6 +7,7 @@ let handler = async (m, { args, usedPrefix, command }) => {
     if (!regex.test(args[0])) throw 'link salah!'
     await m.reply('_Wait a minute, Request in progress...._')
     
+    try {
     let [, user, repo] = args[0].match(regex) || []
     repo = repo.replace(/.git$/, '')
     let url = `https://api.github.com/repos/${user}/${repo}/zipball`
@@ -15,6 +16,9 @@ let handler = async (m, { args, usedPrefix, command }) => {
     m.reply(`*Mohon tunggu, sedang mengirim repository..*`)
     //conn.sendFile(m.chat, url, filename, '', m)
     conn.sendMessage(m.chat, { document: { url: url }, fileName: filename, mimetype: 'application/zip' }, { quoted: m })
+    } catch (e) {
+    m.reply('Gagal mengkloning...\nPeriksa apakah reponya publik atau private!')
+  }
 
 }
 handler.help = ['gitclone <url>']

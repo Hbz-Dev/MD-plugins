@@ -1,6 +1,7 @@
 let levelling = require('../lib/levelling')
 
 let handler = m => {
+  //if (db.data.settings.self) return m.reply('Sesi leveling telah berakhir....\nSilahkan coba lagi besok! ^^')
   let user = global.db.data.users[m.sender]
   if (!levelling.canLevelUp(user.level, user.exp, global.multiplier)) {
     let { min, xp, max } = levelling.xpRange(user.level, global.multiplier)

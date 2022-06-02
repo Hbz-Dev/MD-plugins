@@ -1,16 +1,10 @@
-/*
-* By Rizxyu
-* Terimakasih udah support saya bang
-* Fitur Beta
-*/
-
-const { MessageType } = require('@adiwajshing/baileys-md')
-
 let handler = async ( m, { conn, args, command}) => {
   conn.duel = conn.duel ? conn.duel : []
   args.length != 0 ? conn.duel.push(m.mentionedJid ? m.mentionedJid[0] : (args[0].replace(/[@ .+-]/g, '').replace(' ', '') + '@s.whatsapp.net')) : ""
   let who = conn.duel[0]
   //let kita = conn.duel[m.sender]
+  if (command == 'duel' && m.mentionedJid[0] && who !== m.mentionedJid[0]) return m.reply('Masih ada sesi duel di bot ini!\nHarap tunggu selesai!')
+  
   let enemy = global.db.data.users[who]
   let user = global.db.data.users[m.sender]
   let count = args[1] && args[1].length > 0 ? Math.min(100, Math.max(parseInt(args[1]), 1)) : Math.min(1)
@@ -33,38 +27,42 @@ let handler = async ( m, { conn, args, command}) => {
 
        if (new Date - user.lastduel > 300000) {
       conn.send2Button(m.chat, pler, global.wm, `Ya`, `+dya`, `No`, `+dno`, m)
-
+      setTimeout(() => delete conn.duel, 20000)
       } else conn.reply( m.chat, `Kamu Sudah Berduel Tunggu hingga *${timers}*`, m)
      }
 
      if (/dya/.test(command)) {
+     if (!conn.duel[0]) return
      let kenal = who.includes(m.sender)
-     if (!kenal) return conn.sendButton(m.chat, `Kamu siapa?\nkok ikut kut mau duel`, `Sesion`, `YA`, `.dya`, m)
+     if (!kenal) return conn.sendButton(m.chat, `Kamu siapa?\nkok ikut ikut mau duel`, `Sesion`, `YA`, `.dya`, m)
      user.lastduel = new Date * 1
+     //await clearTimeout(tme)
      await conn.reply(m.chat, '*Duel Dimulaii!*', m)
      if (Aku > Kamu) {
        user.money -= 900
        enemy.money += 900
-       delete conn.duel[m.sender]
+       delete conn.duel
        conn.reply(m.chat, `@${who.split("@")[0]} Menang Gelud🤼\n*Hadiah:*\n900 Money🏅`.trim(), m, { mentions: [who] })
      } else if (Aku < Kamu) {
        user.money += 450
        enemy.money -= 450
-       delete conn.duel[m.sender]
+       delete conn.duel
        conn.reply(m.chat, `@${who.split("@")[0]} Kalah Gelud🤼\n*Hadiah:*\n450 Money🥉`.trim(), m, { mentions: [who] })
      } else {
        user.money += 250
        enemy.money += 250
-       delete conn.duel[m.sender]
+       delete conn.duel
        conn.reply(m.chat, `@${who.split("@")[0]}\n *Seri*\n Masing Masing Mendapatkan 250 Money🎗`.trim(), m, { mentions: [who] })
      }
    }
    if (/dno/.test(command)) {
+   if (!conn.duel[0]) return
    let kenal = who.includes(m.sender)
-   if (!kenal) return conn.sendButton(m.chat, `Kamu siapa?\nkok ikut kut mau duel`, `Sesion`, `NO`, `.dno`, m)
+   if (!kenal) return conn.sendButton(m.chat, `Kamu siapa?\nkok ikut ikut mau duel`, `Sesion`, `NO`, `.dno`, m)
     //if (!who) return m.reply('tag yg ingin di ajak duel!')
+    //await clearTimeout(tme)
     conn.reply( m.chat, `@${who.split("@")[0]} Membatalkan Ajakan Duel\nDuel Dihentikan!`, m, { mentions: [who] })
-    delete conn.duel[m.sender]
+    delete conn.duel
    }
  } catch (e) {
    //return conn.sendButton( m.chat, `Sepertinya ada bug`, `laporkan ke owner`, `Kanjut Badag`, `+bug duel ${e.stack}`, m)
