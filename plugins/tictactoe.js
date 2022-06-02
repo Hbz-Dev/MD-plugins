@@ -33,6 +33,7 @@ ${arr.slice(6).join('')}
 
 Menunggu @${room.game.currentTurn.split('@')[0]}
 Ketik *nyerah* untuk nyerah
+Game akan dibatalkan jika tidak ada aksi!
 `.trim()
   if (room.x === room.o) m.reply(str, m.chat, {
       contextInfo: {
@@ -58,7 +59,7 @@ Ketik *nyerah* untuk nyerah
             state: 'WAITING'
         }
         if (text) room.name = text
-        m.reply('🔥 [ TICTACTOE ] 🔥\n\nMenunggu Lawan' + (text ? `mengetik command dibawah ini
+        m.reply('*[ TICTACTOE ]*\n\nMenunggu Lawan ' + (text ? `mengetik command dibawah ini
 ${usedPrefix}${command} ${text}` : ''))
         conn.game[room.id] = room
     }
@@ -66,7 +67,6 @@ ${usedPrefix}${command} ${text}` : ''))
 
 handler.help = ['tictactoe', 'ttt'].map(v => v + ' [custom room]')
 handler.tags = ['game']
-handler.game = true
 handler.command = /^(tictactoe|t{3})$/
 
 module.exports = handler

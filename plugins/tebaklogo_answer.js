@@ -3,11 +3,11 @@ const threshold = 0.72
 let handler = m => m
 handler.before = async function (m) {
   let id = m.chat
-  if (!m.quoted || !m.quoted.fromMe || !m.quoted.isBaileys || !/Ketik.*hints/i.test(m.quoted.contentText)) return !0
+  if (!m.quoted || !m.quoted.fromMe || !m.quoted.isBaileys || !/Ketik.*telog/i.test(m.quoted.contentText)) return !0
   this.tebaklogo = this.tebaklogo ? this.tebaklogo : {}
   if (m.quoted.id == this.tebaklogo[id][0].id) {
     let json = JSON.parse(JSON.stringify(this.tebaklogo[id][1]))
-    if (['.hints', 'Bantuan', ''].includes(m.text)) return !0
+    if (['.telog', 'Bantuan', ''].includes(m.text)) return !0
     if (m.text.toLowerCase() == json.jawaban.toLowerCase()) {
       global.db.data.users[m.sender].exp += this.tebaklogo[id][2]
       await this.sendButton(m.chat, `*Benar!* +${this.tebaklogo[id][2]} XP`, 'Play again? [limit]', 'Tebak Logo', '.tebaklogo', m)

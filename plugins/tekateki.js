@@ -1,6 +1,6 @@
 let fetch = require('node-fetch')
-let timeout = 120000
-let poin = 500
+let timeout = 40000
+let poin = 10000
 let handler = async (m, { conn, usedPrefix }) => {
     conn.tekateki = conn.tekateki ? conn.tekateki : {}
     let id = m.chat
@@ -17,7 +17,7 @@ Ketik ${usedPrefix}tete untuk bantuan
 Bonus: ${poin} XP
 `.trim()
     conn.tekateki[id] = [
-        await conn.sendButton(m.chat, caption, `Teka Teki\nMade By ${wm}`, 'Bantuan', `.tete`, m),
+        await conn.sendButton(m.chat, caption, `Teka Teki\nMade By ${wm}`, 'BANTUAN', `.tete`, m),
         json, poin,
         setTimeout(async () => {
             if (conn.tekateki[id]) await conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.jawaban}*`, 'Play Again? [LIMIT]', 'Teka Teki', `.tekateki`, conn.tekateki[id][0])

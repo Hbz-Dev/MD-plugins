@@ -6,7 +6,7 @@ let handler = async (m, { conn, text }) => {
     let mimetype = await lookup(anu.link)
     //conn.sendFile(m.chat, anu.link, `${anu.title}.${anu.extension}`, '', m)
     await m.reply(require('util').format(anu))
-    if (anu.filesize.split('.')[0] > 60) return
+    if (anu.filesize.split('.')[0] > 600) return
     conn.sendMessage(m.chat, { document: { url: anu.link }, fileName: anu.title, mimetype }, { quoted: m })
   } catch {
    m.reply('Error mungkin Video dihapus/link kadaluarsa')

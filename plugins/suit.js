@@ -18,21 +18,21 @@ let handler = async (m, { text, usedPrefix }) => {
     } else if (text == 'batu') {
         if (astro == 'gunting') {
             global.db.data.users[m.sender].money += 5000
-            m.reply(`[ SUIT GAME ]\n\nKamu menang! +Rp5000\nKamu: ${text}\nBot: ${astro}`)
+            m.reply(`[ SUIT GAME ]\n\nKamu menang! +5000 Money\nKamu: ${text}\nBot: ${astro}`)
         } else {
             m.reply(`[ SUIT GAME ]\n\nKamu kalah!\nkamu: ${text}\nBot: ${astro}`)
         }
     } else if (text == 'gunting') {
         if (astro == 'kertas') {
             global.db.data.users[m.sender].money += 5000
-            m.reply(`[ SUIT GAME ]\n\nKamu menang! +Rp5000\nKamu: ${text}\nBot: ${astro}`)
+            m.reply(`[ SUIT GAME ]\n\nKamu menang! +5000 Money\nKamu: ${text}\nBot: ${astro}`)
         } else {
             m.reply(`[ SUIT GAME ]\n\nKamu kalah!\nkamu: ${text}\nBot: ${astro}`)
         }
     } else if (text == 'kertas') {
         if (astro == 'batu') {
             global.db.data.users[m.sender].money += 5000
-            m.reply(`[ SUIT GAME ]\n\nKamu menang! +Rp5000\nKamu: ${text}\nBot: ${astro}`)
+            m.reply(`[ SUIT GAME ]\n\nKamu menang! +5000 Money\nKamu: ${text}\nBot: ${astro}`)
         } else {
             m.reply(`[ SUIT GAME ]\n\nKamu kalah!\nkamu: ${text}\nBot: ${astro}`)
         }

@@ -1,6 +1,6 @@
 const fetch = require('node-fetch')
-let timeout = 120000
-let poin = 500
+let timeout = 60000
+let poin = 15000
 let handler = async (m, { conn, usedPrefix }) => {
   conn.tebaklogo = conn.tebaklogo ? conn.tebaklogo : {}
   let id = m.chat
@@ -13,11 +13,11 @@ let handler = async (m, { conn, usedPrefix }) => {
   let caption = `
   ${json.deskripsi}
 Timeout *${(timeout / 1000).toFixed(2)} detik*
-Ketik ${usedPrefix}hints untuk bantuan
+Ketik ${usedPrefix}telog untuk bantuan
 Bonus: ${poin} XP
     `.trim()
   conn.tebaklogo[id] = [
-    await conn.sendButtonImg(m.chat, json.img, caption, `Tebak Logo\nMade By ${wm}`, 'Bantuan', '.hints', m)
+    await conn.sendButtonImg(m.chat, json.img, caption, `Tebak Logo\nMade By ${wm}`, 'Bantuan', '.telog', m)
     ,
     json, poin,
     setTimeout(async () => {

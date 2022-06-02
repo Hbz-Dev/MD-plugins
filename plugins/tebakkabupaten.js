@@ -1,6 +1,6 @@
 let fetch = require('node-fetch')
-let timeout = 120000
-let poin = 500
+let timeout = 20000
+let poin = 5000
 let handler = async (m, { conn, usedPrefix }) => {
     conn.tebakkabupaten = conn.tebakkabupaten ? conn.tebakkabupaten : {}
     let id = m.chat
@@ -14,12 +14,12 @@ let handler = async (m, { conn, usedPrefix }) => {
     let json = data[Math.floor(Math.random() * data.length)]
     let caption = `
 Timeout *${(timeout / 1000).toFixed(2)} detik*
-Ketik ${usedPrefix}teka untuk bantuan
+Ketik ${usedPrefix}tekab untuk bantuan
 Bonus: ${poin} XP
 `.trim()
     conn.tebakkabupaten[id] = [
         //await conn.sendMessage(m.chat, { image: await (await fetch(json.url)).buffer(), caption: caption, mens: [m.sender] }, { quoted: m }),
-        await conn.sendButtonImg(m.chat, json.url, caption, `Tebak Kabupaten\nMade By ${wm}`, 'Bantuan', '.teka', m),
+        await conn.sendButtonImg(m.chat, json.url, caption, `Tebak Kabupaten\nMade By ${wm}`, 'Bantuan', '.tekab', m),
         json, poin,
         setTimeout(async () => {
             if (conn.tebakkabupaten[id]) await conn.sendButton(m.chat, `Waktu habis!\nJawabannya adalah *${json.title}*`, 'Play Again? [limit]', 'Tebak Kabupaten', '.tebakkabupaten', conn.tebakkabupaten[id][0])

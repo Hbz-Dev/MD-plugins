@@ -2,9 +2,9 @@
     Modified by https://github.com/unx21
     without button :)
 */
-let timeout = 60000
-let poin = 1000
-let poin_lose = 500
+let timeout = 30000
+let poin = 15000
+let poin_lose = 8000
 let handler = async (m, { conn, usedPrefix }) => {
   conn.suit = conn.suit ? conn.suit : {}
   if (Object.values(conn.suit).find(room => room.id.startsWith('suit') && [room.p, room.p2].includes(m.sender))) throw 'Selesaikan suit mu yang sebelumnya'

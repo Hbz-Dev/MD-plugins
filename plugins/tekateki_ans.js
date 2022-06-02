@@ -5,7 +5,7 @@ handler.before = async function (m) {
     let id = m.chat
     if (!m.quoted || !m.quoted.fromMe || !m.quoted.isBaileys || !/Ketik.*tete/i.test(m.quoted.contentText)) return !0
     this.tekateki = this.tekateki ? this.tekateki : {}
-    if (!(id in this.tekateki)) return m.reply('Soal itu telah berakhir')
+    if (!(id in this.tekateki)) return m.reply('Soal tekateki itu telah berakhir')
     if (/^(me)?nyerah$/i.test(m.text)) {
         await this.sendButton(m.chat, `Jawabannya adalah ${JSON.parse(JSON.stringify(this.tekateki[id][1].jawaban))}`.trim(), 'Play Again? [LIMIT]', 'TEKA TEKI', ',tekateki').then(() => {
             delete this.tekateki[id]
